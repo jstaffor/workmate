@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/view_invoice"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/view_invoice_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/view_invoice_txt_date"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/view_invoice_txt_supplier"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="textEnd"
+        android:scrollHorizontally="false"
+        android:maxLines ="4" />
+
+    <TextView
+        android:id="@+id/view_invoice_txt_customer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="textStart"
+        android:scrollHorizontally="false"
+        android:maxLines ="4" />
+
+    <TextView
+        android:id="@+id/view_invoice_txt_other"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="textStart"
+        android:scrollHorizontally="false"
+        android:maxLines ="4" />
+
+    <ListView
+        android:id="@+id/view_invoice_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+</LinearLayout>

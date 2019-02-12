@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popup_create"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <AutoCompleteTextView
+        android:id="@+id/popup_create_autocom_parent_list"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/popup_create_autocom_parent_list"
+        android:inputType="textShortMessage|textCapCharacters"
+        android:textAllCaps="true"/>
+
+    <EditText
+        android:id="@+id/popup_create_txt_child"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/popup_create_txt_child"
+        android:inputType="textShortMessage|textCapCharacters"
+        android:textAllCaps="true"/>
+
+    <Spinner
+        android:id="@+id/popup_create_spn_template_list"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/popup_create_btn_child_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/popup_create_btn_child_create"/>
+</LinearLayout>

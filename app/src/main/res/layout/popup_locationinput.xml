@@ -1,0 +1,31 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popup_locationinput"
+    android:layout_width="300dp"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/popup_locationinput_latitudelongitude"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:textAlignment="center" />
+
+    <WebView
+        android:id="@+id/popup_locationinput_webview"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/popup_locationinput_address"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:inputType="textShortMessage"/>
+
+    <Button
+        android:id="@+id/popup_locationinput_btn_create"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:text="@string/popup_locationinput_btn_create"/>
+</LinearLayout>
