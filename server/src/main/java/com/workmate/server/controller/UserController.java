@@ -1,6 +1,6 @@
 package com.workmate.server.controller;
 
-import com.workmate.server.vo.User;
+import com.workmate.server.domain.User;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

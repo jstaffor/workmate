@@ -25,9 +25,11 @@ export class HomeComponent implements OnInit {
         let options = { headers: headers };
         this.http.post<Observable<Object>>(url, {}, options).
             subscribe(principal => {
+                debugger;
                 this.userName = principal['name'];
             },
             error => {
+                debugger;
                 if(error.status == 401) {
                     debugger;
                     alert('paul');

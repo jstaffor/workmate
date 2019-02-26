@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
             userName: this.model.username,
             password: this.model.password
         }).subscribe(isValid => {
+            debugger;
             if (isValid) {
                 sessionStorage.setItem('token', btoa(this.model.username + ':' + this.model.password));
                 this.router.navigate(['']);
