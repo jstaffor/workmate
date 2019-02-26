@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_home_create"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <TextView
+        android:id="@+id/activity_home_create_txt_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/activity_home_create_txt_child"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <Button
+        android:id="@+id/activity_home_create_btn_add_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_home_create_btn_add_text" />
+
+    <Button
+        android:id="@+id/activity_home_create_btn_add_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_home_create_btn_add_photo" />
+
+    <Button
+        android:id="@+id/activity_home_create_btn_add_current_loc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_home_create_btn_add_current_loc" />
+
+    <Button
+        android:id="@+id/activity_home_create_btn_add_sketch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_home_create_btn_add_sketch" />
+
+    <Button
+        android:id="@+id/activity_home_create_btn_add_audio_recording"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_home_create_btn_add_audio_recording" />
+
+    <Button
+        android:id="@+id/activity_home_create_btn_add_video_recording"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_home_create_btn_add_video_recording" />
+
+    <Button
+        android:id="@+id/activity_home_create_btn_add_file"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_home_create_btn_add_file" />
+</LinearLayout>

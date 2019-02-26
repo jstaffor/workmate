@@ -1,0 +1,37 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_sketchinput"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/activity_sketchinput_linlay"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/activity_sketchinput_btn_signature_clear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textOff="@string/activity_sketchinput_btn_signature_clear" />
+
+        <Button
+            android:id="@+id/activity_sketchinput_btn_signature_save"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textOff="@string/activity_sketchinput_btn_signature_save" />
+
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/activity_sketchinput_linlay_sketchinput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/activity_sketchinput_linlay">
+    </LinearLayout>
+</LinearLayout>

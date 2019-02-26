@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_invoice"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/activity_invoice_btn_generate_invoice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_invoice_btn_generate_invoice"/>
+
+    <EditText
+        android:id="@+id/activity_invoice_txt_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:hint="@string/activity_invoice_date_of_invoice"
+        android:textAllCaps="true"/>
+
+    <Spinner
+        android:id="@+id/activity_invoice_spn_select_customer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/activity_invoice_txt_supplier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/activity_invoice_txt_supplier"
+        android:inputType="textShortMessage|textCapCharacters"
+        android:textAllCaps="true"/>
+
+    <EditText
+        android:id="@+id/activity_invoice_txt_customer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/activity_invoice_txt_customer"
+        android:inputType="textShortMessage|textCapCharacters"
+        android:textAllCaps="true"/>
+
+    <EditText
+        android:id="@+id/activity_invoice_txt_other"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/activity_invoice_txt_other"
+        android:inputType="textShortMessage|textCapCharacters"
+        android:textAllCaps="true"/>
+
+    <ListView
+        android:id="@+id/activity_invoice_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+</LinearLayout>
