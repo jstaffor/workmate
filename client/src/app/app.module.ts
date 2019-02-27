@@ -11,6 +11,8 @@ import { LoginComponent } from './components/login/login.component';
 
 import { UserService } from './services/user-service';
 import { RouterService } from './services/router-service';
+import { SessionService } from './services/session-service';
+
 
 import { AuthenticationService } from './services/authentication-service'
 import { ErrorInterceptor } from './helpers/error-interceptor-helper';
@@ -29,9 +31,10 @@ import { JwtInterceptor } from './helpers/jwt-interceptor';
         LoginComponent
     ],
     providers: [
-        AuthenticationService,
         UserService,
         RouterService,
+        SessionService,
+        AuthenticationService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     ],

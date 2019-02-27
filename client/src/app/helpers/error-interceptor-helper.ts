@@ -3,24 +3,28 @@ import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/c
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { AuthenticationService } from '../services/authentication-service';
+import { SessionService } from '../services/session-service';
 import { RouterService } from '../services/router-service';
 
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private authenticationService: AuthenticationService, private routerService: RouterService) {}
+    constructor(private sessionService: SessionService, private routerService: RouterService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(request).pipe(catchError(err => {
+
+        const xhr = request.clone({
+            headers: request.headers.set('X-Requested-With', 'XMLHttpRequest')
+          });
+
+        return next.handle(xhr).pipe(catchError(err => {
             if (err.status === 401 || err.status === 0) {
                 // auto logout if 401 response returned from api
-                this.authenticationService.removeUserFromStorage();
-                location.reload(true);
-                debugger;
-                this.routerService.logout();
-            }
-            
+                // 0 is for CORS error
+                // this.sessionService.removeToken();
+                // location.reload(true);
+                // this.routerService.logout();
+            }            
             const error = err.error.message || err.statusText;
             return throwError(error);
         }))

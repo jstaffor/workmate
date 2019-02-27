@@ -3,7 +3,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 
 const appRoutes: Routes = [
-    { path: '', component: HomeComponent },
+    { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: '**', redirectTo: '' }
 ];

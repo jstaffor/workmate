@@ -8,4 +8,8 @@ export class RouterService {
     logout() {
         this.router.navigateByUrl('/login');
     }
+
+    toHome() {
+        this.router.navigateByUrl('/home');
+    }
 }

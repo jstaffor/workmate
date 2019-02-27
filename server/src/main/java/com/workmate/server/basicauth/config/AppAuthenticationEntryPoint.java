@@ -19,6 +19,6 @@ public class AppAuthenticationEntryPoint extends BasicAuthenticationEntryPoint
     }
     @Override
     public void afterPropertiesSet() throws Exception {
-        setRealmName("MY APP REALM");
+        setRealmName("workmate_all");
     }
 }
