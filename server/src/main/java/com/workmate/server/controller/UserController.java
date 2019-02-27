@@ -1,11 +1,9 @@
 package com.workmate.server.controller;
 
-import com.workmate.server.domain.User;
+import com.workmate.server.model.User;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
-import java.util.Base64;
 
 @RestController
 @CrossOrigin
@@ -13,7 +11,7 @@ public class UserController {
 
 	@RequestMapping("/login")
 	public boolean login(@RequestBody User user) {
-		return user.getUserName().equals("killesk") && user.getPassword().equals("m123");
+		return user.getEmail().equals("killesk@gmail.com") && user.getPassword().equals("m123");
 	}
 
 

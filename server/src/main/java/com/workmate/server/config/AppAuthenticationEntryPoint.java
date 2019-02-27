@@ -1,4 +1,4 @@
-package com.workmate.server.basicauth.config;
+package com.workmate.server.config;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
