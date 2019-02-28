@@ -33,18 +33,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-          .inMemoryAuthentication()
-          .withUser("killesk@gmail.com")
-          .password(bCryptPasswordEncoder.encode("m123"))
-          .roles("USER");
+//        auth
+//          .inMemoryAuthentication()
+//          .withUser("killesk@gmail.com")
+//          .password(bCryptPasswordEncoder.encode("m123"))
+//          .roles("USER");
 
-//        auth.
-//                jdbcAuthentication()
-//                .usersByUsernameQuery(usersQuery)
-//                .authoritiesByUsernameQuery(rolesQuery)
-//                .dataSource(dataSource)
-//                .passwordEncoder(bCryptPasswordEncoder);
+        auth.
+                jdbcAuthentication()
+                .usersByUsernameQuery(usersQuery)
+                .authoritiesByUsernameQuery(rolesQuery)
+                .dataSource(dataSource)
+                .passwordEncoder(bCryptPasswordEncoder);
     }
 
     @Override
@@ -63,6 +63,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and();
+//        http
+//                .httpBasic()
+//                .and()
+//                .authorizeRequests().antMatchers("/**").permitAll();
+//        http.csrf().disable()
+//                .authorizeRequests()
+//                .antMatchers("/login").permitAll()
+////                .antMatchers("/user/**").permitAll()
+//                .antMatchers("/user/**").hasAnyRole("ADMIN","USER")
+//                .and().httpBasic().realmName("MY APP REALM")
+//                .authenticationEntryPoint(appAuthenticationEntryPoint);
     }
+
 
 }

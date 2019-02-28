@@ -8,19 +8,46 @@ import { User } from '../models/user';
 export class UserService {
     constructor(private http: HttpClient) { }
 
-    login(username: string, password: string) {
-        return this.http.post<any>(`/users/authenticate`, { username, password })
-            .pipe(map(user => {
-                // login successful if there's a user in the response
-                if (user) {
-                    // store user details and basic auth credentials in local storage 
-                    // to keep user logged in between page refreshes
-                    user.authdata = window.btoa(username + ':' + password);
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                }
+    // login(username: string, password: string) {
+    //     return this.http.post<any>(`/users/authenticate`, { username, password })
+    //         .pipe(map(user => {
+    //             // login successful if there's a user in the response
+    //             if (user) {
+    //                 // store user details and basic auth credentials in local storage 
+    //                 // to keep user logged in between page refreshes
+    //                 user.authdata = window.btoa(username + ':' + password);
+    //                 localStorage.setItem('currentUser', JSON.stringify(user));
+    //             }
 
-                return user;
-            }));
+    //             return user;
+    //         }));
+    // }
+
+    helloAdmin() {
+        this.http.get('http://localhost:8082/helloAdmin').subscribe(data => {
+            alert(data);
+        },
+        error => {
+            alert(error);
+        });
+    }
+
+    helloCompanyAdmin() {
+        this.http.get('http://localhost:8082/helloCompanyAdmin').subscribe(data => {
+            alert(data);
+        },
+        error => {
+            alert(error);
+        });
+    }
+
+    helloCompanyUser() {
+        this.http.get('http://localhost:8082/helloCompanyUser').subscribe(data => {
+            alert(data);
+        },
+        error => {
+            alert(error);
+        });
     }
 
     getAll() {

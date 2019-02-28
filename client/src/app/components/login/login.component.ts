@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
 import { RouterService } from '../../services/router-service';
-import { SessionService } from '../../services/session-service';
 import { AuthenticationService } from '../../services/authentication-service';
 
 @Component({
@@ -22,7 +21,6 @@ export class LoginComponent implements OnInit {
     constructor(
         private http: HttpClient,
         private routerService: RouterService,
-        private sessionService: SessionService,
         private authenticationService: AuthenticationService,
     ) { }
 
@@ -34,36 +32,8 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-
-        // debugger;
-        // this.authenticationService.login(this.model.username, this.model.password)
-        //     .pipe(first())
-        //     .subscribe(
-        //         data => {
-        //             this.routerService.toHome();
-        //             // this.router.navigate([this.returnUrl]);
-        //         },
-        //         error => {
-        //             this.error = error;
-        //             this.loading = false;
-        //         });
-
         this.authenticationService.authenticate(this.model.username, this.model.password, () => {
             this.routerService.toHome();
         });
-
-        // let url = 'http://localhost:8082/user';
-        // this.http.post<Observable<boolean>>(url, {
-        //     userName: this.model.username,
-        //     password: this.model.password
-        // }).subscribe(isValid => {
-        //     debugger;
-        //     if (isValid) {
-        //         this.sessionService.setToken(this.model.username, this.model.password);
-        //         this.routerService.toHome();
-        //     } else {
-        //         alert("Authentication failed.")
-        //     }
-        // });
     }
 }

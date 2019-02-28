@@ -19,11 +19,9 @@ export class ErrorInterceptor implements HttpInterceptor {
 
         return next.handle(xhr).pipe(catchError(err => {
             if (err.status === 401 || err.status === 0) {
-                // auto logout if 401 response returned from api
-                // 0 is for CORS error
-                // this.sessionService.removeToken();
-                // location.reload(true);
-                // this.routerService.logout();
+                //this.sessionService.removeToken();
+                //location.reload(true);
+                //this.routerService.toLogin();
             }            
             const error = err.error.message || err.statusText;
             return throwError(error);

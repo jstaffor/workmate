@@ -1,10 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map, tap} from 'rxjs/operators';
 
 import { UserService } from '../../services/user-service';
-import { SessionService } from '../../services/session-service';
+import { AuthenticationService } from '../../services/authentication-service';
+import { RouterService } from '../../services/router-service';
 
 
 @Component({
@@ -13,66 +11,29 @@ import { SessionService } from '../../services/session-service';
 })
 
 export class HomeComponent implements OnInit {
-
+    loading = true;
     userName: string;
 
     constructor(
-        private http: HttpClient,        private sessionService: SessionService, private userService: UserService) { }
+        private userService: UserService, private authenticationService: AuthenticationService, 
+        private routerService: RouterService) { }
 
     ngOnInit() {
-        // let user = this.sessionService.getUnencryptedUser();
-        // let url = `http://localhost:8082/user/${user}`;
-
-        
-
-        // this.http.get<Observable<Object>>(url, {}).
-        //     subscribe(principal => {
-        //         debugger;
-        //         this.userName = principal['name'];
-        //     },
-        //     error => {
-        //         debugger;
-        //         if(error.status == 401) {
-        //             debugger;
-        //             alert('paul');
-        //         }
-        //     }
-        // );
-
-        // let headers: HttpHeaders = new HttpHeaders({
-        //     'Authorization': 'Basic ' + sessionStorage.getItem('token'),
-        //     'Origin': 'http://localhost:4200',
-        //     'Access-Control-Allow-Origin': 'http://localhost:4200'
-        // });
-
-        // let options = { headers: headers };
-        // this.http.post<Observable<Object>>(url, {}).
-        //     subscribe(principal => {
-        //         debugger;
-        //         this.userName = principal['name'];
-        //     },
-        //     error => {
-        //         debugger;
-        //         if(error.status == 401) {
-        //             debugger;
-        //             alert('paul');
-        //         }
-        //     }
-        // );
+        this.loading = false;
+        this.authenticationService.isAuthenticated(() => {
+            this.routerService.toLogin();
+        });
     }
 
-    logout() {
-        this.sessionService.removeToken();
+    helloAdmin() {
+        this.userService.helloAdmin();
     }
-    private handleError(error: HttpErrorResponse) {
-        if (error.error instanceof ErrorEvent) {
-          console.error('An error occurred:', error.error.message);
-        } else {
-          console.error(
-            `Backend returned code ${error.status}, ` +
-            `body was: ${error.error}`);
-        }
-        return throwError(
-          'Something bad happened; please try again later.');
-      };
+
+    helloCompanyAdmin() {
+        this.userService.helloCompanyAdmin();
+    }
+
+    helloCompanyUser() {
+        this.userService.helloCompanyUser();
+    }
 }

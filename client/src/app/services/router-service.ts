@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 export class RouterService {
     constructor(private router: Router) { }
 
-    logout() {
+    toLogin() {
         this.router.navigateByUrl('/login');
     }
 
