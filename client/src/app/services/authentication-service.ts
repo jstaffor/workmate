@@ -26,6 +26,7 @@ export class AuthenticationService {
         
         this.http.get('http://localhost:8082/user', {headers: headers}).subscribe(response => {
             if (response['name']) {
+                this.sessionService.setToken(username, password);
                 this.authenticated = true;
             } else {
                 this.authenticated = false;

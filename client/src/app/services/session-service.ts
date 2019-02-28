@@ -5,9 +5,7 @@ export class SessionService {
     constructor() { }
 
     setToken(user: string, password: string) {
-        
         sessionStorage.setItem('token', btoa(user + ':' + password));
-        // 
     }
     getEncryptedToken() {
         return sessionStorage.getItem('token');

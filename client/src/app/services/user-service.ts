@@ -7,85 +7,31 @@ import { User } from '../models/user';
 @Injectable()
 export class UserService {
     constructor(private http: HttpClient) { }
-
-    // login(username: string, password: string) {
-    //     return this.http.post<any>(`/users/authenticate`, { username, password })
-    //         .pipe(map(user => {
-    //             // login successful if there's a user in the response
-    //             if (user) {
-    //                 // store user details and basic auth credentials in local storage 
-    //                 // to keep user logged in between page refreshes
-    //                 user.authdata = window.btoa(username + ':' + password);
-    //                 localStorage.setItem('currentUser', JSON.stringify(user));
-    //             }
-
-    //             return user;
-    //         }));
-    // }
-
+    
     helloAdmin() {
-        this.http.get('http://localhost:8082/helloAdmin').subscribe(data => {
-            alert(data);
+        this.http.get('http://localhost:8082/admin/hello').subscribe(data => {
+            console.log(data);
         },
         error => {
-            alert(error);
+            console.log(error);
         });
     }
 
     helloCompanyAdmin() {
-        this.http.get('http://localhost:8082/helloCompanyAdmin').subscribe(data => {
-            alert(data);
+        this.http.get('http://localhost:8082/companyadmin/hello').subscribe(data => {
+            console.log(data);
         },
         error => {
-            alert(error);
+            console.log(error);
         });
     }
 
     helloCompanyUser() {
-        this.http.get('http://localhost:8082/helloCompanyUser').subscribe(data => {
-            alert(data);
+        this.http.get('http://localhost:8082/companyuser/hellor').subscribe(data => {
+            console.log(data);
         },
         error => {
-            alert(error);
+            console.log(error);
         });
-    }
-
-    getAll() {
-        return this.http.get<User[]>(`http://localhost:8002/users`);
-    }
-
-    getById(id: number) {
-        return this.http.get(`http://localhost:8002/users/` + id);
-    }
-
-    getByName(name: string) {
-        return this.http.get(`http://localhost:8002/user/` + name);
-
-        // this.http.post<Observable<Object>>(url, {}).
-        //     subscribe(principal => {
-        //         debugger;
-        //         this.userName = principal['name'];
-        //     },
-        //     error => {
-        //         debugger;
-        //         if(error.status == 401) {
-        //             debugger;
-        //             alert('paul');
-        //         }
-        //     }
-        // );
-    }
-
-
-    register(user: User) {
-        return this.http.post(`http://localhost:8002/users/register`, user);
-    }
-
-    update(user: User) {
-        return this.http.put(`http://localhost:8002/users/` + user.username, user);
-    }
-
-    delete(id: number) {
-        return this.http.delete(`http://localhost:8002/users/` + id);
     }
 }

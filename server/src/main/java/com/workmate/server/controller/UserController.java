@@ -19,17 +19,17 @@ public class UserController
 	private SetupService setupService;
 
 
-	@RequestMapping(value = "/helloAdmin", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/hello", method = RequestMethod.GET)
 	public boolean helloAdmin() {
 		return true;
 	}
 
-	@RequestMapping(value = "/helloCompanyUser", method = RequestMethod.GET)
+	@RequestMapping(value = "/companyadmin/hello", method = RequestMethod.GET)
 	public boolean helloCompanyUser() {
 		return true;
 	}
 
-	@RequestMapping(value = "/helloCompanyAdmin", method = RequestMethod.GET)
+	@RequestMapping(value = "/companyuser/hello", method = RequestMethod.GET)
 	public boolean helloCompanyAdmin() {
 		return true;
 	}

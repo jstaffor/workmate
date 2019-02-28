@@ -12,7 +12,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     constructor(private sessionService: SessionService, private routerService: RouterService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+        
         const xhr = request.clone({
             headers: request.headers.set('X-Requested-With', 'XMLHttpRequest')
           });
