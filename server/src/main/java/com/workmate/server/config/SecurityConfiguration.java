@@ -1,5 +1,6 @@
 package com.workmate.server.config;
 
+import com.google.common.collect.ImmutableList;
 import com.workmate.server.config.AppAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import javax.sql.DataSource;
 
@@ -19,6 +24,9 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter
 {
+    @Autowired
+    private AppAuthenticationEntryPoint appAuthenticationEntryPoint;
+
     @Autowired
     private DataSource dataSource;
 
@@ -35,9 +43,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 //        auth
 //          .inMemoryAuthentication()
-//          .withUser("killesk@gmail.com")
-//          .password(bCryptPasswordEncoder.encode("m123"))
-//          .roles("USER");
+//          .withUser("admin@gmail.com")
+//          .password(bCryptPasswordEncoder.encode("123"))
+//          .roles("ADMIN");
 
         auth.
                 jdbcAuthentication()
@@ -48,35 +56,31 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-
-        http.httpBasic()
-                .and()
-                .authorizeRequests()
-//                .antMatchers("/admin/**").authenticated()
-//                .antMatchers("/company/**").hasAnyRole("COMPANY_ADMIN")
-//                .antMatchers("/companyuser/**").hasAnyRole("COMPANY_USER")
-                .antMatchers("/interviews/**").authenticated()
-                .anyRequest().permitAll()
-                .and()
-                .csrf()
-                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and();
-//        http
-//                .httpBasic()
-//                .and()
-//                .authorizeRequests().antMatchers("/**").permitAll();
-//        http.csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/login").permitAll()
-////                .antMatchers("/user/**").permitAll()
-//                .antMatchers("/user/**").hasAnyRole("ADMIN","USER")
-//                .and().httpBasic().realmName("MY APP REALM")
-//                .authenticationEntryPoint(appAuthenticationEntryPoint);
+    protected void configure(HttpSecurity http) throws Exception
+    {
+        http
+            .authorizeRequests()
+                .antMatchers("/auth/user").permitAll()
+                .antMatchers("/admin/**").hasAuthority("ADMIN")
+                .antMatchers("/company/admin/**").hasAuthority("COMPANY_ADMIN")
+                .antMatchers("/company/user/**").hasAuthority("COMPANY_USER")
+            .and()
+                .httpBasic()
+                .authenticationEntryPoint(appAuthenticationEntryPoint);
+        http.cors();
     }
 
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        final CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(ImmutableList.of("*"));
+        configuration.setAllowedMethods(ImmutableList.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH"));
+        configuration.setAllowCredentials(true);
+        configuration.setAllowedHeaders(ImmutableList.of("Authorization", "Cache-Control", "Content-Type"));
+        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 
 }

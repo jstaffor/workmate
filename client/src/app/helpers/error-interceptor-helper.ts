@@ -12,12 +12,11 @@ export class ErrorInterceptor implements HttpInterceptor {
     constructor(private sessionService: SessionService, private routerService: RouterService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        
-        const xhr = request.clone({
-            headers: request.headers.set('X-Requested-With', 'XMLHttpRequest')
-          });
 
-        return next.handle(xhr).pipe(catchError(err => {
+        // const xhr = request.clone({
+        //     headers: request.headers.set('X-Requested-With', 'XMLHttpRequest')
+        //   });
+        return next.handle(request).pipe(catchError(err => {
             if (err.status === 401 || err.status === 0) {
                 //this.sessionService.removeToken();
                 //location.reload(true);

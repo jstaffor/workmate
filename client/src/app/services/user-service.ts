@@ -18,7 +18,7 @@ export class UserService {
     }
 
     helloCompanyAdmin() {
-        this.http.get('http://localhost:8082/companyadmin/hello').subscribe(data => {
+        this.http.get('http://localhost:8082/company/admin/hello').subscribe(data => {
             console.log(data);
         },
         error => {
@@ -27,7 +27,7 @@ export class UserService {
     }
 
     helloCompanyUser() {
-        this.http.get('http://localhost:8082/companyuser/hellor').subscribe(data => {
+        this.http.get('http://localhost:8082/company/user/hello').subscribe(data => {
             console.log(data);
         },
         error => {

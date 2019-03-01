@@ -48,6 +48,11 @@ public class UserService {
         return companyRepository.save(company);
     }
 
+    public Company findCompanyByName(String name)
+    {
+        return companyRepository.findByName(name);
+    }
+
     public User saveUser(String email, String password, String name, String lastName, ENUM_active active,
                          Set<ENUM_role> enumRoles, Company company) {
         if(enumRoles == null || enumRoles.isEmpty())

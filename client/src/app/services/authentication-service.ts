@@ -18,13 +18,23 @@ export class AuthenticationService {
     }
 
     authenticate(username: string, password: string, callback) {
-        const headers = new HttpHeaders({
-            authorization : 'Basic ' + btoa(username + ':' + password),
-            Origin: `http://localhost:4200`,
-            'Access-Control-Allow-Origin':'http://localhost:4200',
-        });
+        let headers = new HttpHeaders();
+        let token = btoa(username + ':' + password);
+        headers = headers.append("Authorization", "Basic " + token);
+        headers = headers.append("Content-Type", "application/json");
+        // headers = headers.append("Access-Control-Allow-Origin", "*");
+        // headers = headers.append("Access-Control-Allow-Headers", "origin, x-requested-with, accept, apikey, authorization");
+        // headers = headers.append("Access-Control-Max-Age", "3628800");
+        // headers = headers.append("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
         
-        this.http.get('http://localhost:8082/user', {headers: headers}).subscribe(response => {
+        
+        // const headers = new HttpHeaders({
+        //     'Accept': 'application/json',  
+        //     'Content-Type': 'application/json',
+        //     Authorization : 'Basic ' + btoa(username + ':' + password),
+        // });
+        
+        this.http.get('http://localhost:8082/auth/user', {headers: headers}).subscribe(response => {
             if (response['name']) {
                 this.sessionService.setToken(username, password);
                 this.authenticated = true;

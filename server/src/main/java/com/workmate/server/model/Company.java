@@ -13,7 +13,7 @@ public class Company
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "company_id")
     private Long id;
-    @Column(name = "name")
+    @Column(name = "name", unique=true)
     @NotEmpty(message = "*Please provide your name")
     private String name;
     @Column(name = "active")

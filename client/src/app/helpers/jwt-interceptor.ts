@@ -16,8 +16,6 @@ export class    JwtInterceptor implements HttpInterceptor {
             request = request.clone({
                 setHeaders: { 
                     Authorization: `Basic ${unencryptedToken}`,
-                    Origin: `http://localhost:4200`,
-                    'Access-Control-Allow-Origin':'http://localhost:4200',
                 }
             });
         } 

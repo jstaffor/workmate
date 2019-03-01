@@ -25,10 +25,8 @@ export class LoginComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        sessionStorage.setItem('token', '');
-        this.model.username = 'killesk@gmail.com';
-        this.model.password = 'm123';
-
+        this.model.username = 'admin@gmail.com';
+        this.model.password = '123';
     }
 
     login() {
