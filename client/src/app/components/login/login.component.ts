@@ -1,10 +1,11 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 import { RouterService } from '../../services/router-service';
-import { AuthenticationService } from '../../services/authentication-service';
+import { SessionService } from '../../services/session-service';
+
+import { AuthenticationHttp } from '../../http/authentication-http';
 
 @Component({
     selector: 'login',
@@ -21,8 +22,12 @@ export class LoginComponent implements OnInit {
     constructor(
         private http: HttpClient,
         private routerService: RouterService,
-        private authenticationService: AuthenticationService,
-    ) { }
+        private authenticationHttp: AuthenticationHttp,
+        private translate: TranslateService,
+        private sessionService: SessionService
+    ) {
+        translate.setDefaultLang(this.sessionService.getLanguage());
+    }
 
     ngOnInit() {
         this.model.username = 'admin@gmail.com';
@@ -30,8 +35,12 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
-        this.authenticationService.authenticate(this.model.username, this.model.password, () => {
+        this.submitted = true;
+        this.authenticationHttp.authenticate(this.model.username, this.model.password, () => {
             this.routerService.toHome();
+            this.submitted = false;            
+        }, () => {
+            this.submitted = false;       
         });
     }
 }

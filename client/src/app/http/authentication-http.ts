@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 
-import { SessionService } from './session-service';
+import { SessionService } from '../services/session-service';
+import { FeedbackService } from '../services/feedback-service';
+
 
 @Injectable()
-export class AuthenticationService {
+export class AuthenticationHttp {
 
     authenticated = false;
 
-    constructor(private http: HttpClient, private sessionService: SessionService) { }
+    constructor(
+        private http: HttpClient, 
+        private sessionService: SessionService, 
+        private feedbackService: FeedbackService) { }
 
     isAuthenticated(callback) {
         if(this.authenticated == false) {
@@ -17,7 +21,7 @@ export class AuthenticationService {
         }
     }
 
-    authenticate(username: string, password: string, callback) {
+    authenticate(username: string, password: string, callback, callbackForError) {
         let headers = new HttpHeaders();
         let token = btoa(username + ':' + password);
         headers = headers.append("Authorization", "Basic " + token);

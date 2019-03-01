@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { User } from '../models/user';
 
 @Injectable()
-export class UserService {
+export class UserHttp {
     constructor(private http: HttpClient) { }
     
     helloAdmin() {

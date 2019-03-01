@@ -1,0 +1,14 @@
+{
+    "login": {
+        "title": "Login"
+    },
+    "home": {
+        "title": "Home"
+    },
+    "email": "Email",
+    "password": "Password",
+    "isRequired": " is required",
+    "wrongCredentials": "Wrong Credentials",
+    "permissionDenied": "Permission Denied",
+    "httpError": "Http Error "
+}
