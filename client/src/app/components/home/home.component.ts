@@ -15,7 +15,6 @@ import { SessionService } from '../../services/session-service';
 
 export class HomeComponent implements OnInit {
     loading = true;
-    userName: string;
 
     constructor(
         private userHttp: UserHttp, 
@@ -28,9 +27,10 @@ export class HomeComponent implements OnInit {
 
     ngOnInit() {
         this.loading = false;
-        // this.authenticationHttp.isAuthenticated(() => {
-        //     this.routerService.toLogin();
-        // });
+    }
+
+    toAdminMenu() {
+        this.routerService.toAdminMenu();
     }
 
     logout() {

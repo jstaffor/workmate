@@ -15,22 +15,16 @@ import { SessionService } from '../../services/session-service';
 
 export class AdminMenuComponent implements OnInit {
     loading = true;
-    userName: string;
 
     constructor(
         private userHttp: UserHttp, 
         private authenticationHttp: AuthenticationHttp, 
         private routerService: RouterService,
         private translate: TranslateService,
-        private sessionService: SessionService) {
-            translate.setDefaultLang(this.sessionService.getLanguage());
-        }
+        private sessionService: SessionService) { }
 
     ngOnInit() {
         this.loading = false;
-        // this.authenticationHttp.isAuthenticated(() => {
-        //     this.routerService.toLogin();
-        // });
     }
 
     helloAdmin() {

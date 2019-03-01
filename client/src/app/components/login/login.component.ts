@@ -14,9 +14,6 @@ import { AuthenticationHttp } from '../../http/authentication-http';
 
 export class LoginComponent implements OnInit {
     submitted = false;
-    returnUrl: string;
-    error = '';
-    loading = false;
     model: any = {};
 
     constructor(
@@ -25,9 +22,7 @@ export class LoginComponent implements OnInit {
         private authenticationHttp: AuthenticationHttp,
         private translate: TranslateService,
         private sessionService: SessionService
-    ) {
-        //translate.setDefaultLang(this.sessionService.getLanguage());
-    }
+    ) {}
 
     ngOnInit() {
         this.model.username = 'admin@gmail.com';

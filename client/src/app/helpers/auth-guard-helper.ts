@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
       let isAuthorised = this.isAuthorised();      
       let isRoleAllowed = false;
 
-      if(next.data != null && next.data.length > 0) {
+      if(next.data != null && Object.keys(next.data).length !== 0 && next.data.constructor === Object) {
         isRoleAllowed = this.isRoleAllowed(next.data.role, JSON.parse(this.sessionService.getAuthorities()));
       } else {
         isRoleAllowed = true;
@@ -42,7 +42,7 @@ export class AuthGuard implements CanActivate {
   isRoleAllowed(role: String, roles: String[]) {
     let jsonRoles = JSON.parse(this.sessionService.getAuthorities());
     for(var i = 0; i < jsonRoles.length; i++) {
-        var authority = jsonRoles[i];
+        var authority = jsonRoles[i].authority;
         if(authority == role){
             return true;
         }
