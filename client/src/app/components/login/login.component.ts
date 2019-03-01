@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
         private translate: TranslateService,
         private sessionService: SessionService
     ) {
-        translate.setDefaultLang(this.sessionService.getLanguage());
+        //translate.setDefaultLang(this.sessionService.getLanguage());
     }
 
     ngOnInit() {

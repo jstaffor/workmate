@@ -2,8 +2,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateService } from '@ngx-translate/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -63,7 +64,13 @@ import { AuthGuard } from './helpers/auth-guard-helper';
     bootstrap: [AppComponent]
 })
 
-export class AppModule { }
+export class AppModule {  
+    constructor(
+        private translate: TranslateService,
+        private sessionService: SessionService) {
+        translate.setDefaultLang(this.sessionService.getLanguage());
+    }
+}
 
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
