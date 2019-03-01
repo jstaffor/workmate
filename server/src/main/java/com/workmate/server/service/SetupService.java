@@ -13,12 +13,12 @@ import java.util.HashSet;
 @Service("setupService")
 public class SetupService
 {
-    public static final String commonPassword = "123";
-    public static final String adminCompanyName = "admin";
-    public static final String adminUserEmail = "admin@gmail.com";
-    public static final String companyName = "TomMcgoo";
-    public static final String companyAdminEmail = "companyadmin@gmail.com";
-    public static final String companyUserEmail = "companyuser@gmail.com";
+    private static final String commonPassword = "123";
+    private static final String adminCompanyName = "admin";
+    private static final String adminUserEmail = "admin@gmail.com";
+    private static final String companyName = "TomMcgoo";
+    private static final String companyAdminEmail = "companyadmin@gmail.com";
+    private static final String companyUserEmail = "companyuser@gmail.com";
 
     @Autowired
     private UserService userService;
