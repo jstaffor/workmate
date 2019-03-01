@@ -13,6 +13,8 @@ import { routing }        from './app.routing';
 
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { AdminMenuComponent } from './components/admin/admin-menu.component';
+import { CompanyComponent } from './components/admin/company/company.component';
 
 import { AuthenticationHttp } from './http/authentication-http'
 import { UserHttp } from './http/user-http';
@@ -23,6 +25,7 @@ import { FeedbackService } from './services/feedback-service';
 
 import { ErrorInterceptor } from './helpers/error-interceptor-helper';
 import { JwtInterceptor } from './helpers/jwt-interceptor';
+import { AuthGuard } from './helpers/auth-guard-helper';
 
 @NgModule({
     imports: [
@@ -43,11 +46,14 @@ import { JwtInterceptor } from './helpers/jwt-interceptor';
     declarations: [
         AppComponent,
         HomeComponent,
-        LoginComponent
+        LoginComponent,
+        AdminMenuComponent,
+        CompanyComponent
     ],
     providers: [
         UserHttp,
         AuthenticationHttp,
+        AuthGuard,
         RouterService,
         SessionService,
         FeedbackService,
@@ -57,11 +63,8 @@ import { JwtInterceptor } from './helpers/jwt-interceptor';
     bootstrap: [AppComponent]
 })
 
-
-
 export class AppModule { }
 
-// required for AOT compilation
 export function HttpLoaderFactory(http: HttpClient) {
     return new TranslateHttpLoader(http);
 }

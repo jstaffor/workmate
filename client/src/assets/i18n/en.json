@@ -4,11 +4,15 @@
     },
     "home": {
         "title": "Home"
-    },
+    },    
+    "admin": "Admin",
+    "Company Admin": "Company Admin",
+    "Company User": "User",
     "email": "Email",
     "password": "Password",
     "isRequired": " is required",
     "wrongCredentials": "Wrong Credentials",
     "permissionDenied": "Permission Denied",
-    "httpError": "Http Error "
+    "httpError": "Http Error ",
+    "close" : "Close"
 }

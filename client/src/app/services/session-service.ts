@@ -8,6 +8,7 @@ export class SessionService {
     constructor(private translate: TranslateService) { }
 
     VAR_TOKEN = 'token';
+    VAR_AUTHORITIES = 'authorities';
     VAR_LANGUAGE = 'language';
     VAR_LANGUAGE_DEFAULT = ENUM_Language.ENGLISH.toString();
 
@@ -15,19 +16,24 @@ export class SessionService {
         sessionStorage.setItem(this.VAR_TOKEN, btoa(user + ':' + password));
     }
 
+    setAuthorities(authorities: string) {
+        sessionStorage.setItem(this.VAR_AUTHORITIES, authorities);
+    }
+
     getEncryptedToken() {
         return sessionStorage.getItem(this.VAR_TOKEN);
     }
 
-    getUnencryptedUser() {
-        let unEncyptedtoken = atob(sessionStorage.getItem(this.VAR_TOKEN));
-        var index = unEncyptedtoken.indexOf(":");  
-        var name = unEncyptedtoken.substr(0, index); 
-        return name;
+    getAuthorities() {
+        return sessionStorage.getItem(this.VAR_AUTHORITIES);
     }
     
     removeToken() {
         sessionStorage.removeItem(this.VAR_TOKEN);
+    }
+    
+    removeAuthorities() {
+        sessionStorage.removeItem(this.VAR_AUTHORITIES);
     }
     
     setLanguage(language: ENUM_Language) {

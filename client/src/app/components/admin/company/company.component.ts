@@ -1,19 +1,19 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-import { UserHttp } from '../../http/user-http';
-import { AuthenticationHttp } from '../../http/authentication-http';
+import { UserHttp } from '../../../http/user-http';
+import { AuthenticationHttp } from '../../../http/authentication-http';
 
-import { RouterService } from '../../services/router-service';
-import { SessionService } from '../../services/session-service';
+import { RouterService } from '../../../services/router-service';
+import { SessionService } from '../../../services/session-service';
 
 
 @Component({
-    selector: 'home',
-    templateUrl: './home.component.html'
+    selector: 'company',
+    templateUrl: './company.component.html'
 })
 
-export class HomeComponent implements OnInit {
+export class CompanyComponent implements OnInit {
     loading = true;
     userName: string;
 
@@ -31,11 +31,6 @@ export class HomeComponent implements OnInit {
         // this.authenticationHttp.isAuthenticated(() => {
         //     this.routerService.toLogin();
         // });
-    }
-
-    logout() {
-        this.sessionService.removeToken();
-        this.routerService.toLogin();
     }
 
     helloAdmin() {

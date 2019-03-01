@@ -9,11 +9,11 @@ import { SessionService } from '../../services/session-service';
 
 
 @Component({
-    selector: 'home',
-    templateUrl: './home.component.html'
+    selector: 'admin-menu',
+    templateUrl: './admin-menu.component.html'
 })
 
-export class HomeComponent implements OnInit {
+export class AdminMenuComponent implements OnInit {
     loading = true;
     userName: string;
 
@@ -31,11 +31,6 @@ export class HomeComponent implements OnInit {
         // this.authenticationHttp.isAuthenticated(() => {
         //     this.routerService.toLogin();
         // });
-    }
-
-    logout() {
-        this.sessionService.removeToken();
-        this.routerService.toLogin();
     }
 
     helloAdmin() {

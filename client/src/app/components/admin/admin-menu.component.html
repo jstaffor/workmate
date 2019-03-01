@@ -1,0 +1,9 @@
+﻿<h1>{{ 'home.title' | translate }}</h1>
+
+<div class="col-md-6 col-md-offset-3">
+    <h1>Hi {{userName}}!</h1>
+    <p><a [routerLink]="['/login']" (click) ="logout()">Logout</a></p>
+    <button [disabled]="loading" (click)="helloAdmin()">Hello Admin</button>
+    <button [disabled]="loading" (click)="helloCompanyAdmin()">Hello Company Admin</button>
+    <button [disabled]="loading" (click)="helloCompanyUser()">Hello Company User</button>
+</div>

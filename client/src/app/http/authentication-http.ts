@@ -3,23 +3,17 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 import { SessionService } from '../services/session-service';
 import { FeedbackService } from '../services/feedback-service';
+import { debug } from 'util';
 
 
 @Injectable()
 export class AuthenticationHttp {
-
-    authenticated = false;
 
     constructor(
         private http: HttpClient, 
         private sessionService: SessionService, 
         private feedbackService: FeedbackService) { }
 
-    isAuthenticated(callback) {
-        if(this.authenticated == false) {
-            callback();
-        }
-    }
 
     authenticate(username: string, password: string, callback, callbackForError) {
         let headers = new HttpHeaders();
@@ -30,9 +24,11 @@ export class AuthenticationHttp {
         this.http.get('http://localhost:8082/auth/user', {headers: headers}).subscribe(response => {
             if (response['name']) {
                 this.sessionService.setToken(username, password);
-                this.authenticated = true;
-            } else {
-                this.authenticated = false;
+                this.sessionService.setAuthorities(JSON.stringify(response['authorities']));
+            } else {                
+                this.sessionService.removeToken();
+                this.sessionService.removeAuthorities();
+                
             }
             return callback && callback();
         });
