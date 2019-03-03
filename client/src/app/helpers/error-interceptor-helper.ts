@@ -31,7 +31,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                     this.feedbackService.createSnackBarMessage(text['permissionDenied'], text['close']);});
             } else {
                 this.translate.get(['httpError', 'close']).subscribe(text => {
-                    this.feedbackService.createSnackBarMessage(text['httpError'], text['close']);});
+                    this.feedbackService.createSnackBarMessage(text['httpError'] + err.status, text['close']);});
             }                     
             const error = err.error.message || err.statusText;
             return throwError(error);

@@ -1,6 +1,6 @@
 ﻿import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }    from '@angular/forms';
+import { FormsModule, ReactiveFormsModule }    from '@angular/forms';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -8,6 +8,10 @@ import { TranslateService } from '@ngx-translate/core';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule, MatInputModule } from '@angular/material';
+
+
 
 import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
@@ -15,10 +19,12 @@ import { routing }        from './app.routing';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { AdminMenuComponent } from './components/admin/admin-menu.component';
-import { CompanyComponent } from './components/admin/company/company.component';
+import { CompanyDialogComponent } from './components/admin/companies/company/company.component';
+import { CompaniesComponent } from './components/admin/companies/companies.component';
 
 import { AuthenticationHttp } from './http/authentication-http'
 import { UserHttp } from './http/user-http';
+import { CompanyHttp } from './http/company-http';
 
 import { RouterService } from './services/router-service';
 import { SessionService } from './services/session-service';
@@ -32,10 +38,14 @@ import { AuthGuard } from './helpers/auth-guard-helper';
     imports: [
         BrowserModule,
         FormsModule,
+        ReactiveFormsModule,
         HttpClientModule,
         routing,
         BrowserAnimationsModule,
         MatSnackBarModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatInputModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -49,10 +59,12 @@ import { AuthGuard } from './helpers/auth-guard-helper';
         HomeComponent,
         LoginComponent,
         AdminMenuComponent,
-        CompanyComponent
+        CompanyDialogComponent,
+        CompaniesComponent
     ],
     providers: [
         UserHttp,
+        CompanyHttp,
         AuthenticationHttp,
         AuthGuard,
         RouterService,

@@ -27,15 +27,7 @@ export class AdminMenuComponent implements OnInit {
         this.loading = false;
     }
 
-    helloAdmin() {
-        this.userHttp.helloAdmin();
-    }
-
-    helloCompanyAdmin() {
-        this.userHttp.helloCompanyAdmin();
-    }
-
-    helloCompanyUser() {
-        this.userHttp.helloCompanyUser();
+    toCompanies() {
+        this.routerService.toCompanies();
     }
 }

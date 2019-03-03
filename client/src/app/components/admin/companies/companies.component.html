@@ -1,0 +1,11 @@
+﻿all companies
+
+
+
+<ul class="companies">
+    <li *ngFor="let company of companies">
+      <a (click)="toCompanyDialog(company)" >
+        <span class="badge">{{company.id}}</span> {{company.name}}
+      </a>
+    </li>
+  </ul>

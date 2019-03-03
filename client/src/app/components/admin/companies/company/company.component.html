@@ -1,0 +1,18 @@
+﻿<form class="example-container" [formGroup]="options" >    
+    <mat-form-field >
+        <input matInput type="text" placeholder="name" formControlName="name" min="10">
+        <mat-error *ngIf="options.get('name')?.invalid">Min size: 10px</mat-error>
+    </mat-form-field>  
+    <mat-form-field >
+        <input matInput type="text" placeholder="active" formControlName="active" min="10">
+        <mat-error *ngIf="options.get('active')?.invalid">Min size: 10px</mat-error>
+    </mat-form-field>
+
+    <!-- <mat-form-field>
+        <mat-select placeholder="Acitve">
+            <mat-option *ngFor="let food of fileVals" >
+            {{food.id}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field> -->
+</form>

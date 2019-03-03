@@ -16,4 +16,8 @@ export class RouterService {
     toAdminMenu() {
         this.router.navigateByUrl('/admin/menu');
     }
+
+    toCompanies() {
+        this.router.navigateByUrl('/admin/companies');
+    }
 }
