@@ -14,8 +14,10 @@ import { ENUM_active } from '../../../../models/enums/enum-enable';
 
 export class CompanyDialogComponent  {
   options: FormGroup;
-  submitted = true;
-  active: ENUM_active;
+  submitted = true;  
+  actives = Object.keys(ENUM_active).filter(v => isNaN(parseInt(v, 10)));
+
+
   constructor(
     public dialogRef: MatDialogRef<CompanyDialogComponent>,
     fb: FormBuilder,
@@ -23,7 +25,7 @@ export class CompanyDialogComponent  {
       let company = data['Company'] as Company;
        this.options = fb.group({
         name: company.name,
-        active: ENUM_active
+        active: ENUM_active[company.active]
       });
     }
 

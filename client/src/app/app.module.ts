@@ -10,8 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
-
-
+import { MatSelectModule}  from '@angular/material/select';
 
 import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
@@ -46,6 +45,7 @@ import { AuthGuard } from './helpers/auth-guard-helper';
         MatDialogModule,
         MatFormFieldModule,
         MatInputModule,
+        MatSelectModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
