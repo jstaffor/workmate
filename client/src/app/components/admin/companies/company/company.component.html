@@ -1,11 +1,13 @@
-﻿<form class="example-container" [formGroup]="options" >    
+﻿<form class="example-container" [formGroup]="options" >  
     <mat-form-field >
-        <input matInput type="text" placeholder="name" formControlName="name" min="10">
-        <mat-error *ngIf="options.get('name')?.invalid">Min size: 10px</mat-error>
+        <input matInput type="text" placeholder="Name" formControlName="name" min="3" required>
+        <mat-error *ngIf="options.get('name').invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>  
     <mat-form-field>
       <mat-select formControlName="active" placeholder="Active">
         <mat-option *ngFor="let a of actives" [value]="a">{{a}}</mat-option>
       </mat-select>
+      <mat-error *ngIf="options.get('active').invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>  
+    <button mat-button (click)="save(company)" >Save</button>
 </form>
