@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Company } from '../../../../models/company';
 import { ENUM_active } from '../../../../models/enums/enum-enable';
 import { CompanyHttp } from '../../../../http/company-http';
+import { FeedbackService } from '../../../../services/feedback-service';
 
 
 
@@ -22,12 +23,14 @@ export class CompanyDialogComponent  {
   constructor(
     public dialogRef: MatDialogRef<CompanyDialogComponent>,
     private companyHttp: CompanyHttp,
+    private feedbackService: FeedbackService,
+    private translate: TranslateService,
     fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: JSON) {
-      this.company = data['Company'] as Company;     
+      this.company = data['Company'] as Company; 
        this.options = fb.group({
         name: new FormControl(this.company.name, [Validators.required]),
-        active: new FormControl(ENUM_active[this.company.active], [Validators.required])
+        active: new FormControl(this.company.active, [Validators.required])
       });
     }
 
@@ -36,17 +39,36 @@ export class CompanyDialogComponent  {
     }
 
     ngOnInit() {
+     this.enableSubmitButton();
+    }
+
+    enableSubmitButton() {
       this.submitted = false;
     }
 
-    save(company: Company) {
-      debugger;
-      if(company.id != undefined){
-        this.add(company);
+    disableSubmitButton() {
+      this.submitted = true;
+    }
+
+    save() {
+      var submittedCompany = new Company;
+      submittedCompany.id = this.company.id;
+      submittedCompany.name = this.options.get('name').value;
+      submittedCompany.active = this.options.get('active').value;
+      if(JSON.stringify(this.company) == JSON.stringify(submittedCompany)) {
+        this.translate.get(['notingChanged', 'close']).subscribe(text => {
+            this.feedbackService.createSnackBarMessage(text['notingChanged'], text['close']);});
       } else {
-        this.update(company);
-      }
-      
+        this.disableSubmitButton();
+        let callBack = () => {
+          this.enableSubmitButton();
+        };
+        if(submittedCompany.id === undefined){
+          this.add(submittedCompany, callBack);
+        } else {
+          this.update(submittedCompany, callBack);
+        }  
+      }    
     }
 
     getErrorMessage() {
@@ -55,37 +77,48 @@ export class CompanyDialogComponent  {
       '';
     }
 
-    add(company: Company): void {
-      if (!name) { return; }
-      this.companyHttp.addCompany(company)
+    getCompany(company: Company): void {
+      this.companyHttp.getCompany(company)
         .subscribe(success => {
-          debugger;
-          alert('success: ' + success.name);
+          // this.translate.get(['successfully', 'saved', 'close']).subscribe(text => {
+          //     this.feedbackService.createSnackBarMessage(text['successfully'] + ' ' + text['saved'], text['close']);});
         }, error => {
-          debugger;
           alert('error: ' + error);
         });
     }
 
-    update(company: Company): void {
-      if (!name) { return; }
+    add(company: Company, callback): void {
+      this.companyHttp.addCompany(company)
+        .subscribe(success => {
+          callback();
+          this.translate.get(['successfully', 'saved', 'close']).subscribe(text => {
+              this.feedbackService.createSnackBarMessage(text['successfully'] + ' ' + text['saved'], text['close']);});
+        }, error => {
+          callback();
+          alert('error: ' + error);
+        });
+    }
+
+    update(company: Company, callback): void {
       this.companyHttp.updateCompany(company)
         .subscribe(success => {
-          debugger;
-          alert('success: ' + success.name);
+          callback();
+          this.translate.get(['successfully', 'saved', 'close']).subscribe(text => {
+              this.feedbackService.createSnackBarMessage(text['successfully'] + ' ' + text['saved'], text['close']);});
         }, error => {
-          debugger;
+          callback();
           alert('error: ' + error);
         });
     }
    
-    delete(company: Company): void {
+    delete(company: Company, callback): void {
       this.companyHttp.deleteCompany(company)
         .subscribe(success => {
-          debugger;
-          alert('success');
+          callback();
+          this.translate.get(['successfully', 'deleted', 'close']).subscribe(text => {
+              this.feedbackService.createSnackBarMessage(text['successfully'] + ' ' + text['deleted'], text['close']);});
         }, error => {
-          debugger;
+          callback();
           alert('error');
         });
     }

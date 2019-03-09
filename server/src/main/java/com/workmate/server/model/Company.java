@@ -1,5 +1,6 @@
 package com.workmate.server.model;
 
+import com.workmate.server.model.enums.ENUM_active;
 import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -17,5 +18,5 @@ public class Company
     @NotEmpty(message = "*Please provide your name")
     private String name;
     @Column(name = "active")
-    private int active;
+    private ENUM_active active;
 }

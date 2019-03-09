@@ -14,5 +14,10 @@
     "wrongCredentials": "Wrong Credentials",
     "permissionDenied": "Permission Denied",
     "httpError": "Http Error ",
-    "close" : "Close"
+    "close" : "Close",
+    "notingChanged" : "Noting Changed",
+    "successfully" : "Successfully",
+    "saved" : "Saved",
+    "deleted" : "Deleted"
+    
 }

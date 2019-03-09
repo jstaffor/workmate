@@ -44,7 +44,7 @@ public class UserService {
     {
         Company company = new Company();
         company.setName(name);
-        company.setActive(active.getValue());
+        company.setActive(active);
         return companyRepository.save(company);
     }
 

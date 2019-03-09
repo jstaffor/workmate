@@ -9,5 +9,5 @@
       </mat-select>
       <mat-error *ngIf="options.get('active').invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>  
-    <button mat-button (click)="save(company)" >Save</button>
+    <button mat-button (click)="save()" [disabled]="submitted">Save</button>
 </form>

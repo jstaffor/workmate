@@ -9,11 +9,16 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class CompanyHttp {
     constructor(private http: HttpClient) { }
 
-    private company_url = 'http://localhost:8082/admin/company';
+    private company_url = 'http://localhost:8082/admin/company/';
 
     getCompanies (): Observable<Company[]> {
-        return this.http.get<Company[]>('http://localhost:8082/admin/getCompanies')
-        .pipe();
+        return this.http.get<Company[]>(this.company_url + 'getAll').pipe();
+    }
+
+    getCompany(company: Company): Observable<Company> {
+        const id = typeof company === 'number' ? company : company.id;
+        const url = `${this.company_url}${id}`; 
+        return this.http.get<Company>(url).pipe();
     }
  
     addCompany (company: Company): Observable<Company> {
@@ -22,11 +27,13 @@ export class CompanyHttp {
     
     deleteCompany (company: Company | number): Observable<Company> {
         const id = typeof company === 'number' ? company : company.id;
-        const url = `${this.company_url}/${id}`; 
+        const url = `${this.company_url}${id}`; 
         return this.http.delete<Company>(url).pipe();
     }
     
     updateCompany (company: Company): Observable<any> {
-        return this.http.put(this.company_url, company).pipe();
+        const id = typeof company === 'number' ? company : company.id;
+        const url = `${this.company_url}${id}`; 
+        return this.http.put(url, company).pipe();
     }
 }
