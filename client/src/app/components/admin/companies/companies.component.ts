@@ -36,7 +36,7 @@ export class CompaniesComponent implements OnInit {
     }
 
     getCompanies(): void {
-        this.companyHttp.getCompanies()
+        this.companyHttp.getCompanies(0, 100)
         .subscribe(companies => {
             this.companies = companies
         });

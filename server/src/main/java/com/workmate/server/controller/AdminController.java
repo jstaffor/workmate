@@ -3,12 +3,15 @@ package com.workmate.server.controller;
 import com.workmate.server.model.Company;
 import com.workmate.server.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -84,6 +87,18 @@ public class AdminController
 
         companyService.deleteCompanyById(id);
         return new ResponseEntity<Company>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping(value = "/company/get", params = { "page", "size" })
+    public List<Company> get(@RequestParam("page") int page,
+                                   @RequestParam("size") int size, UriComponentsBuilder uriBuilder,
+                                   HttpServletResponse response) {
+        Page<Company> resultPage = companyService.findPaginated(page, size);
+        if (page > resultPage.getTotalPages())
+        {
+            return new ArrayList();
+        }
+        return resultPage.getContent();
     }
 
 

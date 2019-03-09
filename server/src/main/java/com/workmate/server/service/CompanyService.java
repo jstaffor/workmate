@@ -6,6 +6,10 @@ import com.workmate.server.repository.CompanyRepository;
 import com.workmate.server.repository.RoleRepository;
 import com.workmate.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -54,5 +58,13 @@ public class CompanyService {
         companyRepository.deleteById(id);
     }
 
+    public Page<Company> findPaginated(int page, int size)
+    {
+        return companyRepository.findAll(createPageRequest(page, size));
+    }
+
+    private Pageable createPageRequest(int page, int size) {
+        return PageRequest.of(page, size, new Sort(Sort.Direction.DESC, "updatedAt"));
+    }
 
 }

@@ -4,6 +4,7 @@ import com.workmate.server.model.enums.ENUM_active;
 import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.Date;
 
 @Data
 @Entity
@@ -19,4 +20,21 @@ public class Company
     private String name;
     @Column(name = "active")
     private ENUM_active active;
+    @Column(name = "createdAt")
+    private Date createdAt;
+    @Column(name = "updatedAt")
+    private Date updatedAt;
+
+
+
+    @PrePersist
+    void createdAt()
+    {
+        this.createdAt = this.updatedAt = new Date();
+    }
+    @PreUpdate
+    void updatedAt()
+    {
+        this.updatedAt = new Date();
+    }
 }

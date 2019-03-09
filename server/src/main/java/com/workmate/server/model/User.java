@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import java.util.Date;
 import java.util.Set;
 
 @Data
@@ -39,6 +40,21 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
+    @Column(name = "createdAt")
+    private Date createdAt;
+    @Column(name = "updatedAt")
+    private Date updatedAt;
+
+    @PrePersist
+    void createdAt()
+    {
+        this.createdAt = this.updatedAt = new Date();
+    }
+    @PreUpdate
+    void updatedAt()
+    {
+        this.updatedAt = new Date();
+    }
 
 }
 

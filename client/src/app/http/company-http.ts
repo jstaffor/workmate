@@ -11,8 +11,14 @@ export class CompanyHttp {
 
     private company_url = 'http://localhost:8082/admin/company/';
 
-    getCompanies (): Observable<Company[]> {
-        return this.http.get<Company[]>(this.company_url + 'getAll').pipe();
+    getCompanies (page: number, size: number): Observable<Company[]> {
+        
+        return this.http.get<Company[]>(this.company_url + 'get', {
+            params: {
+              page: `${page}`,
+              size: `${size}`
+            }
+          }).pipe();
     }
 
     getCompany(company: Company): Observable<Company> {
