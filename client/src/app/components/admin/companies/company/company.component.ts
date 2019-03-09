@@ -28,9 +28,10 @@ export class CompanyDialogComponent  {
     fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: JSON) {
       this.company = data['Company'] as Company; 
-       this.options = fb.group({
-        name: new FormControl(this.company.name, [Validators.required]),
-        active: new FormControl(this.company.active, [Validators.required])
+      debugger;
+      this.options = fb.group({
+        name: new FormControl((this.company.name === undefined ? this.company.name : ''), [Validators.required]),
+        active: new FormControl((this.company.active === undefined ? this.company.active : ENUM_active.ACTIVE), [Validators.required])
       });
     }
 

@@ -46,15 +46,21 @@ export class CompaniesComponent implements OnInit {
         const dialogRef = this.dialog.open(CompanyDialogComponent, {
             width: '250px',
             data: {Company: company}
-          });
-      
-          dialogRef.afterClosed().subscribe(result => {
+            });
+        
+            dialogRef.afterClosed().subscribe(result => {
             if(result !== undefined) {
                 if(JSON.stringify(company) != JSON.stringify(result)) {
                     this.getCompanies();
                 }
             }
-          });
+            });
+    }
+
+    create() {
+        const company = new Company();
+        debugger;
+        this.toCompanyDialog(company);
     }
 }
 
