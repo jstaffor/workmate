@@ -50,6 +50,10 @@ export class CompanyDialogComponent  {
       this.submitted = true;
     }
 
+    closeDialog(updatedCompany: Company) {
+      this.dialogRef.close(updatedCompany);
+    }
+
     save() {
       var submittedCompany = new Company;
       submittedCompany.id = this.company.id;
@@ -60,13 +64,13 @@ export class CompanyDialogComponent  {
             this.feedbackService.createSnackBarMessage(text['notingChanged'], text['close']);});
       } else {
         this.disableSubmitButton();
-        let callBack = () => {
+        let callBackIfError = () => {
           this.enableSubmitButton();
         };
         if(submittedCompany.id === undefined){
-          this.add(submittedCompany, callBack);
+          this.add(submittedCompany, callBackIfError);
         } else {
-          this.update(submittedCompany, callBack);
+          this.update(submittedCompany, callBackIfError);
         }  
       }    
     }
@@ -77,48 +81,38 @@ export class CompanyDialogComponent  {
       '';
     }
 
-    getCompany(company: Company): void {
-      this.companyHttp.getCompany(company)
-        .subscribe(success => {
-          // this.translate.get(['successfully', 'saved', 'close']).subscribe(text => {
-          //     this.feedbackService.createSnackBarMessage(text['successfully'] + ' ' + text['saved'], text['close']);});
-        }, error => {
-          alert('error: ' + error);
-        });
-    }
-
-    add(company: Company, callback): void {
+    add(company: Company, callBackIfError): void {
       this.companyHttp.addCompany(company)
         .subscribe(success => {
-          callback();
           this.translate.get(['successfully', 'saved', 'close']).subscribe(text => {
               this.feedbackService.createSnackBarMessage(text['successfully'] + ' ' + text['saved'], text['close']);});
+          this.closeDialog(success);
         }, error => {
-          callback();
+          callBackIfError();
           alert('error: ' + error);
         });
     }
 
-    update(company: Company, callback): void {
+    update(company: Company, callBackIfError): void {
       this.companyHttp.updateCompany(company)
         .subscribe(success => {
-          callback();
           this.translate.get(['successfully', 'saved', 'close']).subscribe(text => {
               this.feedbackService.createSnackBarMessage(text['successfully'] + ' ' + text['saved'], text['close']);});
+          this.closeDialog(success);
         }, error => {
-          callback();
+          callBackIfError();
           alert('error: ' + error);
         });
     }
    
-    delete(company: Company, callback): void {
+    delete(company: Company, callBackIfError): void {
       this.companyHttp.deleteCompany(company)
         .subscribe(success => {
-          callback();
           this.translate.get(['successfully', 'deleted', 'close']).subscribe(text => {
-              this.feedbackService.createSnackBarMessage(text['successfully'] + ' ' + text['deleted'], text['close']);});
+              this.feedbackService.createSnackBarMessage(text['successfully'] + ' ' + text['deleted'], text['close']);});          
+          this.closeDialog(success);
         }, error => {
-          callback();
+          callBackIfError();
           alert('error');
         });
     }

@@ -49,8 +49,11 @@ export class CompaniesComponent implements OnInit {
           });
       
           dialogRef.afterClosed().subscribe(result => {
-            console.log('The dialog was closed');
-            company = result;
+            if(result !== undefined) {
+                if(JSON.stringify(company) != JSON.stringify(result)) {
+                    this.getCompanies();
+                }
+            }
           });
     }
 }
