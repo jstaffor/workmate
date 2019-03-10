@@ -13,13 +13,15 @@
     "isRequired": " is required",
     "wrongCredentials": "Wrong Credentials",
     "permissionDenied": "Permission Denied",
-    "httpError": "Http Error ",
+    "httpError": "Http Error",
     "close" : "Close",
     "notingChanged" : "Noting Changed",
     "successfully" : "Successfully",
     "saved" : "Saved",
     "deleted" : "Deleted",
     "cantDelete" : "Can't Delete",
-    "dumbass" : "Dumbass"
+    "dumbass" : "Dumbass",
+    "conflict" : "Conflict"
+    
     
 }

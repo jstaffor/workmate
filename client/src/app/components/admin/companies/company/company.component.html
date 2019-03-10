@@ -1,14 +1,14 @@
-﻿<form [formGroup]="options" >  
+﻿<form [formGroup]="formGroup" >  
     <mat-form-field >
         <input matInput type="text" placeholder="Name" formControlName="name" min="3" required>
-        <mat-error *ngIf="options.get('name').invalid">{{getErrorMessage()}}</mat-error>
+        <mat-error *ngIf="formGroup.get('name').invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>  
     <mat-form-field>
       <mat-select formControlName="active" placeholder="Active">
         <mat-option *ngFor="let a of actives" [value]="a">{{a}}</mat-option>
       </mat-select>
-      <mat-error *ngIf="options.get('active').invalid">{{getErrorMessage()}}</mat-error>
+      <mat-error *ngIf="formGroup.get('active').invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>  
-    <button mat-button (click)="save()" [disabled]="submitted">Save</button>
+    <button mat-button (click)="save()" [disabled]="!formGroup.valid && !submitted">Save</button>
     <button mat-button (click)="delete()" [disabled]="submitted">Delete</button>
 </form>

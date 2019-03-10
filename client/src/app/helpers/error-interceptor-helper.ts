@@ -22,15 +22,18 @@ export class ErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(catchError(err => {
             if (err.status === 401) {
                 this.translate.get(['wrongCredentials', 'close']).subscribe(text => {
-                    this.feedbackService.createSnackBarMessage(text['wrongCredentials'], text['close']);});
+                    this.feedbackService.createSnackBarMessage(text['wrongCredentials'] + ' ' + err.status, text['close']);});
                 this.sessionService.removeToken();
                 this.routerService.toLogin();
             } else if(err.status === 403){
                 this.translate.get(['permissionDenied', 'close']).subscribe(text => {
-                    this.feedbackService.createSnackBarMessage(text['permissionDenied'], text['close']);});
+                    this.feedbackService.createSnackBarMessage(text['permissionDenied'] + ' ' + err.status, text['close']);});
+            } else if(err.status === 409){
+                this.translate.get(['conflict', 'close']).subscribe(text => {
+                    this.feedbackService.createSnackBarMessage(text['conflict'] + ' ' + err.status, text['close']);});
             } else {
                 this.translate.get(['httpError', 'close']).subscribe(text => {
-                    this.feedbackService.createSnackBarMessage(text['httpError'] + err.status, text['close']);});
+                    this.feedbackService.createSnackBarMessage(text['httpError'] + ' ' + err.status, text['close']);});
             }                     
             const error = err.error.message || err.statusText;
             return throwError(error);
