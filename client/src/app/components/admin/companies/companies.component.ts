@@ -9,15 +9,15 @@ import { SessionService } from '../../../services/session-service';
 import { Company } from '../../../models/company';
 import { CompanyDialogComponent } from './company/company.component';
 import { PaginationResponse } from '../../../models/pagination-response';
+import { PaginationSuper } from '../../shared/pagination-super';
 
 @Component({
     selector: 'companies',
     templateUrl: './companies.component.html'
 })
 
-export class CompaniesComponent implements OnInit {
+export class CompaniesComponent extends PaginationSuper implements OnInit {
     loading = true;
-    paginationResponse: PaginationResponse;
 
     constructor(
         private userHttp: UserHttp, 
@@ -27,17 +27,15 @@ export class CompaniesComponent implements OnInit {
         private translate: TranslateService,
         private sessionService: SessionService,
         public dialog: MatDialog) {
-            // translate.setDefaultLang(this.sessionService.getLanguage());
+            super();
         }
 
     ngOnInit() {
-        this.paginationResponse = new PaginationResponse(0,0,0,0,[]);
         this.loading = false;
         this.getCompanies();
     }
 
     getCompanies(): void {
-
         this.companyHttp.getCompanies(0, 100)
         .subscribe(response => {
             this.paginationResponse = response;
@@ -51,16 +49,15 @@ export class CompaniesComponent implements OnInit {
             });
         
             dialogRef.afterClosed().subscribe(result => {
-            if(result !== undefined) {
-                if(JSON.stringify(company) != JSON.stringify(result)) {
-                    this.getCompanies();
+                if(result !== undefined) {
+                    if(JSON.stringify(company) != JSON.stringify(result)) {
+                        this.getCompanies();
+                    }
                 }
-            }
             });
     }
 
     create() {
-        debugger;
         const company = new Company();
         this.toCompanyDialog(company);
     }

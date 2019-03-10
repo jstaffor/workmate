@@ -79,7 +79,9 @@ import { AuthGuard } from './helpers/auth-guard-helper';
 })
 
 export class AppModule {  
-    constructor() {}
+    constructor(private translate: TranslateService) {
+        translate.setDefaultLang('en');
+    }
 }
 
 export function HttpLoaderFactory(http: HttpClient) {

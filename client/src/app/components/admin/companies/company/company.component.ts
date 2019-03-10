@@ -63,14 +63,11 @@ export class CompanyDialogComponent  {
         this.translate.get(['notingChanged', 'close']).subscribe(text => {
             this.feedbackService.createSnackBarMessage(text['notingChanged'], text['close']);});
       } else {
-        this.disableSubmitButton();
-        let callBackIfError = () => {
-          this.enableSubmitButton();
-        };
+        this.disableSubmitButton();       
         if(submittedCompany.id === undefined){
-          this.add(submittedCompany, callBackIfError);
+          this.add(submittedCompany, this.enableSubmitButtonMethod());
         } else {
-          this.update(submittedCompany, callBackIfError);
+          this.update(submittedCompany, this.enableSubmitButtonMethod());
         }  
       }    
     }
@@ -105,7 +102,7 @@ export class CompanyDialogComponent  {
         });
     }
    
-    delete(company: Company, callBackIfError): void {
+    deleteCompany(company: Company, callBackIfError): void {
       this.companyHttp.deleteCompany(company)
         .subscribe(success => {
           this.translate.get(['successfully', 'deleted', 'close']).subscribe(text => {
@@ -115,6 +112,22 @@ export class CompanyDialogComponent  {
           callBackIfError();
           alert('error');
         });
+    }
+
+    delete() {
+      if(this.company.id === undefined) {
+        this.translate.get(['cantDelete', 'dumbass', 'close']).subscribe(text => {
+          this.feedbackService.createSnackBarMessage(text['cantDelete'] + ' ' + text['dumbass'], text['close']);}); 
+      } else {
+        this.disableSubmitButton();
+        this.deleteCompany(this.company, this.enableSubmitButtonMethod());
+      }
+    }
+
+    enableSubmitButtonMethod() {
+      return () => {
+        this.enableSubmitButton();
+      };
     }
   
 }

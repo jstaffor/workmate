@@ -18,6 +18,8 @@
     "notingChanged" : "Noting Changed",
     "successfully" : "Successfully",
     "saved" : "Saved",
-    "deleted" : "Deleted"
+    "deleted" : "Deleted",
+    "cantDelete" : "Can't Delete",
+    "dumbass" : "Dumbass"
     
 }

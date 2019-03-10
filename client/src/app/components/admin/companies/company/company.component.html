@@ -10,4 +10,5 @@
       <mat-error *ngIf="options.get('active').invalid">{{getErrorMessage()}}</mat-error>
     </mat-form-field>  
     <button mat-button (click)="save()" [disabled]="submitted">Save</button>
+    <button mat-button (click)="delete()" [disabled]="submitted">Delete</button>
 </form>

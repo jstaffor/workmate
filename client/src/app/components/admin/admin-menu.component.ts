@@ -24,6 +24,7 @@ export class AdminMenuComponent implements OnInit {
         private sessionService: SessionService) { }
 
     ngOnInit() {
+        this.translate.setDefaultLang('en');
         this.loading = false;
     }
 
