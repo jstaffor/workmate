@@ -19,9 +19,12 @@
     "successfully" : "Successfully",
     "saved" : "Saved",
     "deleted" : "Deleted",
-    "cantDelete" : "Can't Delete",
+    "delete" : "Delete",
+    "cant" : "Can't",
     "dumbass" : "Dumbass",
-    "conflict" : "Conflict"
+    "conflict" : "Conflict",
+    "question" : "Question",
+    "areYouSureYouWantTo" : "Are you sure you want to"
     
     
 }

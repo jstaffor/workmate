@@ -21,6 +21,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AdminMenuComponent } from './components/admin/admin-menu.component';
 import { CompanyDialogComponent } from './components/admin/companies/company/company.component';
 import { CompaniesComponent } from './components/admin/companies/companies.component';
+import { YesNoDialogComponent } from './components/shared/dialog/yes-no-dialog/yes-no-dialog';
 
 import { AuthenticationHttp } from './http/authentication-http'
 import { UserHttp } from './http/user-http';
@@ -56,13 +57,15 @@ import { AuthGuard } from './helpers/auth-guard-helper';
             }
         })
     ],
+    entryComponents: [YesNoDialogComponent],
     declarations: [
         AppComponent,
         HomeComponent,
         LoginComponent,
         AdminMenuComponent,
         CompanyDialogComponent,
-        CompaniesComponent
+        CompaniesComponent,
+        YesNoDialogComponent
     ],
     providers: [
         UserHttp,

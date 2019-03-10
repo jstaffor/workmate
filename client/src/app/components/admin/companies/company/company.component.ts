@@ -7,8 +7,6 @@ import { ENUM_active } from '../../../../models/enums/enum-enable';
 import { CompanyHttp } from '../../../../http/company-http';
 import { FeedbackService } from '../../../../services/feedback-service';
 
-
-
 @Component({
     selector: 'company',
     templateUrl: './company.component.html'
@@ -22,6 +20,7 @@ export class CompanyDialogComponent  {
 
   constructor(
     public dialogRef: MatDialogRef<CompanyDialogComponent>,
+    public dialog: MatDialog,
     private companyHttp: CompanyHttp,
     private feedbackService: FeedbackService,
     private translate: TranslateService,
@@ -116,11 +115,18 @@ export class CompanyDialogComponent  {
 
     delete() {
       if(this.company.id === undefined) {
-        this.translate.get(['cantDelete', 'dumbass', 'close']).subscribe(text => {
-          this.feedbackService.createSnackBarMessage(text['cantDelete'] + ' ' + text['dumbass'], text['close']);}); 
+        this.translate.get(['cant', 'delete','dumbass', 'close']).subscribe(text => {
+          this.feedbackService.createSnackBarMessage(text['cant'] + ' ' + text['delete'] + ' ' + text['dumbass'], text['close']);}); 
       } else {
         this.disableSubmitButton();
-        this.deleteCompany(this.company, this.enableSubmitButtonMethod());
+        this.translate.get(['question', 'areYouSureYouWantTo', 'delete', 'close']).subscribe(text => {          
+          let actionIfTrue = () => {
+            this.enableSubmitButtonMethod();
+            this.deleteCompany(this.company, this.enableSubmitButtonMethod());
+          }
+           this.feedbackService.createYesNoDialog(text['question'], text['areYouSureYouWantTo'] + ' ' + text['delete'] + '?', 
+           actionIfTrue, this.enableSubmitButtonMethod());  
+        }); 
       }
     }
 
