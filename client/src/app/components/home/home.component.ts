@@ -22,7 +22,6 @@ export class HomeComponent implements OnInit {
         private routerService: RouterService,
         private translate: TranslateService,
         private sessionService: SessionService) {
-            translate.setDefaultLang(this.sessionService.getLanguage());
         }
 
     ngOnInit() {

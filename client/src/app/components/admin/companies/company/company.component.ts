@@ -1,7 +1,7 @@
 ﻿import { Component, OnInit, Inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatPaginatorModule } from '@angular/material';
 import { Company } from '../../../../models/company';
 import { ENUM_active } from '../../../../models/enums/enum-enable';
 import { CompanyHttp } from '../../../../http/company-http';
@@ -28,10 +28,9 @@ export class CompanyDialogComponent  {
     fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: JSON) {
       this.company = data['Company'] as Company; 
-      debugger;
       this.options = fb.group({
-        name: new FormControl((this.company.name === undefined ? this.company.name : ''), [Validators.required]),
-        active: new FormControl((this.company.active === undefined ? this.company.active : ENUM_active.ACTIVE), [Validators.required])
+        name: new FormControl((this.company.name === undefined ? '' :  this.company.name), [Validators.required]),
+        active: new FormControl((this.company.active === undefined ? ENUM_active.ACTIVE : this.company.active ), [Validators.required])
       });
     }
 

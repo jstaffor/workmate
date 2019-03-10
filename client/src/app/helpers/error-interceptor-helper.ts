@@ -16,7 +16,6 @@ export class ErrorInterceptor implements HttpInterceptor {
         private routerService: RouterService, 
         private feedbackService: FeedbackService,
         private translate: TranslateService) {
-            translate.setDefaultLang(this.sessionService.getLanguage());
         }
     
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

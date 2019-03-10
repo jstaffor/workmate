@@ -1,4 +1,4 @@
-package com.workmate.server.model;
+package com.workmate.server.model.dao;
 
 import com.workmate.server.model.enums.ENUM_active;
 import lombok.Data;

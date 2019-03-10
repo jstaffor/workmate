@@ -1,4 +1,4 @@
-package com.workmate.server.model;
+package com.workmate.server.model.dao;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;

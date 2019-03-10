@@ -1,15 +1,19 @@
 ﻿all companies
 
-
-
 <ul class="companies">
-    <li *ngFor="let company of companies">
-      <a (click)="toCompanyDialog(company)" >
-        <span class="badge">{{company.id}}</span> {{company.name}}
-      </a>
-    </li>
+  <li *ngFor="let company of paginationResponse.list">
+    <a (click)="toCompanyDialog(company)" >
+      <span class="badge">{{company.id}}</span> {{company.name}}
+    </a>
+  </li>
 </ul>
 
 <form>  
   <button mat-fab (click)="create()">Create</button>
 </form>
+
+<mat-paginator [length]="100"
+              [pageSize]="100"
+              [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator>
+

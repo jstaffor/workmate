@@ -1,9 +1,8 @@
 package com.workmate.server.service;
 
 
-import com.workmate.server.model.Company;
-import com.workmate.server.model.Role;
-import com.workmate.server.model.User;
+import com.workmate.server.model.dao.Company;
+import com.workmate.server.model.dao.User;
 import com.workmate.server.model.enums.ENUM_active;
 import com.workmate.server.model.enums.ENUM_role;
 import com.workmate.server.repository.CompanyRepository;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 

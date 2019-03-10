@@ -1,6 +1,7 @@
 package com.workmate.server.controller;
 
-import com.workmate.server.model.Company;
+import com.workmate.server.model.PaginationDao;
+import com.workmate.server.model.dao.Company;
 import com.workmate.server.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -90,15 +91,10 @@ public class AdminController
     }
 
     @GetMapping(value = "/company/get", params = { "page", "size" })
-    public List<Company> get(@RequestParam("page") int page,
-                                   @RequestParam("size") int size, UriComponentsBuilder uriBuilder,
-                                   HttpServletResponse response) {
+    public PaginationDao get(@RequestParam("page") int page,
+                             @RequestParam("size") int size) {
         Page<Company> resultPage = companyService.findPaginated(page, size);
-        if (page > resultPage.getTotalPages())
-        {
-            return new ArrayList();
-        }
-        return resultPage.getContent();
+        return new PaginationDao<Company>(resultPage, page, size);
     }
 
 

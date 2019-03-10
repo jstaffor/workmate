@@ -8,7 +8,7 @@ import { RouterService } from '../../../services/router-service';
 import { SessionService } from '../../../services/session-service';
 import { Company } from '../../../models/company';
 import { CompanyDialogComponent } from './company/company.component';
-
+import { PaginationResponse } from '../../../models/pagination-response';
 
 @Component({
     selector: 'companies',
@@ -17,7 +17,7 @@ import { CompanyDialogComponent } from './company/company.component';
 
 export class CompaniesComponent implements OnInit {
     loading = true;
-    companies: Company[];
+    paginationResponse: PaginationResponse;
 
     constructor(
         private userHttp: UserHttp, 
@@ -27,18 +27,20 @@ export class CompaniesComponent implements OnInit {
         private translate: TranslateService,
         private sessionService: SessionService,
         public dialog: MatDialog) {
-            translate.setDefaultLang(this.sessionService.getLanguage());
+            // translate.setDefaultLang(this.sessionService.getLanguage());
         }
 
     ngOnInit() {
+        this.paginationResponse = new PaginationResponse(0,0,0,0,[]);
         this.loading = false;
         this.getCompanies();
     }
 
     getCompanies(): void {
+
         this.companyHttp.getCompanies(0, 100)
-        .subscribe(companies => {
-            this.companies = companies
+        .subscribe(response => {
+            this.paginationResponse = response;
         });
     }
 
@@ -58,8 +60,8 @@ export class CompaniesComponent implements OnInit {
     }
 
     create() {
-        const company = new Company();
         debugger;
+        const company = new Company();
         this.toCompanyDialog(company);
     }
 }

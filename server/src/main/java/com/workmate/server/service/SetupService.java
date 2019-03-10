@@ -1,6 +1,6 @@
 package com.workmate.server.service;
 
-import com.workmate.server.model.Company;
+import com.workmate.server.model.dao.Company;
 import com.workmate.server.model.enums.ENUM_active;
 import com.workmate.server.model.enums.ENUM_role;
 import org.springframework.beans.factory.annotation.Autowired;

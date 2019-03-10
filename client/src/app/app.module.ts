@@ -11,6 +11,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { MatSelectModule}  from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material';
 
 import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
@@ -46,6 +47,7 @@ import { AuthGuard } from './helpers/auth-guard-helper';
         MatFormFieldModule,
         MatInputModule,
         MatSelectModule,
+        MatPaginatorModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -77,11 +79,7 @@ import { AuthGuard } from './helpers/auth-guard-helper';
 })
 
 export class AppModule {  
-    constructor(
-        private translate: TranslateService,
-        private sessionService: SessionService) {
-        translate.setDefaultLang(this.sessionService.getLanguage());
-    }
+    constructor() {}
 }
 
 export function HttpLoaderFactory(http: HttpClient) {

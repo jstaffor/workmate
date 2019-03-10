@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { PaginationRequest } from '../../../src/app/models/pagination-request';
+import { PaginationResponse } from '../../../src/app/models/pagination-response';
 
  import { Company } from '../models/company';
 
@@ -11,13 +13,10 @@ export class CompanyHttp {
 
     private company_url = 'http://localhost:8082/admin/company/';
 
-    getCompanies (page: number, size: number): Observable<Company[]> {
-        
-        return this.http.get<Company[]>(this.company_url + 'get', {
-            params: {
-              page: `${page}`,
-              size: `${size}`
-            }
+    getCompanies (page: number, size: number): Observable<PaginationResponse> {        
+        let paginationRequest = new PaginationRequest(page, size);
+        return this.http.get<PaginationResponse>(this.company_url + 'get', {
+            params: paginationRequest.getPaginationParameters()
           }).pipe();
     }
 

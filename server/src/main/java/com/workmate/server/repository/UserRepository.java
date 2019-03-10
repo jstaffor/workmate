@@ -1,6 +1,6 @@
 package com.workmate.server.repository;
 
-import com.workmate.server.model.User;
+import com.workmate.server.model.dao.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
