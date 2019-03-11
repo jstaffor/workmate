@@ -2,12 +2,14 @@ package jstaffor.android.jobsight.database.popups;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.util.Log;
 
+import jstaffor.android.jobsight.appsettings.AppSettings;
 import jstaffor.android.jobsight.database.DatabaseModel;
 
 public class DatabaseAccessPopupManage_Delete extends DatabaseAccessPopup
 {
-    private static final String TAG = "DatabaseAccessPopupManage_Delete";
+    private static final String TAG = "DBAccessPopupManage_Del";
     public DatabaseAccessPopupManage_Delete(Context context)
     {
         super(context);
@@ -33,6 +35,11 @@ public class DatabaseAccessPopupManage_Delete extends DatabaseAccessPopup
             String selection = DatabaseModel.CHILD.COLUMN_PARENT_ID + " = ? AND " + DatabaseModel.CHILD.COLUMN_CHILD_ID + " = ?";
             String[] selectionArgs = {lParent.toString(), lChild.toString()};
 
+            if (AppSettings.DATABASE_DEBUG_MODE) {
+                Log.d(TAG, "deleteChildFromDatabase(Long lParent, Long lChild) | DatabaseModel.CHILD.COLUMN_PARENT_ID = ? | " + lParent);
+                Log.d(TAG, "deleteChildFromDatabase(Long lParent, Long lChild) | DatabaseModel.CHILD.COLUMN_CHILD_ID = ? | " + lChild);
+            }
+
             newRowChildId =  sqliteDatabase.delete(DatabaseModel.CHILD.TABLE_NAME, selection, selectionArgs);
         }
         catch(Exception exception)
@@ -41,6 +48,12 @@ public class DatabaseAccessPopupManage_Delete extends DatabaseAccessPopup
         }
         finally
         {
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "deleteChildFromDatabase(Long lParent, Long lChild) | finally (sqliteDatabase.delete() - the number of rows affected if a whereClause is passed in, 0 otherwise) | newRowChildId = " +newRowChildId);
+                listDatabaseValues();
+            }
+
             closeDownDatabaseConnections();
             return newRowChildId;
         }
@@ -61,6 +74,11 @@ public class DatabaseAccessPopupManage_Delete extends DatabaseAccessPopup
             String selection = DatabaseModel.PARENT.COLUMN_PARENT_ID + " = ? AND " + DatabaseModel.PARENT.COLUMN_USER_ID + " = ?";
             String[] selectionArgs = {lParent.toString(), USER_GUID.toString()};
 
+            if (AppSettings.DATABASE_DEBUG_MODE) {
+                Log.d(TAG, "deleteParentFromDatabase(Long lParent, Long USER_GUID) | DatabaseModel.PARENT.COLUMN_PARENT_ID = ? | " + lParent);
+                Log.d(TAG, "deleteParentFromDatabase(Long lParent, Long USER_GUID) | DatabaseModel.PARENT.COLUMN_USER_ID = ? | " + USER_GUID);
+            }
+
             newRowParentId =  sqliteDatabase.delete(DatabaseModel.PARENT.TABLE_NAME, selection, selectionArgs);
         }
         catch(Exception exception)
@@ -69,6 +87,12 @@ public class DatabaseAccessPopupManage_Delete extends DatabaseAccessPopup
         }
         finally
         {
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "deleteParentFromDatabase(Long lParent, Long USER_GUID) | finally (sqliteDatabase.delete() - the number of rows affected if a whereClause is passed in, 0 otherwise) | newRowParentId = " +newRowParentId);
+                listDatabaseValues();
+            }
+
             closeDownDatabaseConnections();
             return newRowParentId;
         }
@@ -89,6 +113,11 @@ public class DatabaseAccessPopupManage_Delete extends DatabaseAccessPopup
             String selection = DatabaseModel.TEMPLATE.COLUMN_TEMPLATE_ID + " = ? AND " + DatabaseModel.TEMPLATE.COLUMN_USER_ID + " = ?";
             String[] selectionArgs = {lTemplate.toString(), USER_GUID.toString()};
 
+            if (AppSettings.DATABASE_DEBUG_MODE) {
+                Log.d(TAG, "deleteTemplateFromDatabase(Long lTemplate, Long USER_GUID) | DatabaseModel.TEMPLATE.COLUMN_TEMPLATE_ID = ? | " + lTemplate);
+                Log.d(TAG, "deleteTemplateFromDatabase(Long lTemplate, Long USER_GUID) | DatabaseModel.TEMPLATE.COLUMN_USER_ID = ? | " + USER_GUID);
+            }
+
             newRowTemplateId =  sqliteDatabase.delete(DatabaseModel.TEMPLATE.TABLE_NAME, selection, selectionArgs);
         }
         catch(Exception exception)
@@ -97,6 +126,12 @@ public class DatabaseAccessPopupManage_Delete extends DatabaseAccessPopup
         }
         finally
         {
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "deleteTemplateFromDatabase(Long lTemplate, Long USER_GUID) | finally (sqliteDatabase.delete() - the number of rows affected if a whereClause is passed in, 0 otherwise) | newRowTemplateId = " +newRowTemplateId);
+                listDatabaseValues();
+            }
+
             closeDownDatabaseConnections();
             return newRowTemplateId;
         }

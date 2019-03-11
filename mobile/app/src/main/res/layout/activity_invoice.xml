@@ -4,12 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/activity_invoice_btn_generate_invoice"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/activity_invoice_btn_generate_invoice"/>
-
     <EditText
         android:id="@+id/activity_invoice_txt_date"
         android:layout_width="match_parent"
@@ -47,9 +41,9 @@
         android:inputType="textShortMessage|textCapCharacters"
         android:textAllCaps="true"/>
 
-    <ListView
-        android:id="@+id/activity_invoice_listview"
+    <Button
+        android:id="@+id/activity_invoice_btn_generate_invoice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+        android:text="@string/activity_invoice_btn_generate_invoice"/>
 </LinearLayout>

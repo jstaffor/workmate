@@ -76,6 +76,6 @@
         android:id="@+id/popup_home_manage_crud_btn_save"
         android:layout_width="300dp"
         android:layout_height="match_parent"
-        android:textOff="@string/popup_home_manage_crud_btn_save" />
+        android:text="@string/popup_home_manage_crud_btn_save" />
 
 </LinearLayout>

@@ -16,14 +16,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textOff="@string/activity_sketchinput_btn_signature_clear" />
+            android:text="@string/activity_sketchinput_btn_signature_clear" />
 
         <Button
             android:id="@+id/activity_sketchinput_btn_signature_save"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textOff="@string/activity_sketchinput_btn_signature_save" />
+            android:text="@string/activity_sketchinput_btn_signature_save" />
 
     </LinearLayout>
     

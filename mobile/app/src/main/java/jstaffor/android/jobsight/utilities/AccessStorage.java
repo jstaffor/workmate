@@ -2,12 +2,9 @@ package jstaffor.android.jobsight.utilities;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
@@ -15,11 +12,8 @@ import android.webkit.MimeTypeMap;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.channels.FileChannel;
-import java.util.UUID;
 
-import jstaffor.android.jobsight.R;
 import jstaffor.android.jobsight.appsettings.AppSettings;
 
 public class AccessStorage
@@ -59,7 +53,7 @@ public class AccessStorage
 
             absolutePath = y.getAbsolutePath();
 
-            if(AppSettings.DEBUG_MODE) {
+            if(AppSettings.APP_DEBUG_MODE) {
                 Log.d(TAG, "copyFileFrom_x_to_y_(File x, File y) | FileChannel fileChannelX.size() | " + fileChannelX.size());
                 Log.d(TAG, "copyFileFrom_x_to_y_(File x, File y) | FileChannel fileChannelY.size() | " + fileChannelY.size());
                 Log.d(TAG, "copyFileFrom_x_to_y_(File x, File y) | y.getAbsolutePath() | " +absolutePath);
@@ -120,7 +114,7 @@ public class AccessStorage
                 {
                     final boolean wasDeletionSussessful = deleteFileOrDir(child.getAbsolutePath());
 
-                    if(AppSettings.DEBUG_MODE) {
+                    if(AppSettings.APP_DEBUG_MODE) {
                         Log.d(TAG, "deleteFileOrDir(String absolutePathToFileOrDir) | deleteFileOrDir(child.getAbsolutePath())  child.getAbsolutePath() | " + child.getAbsolutePath());
                         Log.d(TAG, "deleteFileOrDir(String absolutePathToFileOrDir) | deleteFileOrDir(child.getAbsolutePath()) | " + wasDeletionSussessful);
                     }
@@ -132,7 +126,7 @@ public class AccessStorage
 
             final boolean wasDeletionSussessful = tempFile.delete();
 
-            if(AppSettings.DEBUG_MODE) {
+            if(AppSettings.APP_DEBUG_MODE) {
                 Log.d(TAG, "deleteFileOrDir(String absolutePathToFileOrDir) | tempFile = new File(absolutePathToFileOrDir); | " +absolutePathToFileOrDir);
                 Log.d(TAG, "deleteFileOrDir(String absolutePathToFileOrDir) | tempFile.delete(); | " + wasDeletionSussessful);
             }
@@ -197,7 +191,7 @@ public class AccessStorage
             }
         }
 
-        if(AppSettings.DEBUG_MODE)
+        if(AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "getFileNameFromUri(Uri uri) | fileName | " +fileName);
 
         return fileName;
@@ -230,7 +224,7 @@ public class AccessStorage
             if( !extension.startsWith(".") )
                 extension = "." + extension;
 
-        if(AppSettings.DEBUG_MODE)
+        if(AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "getMimeTypeUsingUri(Uri uri) | extension | " +extension);
 
         return extension;

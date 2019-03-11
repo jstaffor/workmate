@@ -11,7 +11,6 @@ import jstaffor.android.jobsight.appsettings.AppSettings;
 import jstaffor.android.jobsight.database.DatabaseModel;
 import jstaffor.android.jobsight.database.DatabaseAccess;
 import jstaffor.android.jobsight.datamodel.DataModel;
-import jstaffor.android.jobsight.datamodel.utilities.DataModelUtilities;
 import jstaffor.android.jobsight.datamodel.viewdata.AudioRecording;
 
 public class DatabaseAudioRecording extends DatabaseAccess
@@ -45,19 +44,24 @@ public class DatabaseAudioRecording extends DatabaseAccess
             values.put(DatabaseModel.AUDIO_RECORDING.COLUMN_AUDIO_RECORDING_LOCATION, COLUMN_AUDIO_RECORDING_LOCATION);
             values.put(DatabaseModel.AUDIO_RECORDING.COLUMN_AUDIO_RECORDING_IMAGE_LOCATION, COLUMN_AUDIO_RECORDING_IMAGE_LOCATION);
 
-            newRowGroupId = sqliteDatabase.insert(DatabaseModel.AUDIO_RECORDING.TABLE_NAME, null, values);
-
-            if(AppSettings.DEBUG_MODE) {
+            if(AppSettings.DATABASE_DEBUG_MODE) {
                 Log.d(TAG, "createAudioRecordingEntry() | Long COLUMN_AUDIO_RECORDING_CHILD_ID | " +COLUMN_AUDIO_RECORDING_CHILD_ID);
                 Log.d(TAG, "createAudioRecordingEntry() | Long COLUMN_AUDIO_RECORDING_LOCATION | " +COLUMN_AUDIO_RECORDING_LOCATION);
                 Log.d(TAG, "createAudioRecordingEntry() | Long COLUMN_AUDIO_RECORDING_IMAGE_LOCATION | " +COLUMN_AUDIO_RECORDING_IMAGE_LOCATION);
-                Log.d(TAG, "createAudioRecordingEntry() | sqliteDatabase.insert(DatabaseModel.AUDIO_RECORDING.TABLE_NAME, null, values) | " +newRowGroupId);
             }
+
+            newRowGroupId = sqliteDatabase.insert(DatabaseModel.AUDIO_RECORDING.TABLE_NAME, null, values);
+
         }
         finally
         {
-            closeDownDatabaseConnections();
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "createAudioRecordingEntry() | finally | newRowGroupId = " +newRowGroupId);
+                listDatabaseValues();
+            }
 
+            closeDownDatabaseConnections();
             if(newRowGroupId == -1L) //sqliteDatabase.insert @return the row ID of the newly inserted row, or -1 if an error occurred
                 return false;
             else
@@ -87,6 +91,9 @@ public class DatabaseAudioRecording extends DatabaseAccess
             String[] selectionArgs = {lChild.toString()};
             String sortOrder = DatabaseModel.AUDIO_RECORDING.COLUMN_TIMESTAMP + " ASC";
 
+            if(AppSettings.DATABASE_DEBUG_MODE)
+                Log.d(TAG, "getAudioRecordingDataFromDatabase(Long lChild) | lChild | " + lChild);
+
             cursor = sqliteDatabase.query(
                     DatabaseModel.AUDIO_RECORDING.TABLE_NAME,     // The table to query
                     projection,                        // The array of columns to return (pass null to get all)
@@ -105,7 +112,7 @@ public class DatabaseAudioRecording extends DatabaseAccess
                         cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.AUDIO_RECORDING.COLUMN_AUDIO_RECORDING_IMAGE_LOCATION))
                 ));
 
-                if(AppSettings.DEBUG_MODE) {
+                if(AppSettings.DATABASE_DEBUG_MODE) {
                     Log.d(TAG, "getAudioRecordingDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.AUDIO_RECORDING.COLUMN_TIMESTAMP))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.AUDIO_RECORDING.COLUMN_TIMESTAMP)));
                     Log.d(TAG, "getAudioRecordingDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.AUDIO_RECORDING.COLUMN_AUDIO_RECORDING_LOCATION))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.AUDIO_RECORDING.COLUMN_AUDIO_RECORDING_LOCATION)));
                     Log.d(TAG, "getAudioRecordingDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.AUDIO_RECORDING.COLUMN_AUDIO_RECORDING_IMAGE_LOCATION))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.AUDIO_RECORDING.COLUMN_AUDIO_RECORDING_IMAGE_LOCATION)));
@@ -114,6 +121,12 @@ public class DatabaseAudioRecording extends DatabaseAccess
         }
         finally
         {
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "getAudioRecordingDataFromDatabase(Long lChild) | finally | lChild = " +lChild);
+                listDatabaseValues();
+            }
+
             closeDownDatabaseConnections();
         }
 

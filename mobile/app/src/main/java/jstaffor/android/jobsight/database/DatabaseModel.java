@@ -10,6 +10,9 @@ public final class DatabaseModel
 
     public static final String CURRENT_TIMESTAMP = "ts";
 
+    /***
+     * USER - START
+     */
     public static class USER implements BaseColumns {
         //Primary
         public static final String TABLE_NAME = "user_";
@@ -23,10 +26,15 @@ public final class DatabaseModel
 
     public static final String SQL_CREATE_TABLE_USER =
             "CREATE TABLE " + USER.TABLE_NAME + " (" +
-                    USER.COLUMN_USER_ID + " LONG PRIMARY KEY," +
+                    USER.COLUMN_USER_ID + " INTEGER PRIMARY KEY," +
                     USER.COLUMN_TIMESTAMP + " DEFAULT CURRENT_TIMESTAMP," +
                     USER.COLUMN_USER_EMAIL + " TEXT)";
+    public static final String SQL_SELECT_TABLE_USER =
+            "SELECT * FROM " + USER.TABLE_NAME + ";";
 
+    /***
+     * PARENT - START
+     */
     public static class PARENT implements BaseColumns {
         //Primary
         public static final String TABLE_NAME = "parent_";
@@ -42,12 +50,16 @@ public final class DatabaseModel
 
     public static final String SQL_CREATE_TABLE_PARENT =
             "CREATE TABLE " + PARENT.TABLE_NAME + " (" +
-                    PARENT.COLUMN_PARENT_ID + " LONG PRIMARY KEY," +
+                    PARENT.COLUMN_PARENT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     PARENT.COLUMN_TIMESTAMP + " DEFAULT CURRENT_TIMESTAMP," +
                     PARENT.COLUMN_PARENT_NAME + " TEXT," +
                     PARENT.COLUMN_USER_ID + " LONG)";
+    public static final String SQL_SELECT_TABLE_PARENT =
+            "SELECT * FROM " + PARENT.TABLE_NAME + ";";
 
-
+    /***
+     * CHILD - START
+     */
     public static class CHILD implements BaseColumns {
         //Primary
         public static final String TABLE_NAME = "child_";
@@ -64,13 +76,17 @@ public final class DatabaseModel
 
     public static final String SQL_CREATE_TABLE_CHILD =
             "CREATE TABLE " + CHILD.TABLE_NAME + " (" +
-                    CHILD.COLUMN_CHILD_ID + " LONG PRIMARY KEY," +
+                    CHILD.COLUMN_CHILD_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     CHILD.COLUMN_TIMESTAMP + " DEFAULT CURRENT_TIMESTAMP," +
                     CHILD.COLUMN_CHILD_NAME + " TEXT," +
                     CHILD.COLUMN_PARENT_ID + " LONG," +
                     CHILD.COLUMN_TEMPLATE_SETTING + " LONG)";
+    public static final String SQL_SELECT_TABLE_CHILD =
+            "SELECT * FROM " + CHILD.TABLE_NAME + ";";
 
-
+    /***
+     * TEMPLATE - START
+     */
     public static class TEMPLATE implements BaseColumns {
         //Primary
         public static final String TABLE_NAME = "template_";
@@ -95,12 +111,17 @@ public final class DatabaseModel
 
     public static final String SQL_CREATE_TABLE_TEMPLATE =
             "CREATE TABLE " + TEMPLATE.TABLE_NAME + " (" +
-                    TEMPLATE.COLUMN_TEMPLATE_ID + " LONG PRIMARY KEY," +
+                    TEMPLATE.COLUMN_TEMPLATE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     TEMPLATE.COLUMN_TIMESTAMP + " DEFAULT CURRENT_TIMESTAMP," +
                     TEMPLATE.COLUMN_TEMPLATE_NAME + " TEXT," +
                     TEMPLATE.COLUMN_TEMPLATE_SETTING + " LONG," +
                     TEMPLATE.COLUMN_USER_ID + " LONG)";
+    public static final String SQL_SELECT_TABLE_TEMPLATE =
+            "SELECT * FROM " + TEMPLATE.TABLE_NAME + ";";
 
+    /***
+     * INVOICE - START
+     */
     public static class INVOICE implements BaseColumns {
         //Primary
         public static final String TABLE_NAME = "invoice_";
@@ -125,7 +146,7 @@ public final class DatabaseModel
 
     public static final String SQL_CREATE_TABLE_INVOICE =
             "CREATE TABLE " + INVOICE.TABLE_NAME + " (" +
-                    INVOICE.COLUMN_INVOICE_ID + " LONG PRIMARY KEY," +
+                    INVOICE.COLUMN_INVOICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     INVOICE.COLUMN_INVOICE_NAME + " TEXT," +
                     INVOICE.COLUMN_INVOICE_SUPPLIER_NAME + " TEXT," +
                     INVOICE.COLUMN_INVOICE_SUPPLIER_DETAILS + " TEXT," +
@@ -134,6 +155,8 @@ public final class DatabaseModel
                     INVOICE.COLUMN_USER_ID + " LONG," +
                     INVOICE.COLUMN_PARENT_ID + " LONG," +
                     INVOICE.COLUMN_CHILD_ID + " LONG)";
+    public static final String SQL_SELECT_TABLE_INVOICE =
+            "SELECT * FROM " + INVOICE.TABLE_NAME + ";";
 
     //DEFAULT VALUES - Create default group value
     public static final String SQL_CREATE_USER_DEFAULT_VALUES =
@@ -183,6 +206,10 @@ public final class DatabaseModel
     //**************************
     //DATA TABLES
     //**************************
+
+    /***
+     * TEXT - START
+     */
     public static class TEXT implements BaseColumns {
         //Pimary
         public static final String TABLE_NAME = "text_";
@@ -194,11 +221,16 @@ public final class DatabaseModel
 
     public static final String SQL_CREATE_TABLE_TEXT =
             "CREATE TABLE " + TEXT.TABLE_NAME + " (" +
-                    TEXT.COLUMN_TEXT_ID + " LONG PRIMARY KEY," +
+                    TEXT.COLUMN_TEXT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     TEXT.COLUMN_TIMESTAMP + " DEFAULT CURRENT_TIMESTAMP," +
                     TEXT.COLUMN_TEXT_CHILD_ID + " LONG," +
                     TEXT.COLUMN_TEXT_DATA + " TEXT)";
+    public static final String SQL_SELECT_TABLE_TEXT =
+            "SELECT * FROM " + TEXT.TABLE_NAME + ";";
 
+    /***
+     * PHOTO - START
+     */
     public static class PHOTO implements BaseColumns {
         //Pimary
         public static final String TABLE_NAME = "photo_";
@@ -210,11 +242,16 @@ public final class DatabaseModel
 
     public static final String SQL_CREATE_TABLE_PHOTO =
             "CREATE TABLE " + PHOTO.TABLE_NAME + " (" +
-                    PHOTO.COLUMN_PHOTO_ID + " LONG PRIMARY KEY," +
+                    PHOTO.COLUMN_PHOTO_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     PHOTO.COLUMN_TIMESTAMP + " DEFAULT CURRENT_TIMESTAMP," +
                     PHOTO.COLUMN_PHOTO_CHILD_ID + " LONG," +
                     PHOTO.COLUMN_PHOTO_LOCATION + " TEXT)";
+    public static final String SQL_SELECT_TABLE_PHOTO =
+            "SELECT * FROM " + PHOTO.TABLE_NAME + ";";
 
+    /***
+     * LOCATION - START
+     */
     public static class LOCATION implements BaseColumns {
         //Pimary
         public static final String TABLE_NAME = "location_";
@@ -229,14 +266,19 @@ public final class DatabaseModel
 
     public static final String SQL_CREATE_TABLE_LOCATION =
             "CREATE TABLE " + LOCATION.TABLE_NAME + " (" +
-                    LOCATION.COLUMN_LOCATION_ID + " LONG PRIMARY KEY," +
+                    LOCATION.COLUMN_LOCATION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     LOCATION.COLUMN_TIMESTAMP + " DEFAULT CURRENT_TIMESTAMP," +
                     LOCATION.COLUMN_LOCATION_CHILD_ID + " LONG," +
                     LOCATION.COLUMN_LOCATION_LATITUDE + " TEXT," +
                     LOCATION.COLUMN_LOCATION_LONGITUDE + " TEXT," +
                     LOCATION.COLUMN_LOCATION_ADDRESS + " TEXT," +
                     LOCATION.COLUMN_IMAGE_LOCATION + " TEXT)";
+    public static final String SQL_SELECT_TABLE_LOCATION =
+            "SELECT * FROM " + LOCATION.TABLE_NAME + ";";
 
+    /***
+     * SKETCH - START
+     */
     public static class SKETCH implements BaseColumns {
         //Pimary
         public static final String TABLE_NAME = "sketch_";
@@ -248,11 +290,16 @@ public final class DatabaseModel
 
     public static final String SQL_CREATE_TABLE_SKETCH =
             "CREATE TABLE " + SKETCH.TABLE_NAME + " (" +
-                    SKETCH.COLUMN_SKETCH_ID + " LONG PRIMARY KEY," +
+                    SKETCH.COLUMN_SKETCH_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     SKETCH.COLUMN_TIMESTAMP + " DEFAULT CURRENT_TIMESTAMP," +
                     SKETCH.COLUMN_SKETCH_CHILD_ID + " LONG," +
                     SKETCH.COLUMN_SKETCH_LOCATION + " TEXT)";
+    public static final String SQL_SELECT_TABLE_SKETCH =
+            "SELECT * FROM " + SKETCH.TABLE_NAME + ";";
 
+    /***
+     * AUDIO_RECORDING - START
+     */
     public static class AUDIO_RECORDING implements BaseColumns {
         //Pimary
         public static final String TABLE_NAME = "audio_recording_";
@@ -265,12 +312,17 @@ public final class DatabaseModel
 
     public static final String SQL_CREATE_TABLE_AUDIO_RECORDING =
             "CREATE TABLE " + AUDIO_RECORDING.TABLE_NAME + " (" +
-                    AUDIO_RECORDING.COLUMN_AUDIO_RECORDING_ID + " LONG PRIMARY KEY," +
+                    AUDIO_RECORDING.COLUMN_AUDIO_RECORDING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     AUDIO_RECORDING.COLUMN_TIMESTAMP + " DEFAULT CURRENT_TIMESTAMP," +
                     AUDIO_RECORDING.COLUMN_AUDIO_RECORDING_CHILD_ID + " LONG," +
                     AUDIO_RECORDING.COLUMN_AUDIO_RECORDING_LOCATION + " TEXT," +
                     AUDIO_RECORDING.COLUMN_AUDIO_RECORDING_IMAGE_LOCATION + " TEXT)";
+    public static final String SQL_SELECT_TABLE_AUDIO_RECORDING =
+            "SELECT * FROM " + AUDIO_RECORDING.TABLE_NAME + ";";
 
+    /***
+     * VIDEO_RECORDING - START
+     */
     public static class VIDEO_RECORDING implements BaseColumns {
         //Pimary
         public static final String TABLE_NAME = "video_";
@@ -283,12 +335,17 @@ public final class DatabaseModel
 
     public static final String SQL_CREATE_TABLE_VIDEO_RECORDING =
             "CREATE TABLE " + VIDEO_RECORDING.TABLE_NAME + " (" +
-                    VIDEO_RECORDING.COLUMN_VIDEO_RECORDING_ID + " LONG PRIMARY KEY," +
+                    VIDEO_RECORDING.COLUMN_VIDEO_RECORDING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     VIDEO_RECORDING.COLUMN_TIMESTAMP + " DEFAULT CURRENT_TIMESTAMP," +
                     VIDEO_RECORDING.COLUMN_VIDEO_RECORDING_CHILD_ID + " LONG," +
                     VIDEO_RECORDING.COLUMN_VIDEO_RECORDING_LOCATION + " TEXT," +
                     VIDEO_RECORDING.COLUMN_VIDEO_THUMNAIL_LOCATION + " TEXT)";
+    public static final String SQL_SELECT_TABLE_VIDEO_RECORDING =
+            "SELECT * FROM " + VIDEO_RECORDING.TABLE_NAME + ";";
 
+    /***
+     * FILE - START
+     */
     public static class FILE implements BaseColumns {
         //Pimary
         public static final String TABLE_NAME = "file_";
@@ -304,9 +361,11 @@ public final class DatabaseModel
 
     public static final String SQL_CREATE_TABLE_FILE_RECORDING =
             "CREATE TABLE " + FILE.TABLE_NAME + " (" +
-                    FILE.COLUMN_FILE_ID + " LONG PRIMARY KEY," +
+                    FILE.COLUMN_FILE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL," +
                     FILE.COLUMN_TIMESTAMP + " DEFAULT CURRENT_TIMESTAMP," +
                     FILE.COLUMN_FILE_RECORDING_CHILD_ID + " LONG," +
                     FILE.COLUMN_FILE_RECORDING_LOCATION + " TEXT," +
                     FILE.COLUMN_FILE_NAME + " TEXT)";
+    public static final String SQL_SELECT_TABLE_FILE_RECORDING =
+            "SELECT * FROM " + FILE.TABLE_NAME + ";";
 }

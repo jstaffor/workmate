@@ -50,7 +50,7 @@ public class PopupLocationInput extends DialogFragment implements View.OnClickLi
         btn_create = viewPopupLocationInput.findViewById(R.id.popup_locationinput_btn_create);
         btn_create.setOnClickListener(this);
 
-        if(AppSettings.DEBUG_MODE) {
+        if(AppSettings.APP_DEBUG_MODE) {
             Log.d(TAG, "onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) | Location.LATITUDE) | " +getArguments().getString(Location.LATITUDE));
             Log.d(TAG, "onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) | Location.LONGITUDE) | " +getArguments().getString(Location.LONGITUDE));
             Log.d(TAG, "onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) | Location.ADDRESS) | " +(getArguments().getString(Location.ADDRESS)).trim());
@@ -85,7 +85,7 @@ public class PopupLocationInput extends DialogFragment implements View.OnClickLi
 
                 final String imageAbsolutePath = accessInternalStorage.saveBitmapToInternalStorage(getBitmap(), ((ActivityCreateAndAdd) getActivity()).getDataModel().getlParent(), ((ActivityCreateAndAdd) getActivity()).getDataModel().getlChild());
 
-                if(AppSettings.DEBUG_MODE)
+                if(AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "onClick(View view) | saveBitmapToInternalStorage(getBitmap(), ((ActivityCreateAndAdd) getActivity()).getDataModel().getlParent(), ((ActivityCreateAndAdd) getActivity()).getDataModel().getlChild()) | " +imageAbsolutePath);
 
                 //(2) Get image that represents the audio
@@ -125,7 +125,7 @@ public class PopupLocationInput extends DialogFragment implements View.OnClickLi
         locationinput_webview.layout(locationinput_webview.getLeft(), locationinput_webview.getTop(), locationinput_webview.getRight(), locationinput_webview.getBottom());
         locationinput_webview.draw(curCanvas);
 
-        if(AppSettings.DEBUG_MODE)
+        if(AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "getBitmap() | curBitmap.getAllocationByteCount() | " + curBitmap.getAllocationByteCount());
 
         return curBitmap;

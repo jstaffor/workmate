@@ -47,7 +47,7 @@ public class DatabaseModelHelper extends SQLiteOpenHelper
         db.execSQL(DatabaseModel.SQL_CREATE_TEMPLATE_DEFAULT_VALUES);
         db.execSQL(DatabaseModel.SQL_CREATE_INVOICE_DEFAULT_VALUES);
 
- //       if(AppSettings.DEBUG_MODE) {
+        if(AppSettings.DATABASE_DEBUG_MODE) {
             Log.d(TAG, "DatabaseModel.SQL_CREATE_TABLE_TEXT | " + DatabaseModel.SQL_CREATE_TABLE_TEXT);
             Log.d(TAG, "DatabaseModel.SQL_CREATE_TABLE_PARENT | " + DatabaseModel.SQL_CREATE_TABLE_PARENT);
             Log.d(TAG, "DatabaseModel.SQL_CREATE_TABLE_CHILD | " + DatabaseModel.SQL_CREATE_TABLE_CHILD);
@@ -63,7 +63,7 @@ public class DatabaseModelHelper extends SQLiteOpenHelper
             Log.d(TAG, "DatabaseModel.SQL_CREATE_PARENT_DEFAULT_VALUES | " + DatabaseModel.SQL_CREATE_PARENT_DEFAULT_VALUES);
             Log.d(TAG, "DatabaseModel.SQL_CREATE_TEMPLATE_DEFAULT_VALUES | " + DatabaseModel.SQL_CREATE_TEMPLATE_DEFAULT_VALUES);
             Log.d(TAG, "DatabaseModel.SQL_CREATE_INVOICE_DEFAULT_VALUES | " + DatabaseModel.SQL_CREATE_INVOICE_DEFAULT_VALUES);
-  //      }
+        }
     }
 
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

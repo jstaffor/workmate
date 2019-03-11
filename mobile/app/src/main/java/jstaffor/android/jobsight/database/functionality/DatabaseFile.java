@@ -45,19 +45,23 @@ public class DatabaseFile extends DatabaseAccess
             values.put(DatabaseModel.FILE.COLUMN_FILE_RECORDING_LOCATION, COLUMN_FILE_RECORDING_LOCATION);
             values.put(DatabaseModel.FILE.COLUMN_FILE_NAME, COLUMN_FILE_NAME);
 
-            newRowGroupId = sqliteDatabase.insert(DatabaseModel.FILE.TABLE_NAME, null, values);
-
-            if(AppSettings.DEBUG_MODE) {
-                Log.d(TAG, "createFileEntry() | Long COLUMN_FILE_RECORDING_CHILD_ID | " +COLUMN_FILE_RECORDING_CHILD_ID);
-                Log.d(TAG, "createFileEntry() | Long COLUMN_FILE_RECORDING_LOCATION | " +COLUMN_FILE_RECORDING_LOCATION);
-                Log.d(TAG, "createFileEntry() | Long COLUMN_FILE_NAME | " +COLUMN_FILE_NAME);
-                Log.d(TAG, "createFileEntry() | sqliteDatabase.insert(DatabaseModel.FILE.TABLE_NAME, null, values) | " +newRowGroupId);
+            if(AppSettings.DATABASE_DEBUG_MODE) {
+                Log.d(TAG, "createFileEntry(Long COLUMN_FILE_RECORDING_CHILD_ID, String COLUMN_FILE_RECORDING_LOCATION, String COLUMN_FILE_NAME) | Long COLUMN_FILE_RECORDING_CHILD_ID | " + COLUMN_FILE_RECORDING_CHILD_ID);
+                Log.d(TAG, "createFileEntry(Long COLUMN_FILE_RECORDING_CHILD_ID, String COLUMN_FILE_RECORDING_LOCATION, String COLUMN_FILE_NAME) | Long COLUMN_FILE_RECORDING_LOCATION | " + COLUMN_FILE_RECORDING_LOCATION);
+                Log.d(TAG, "createFileEntry(Long COLUMN_FILE_RECORDING_CHILD_ID, String COLUMN_FILE_RECORDING_LOCATION, String COLUMN_FILE_NAME) | Long COLUMN_FILE_NAME | " + COLUMN_FILE_NAME);
             }
+
+            newRowGroupId = sqliteDatabase.insert(DatabaseModel.FILE.TABLE_NAME, null, values);
         }
         finally
         {
-            closeDownDatabaseConnections();
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "createFileEntry() | finally | newRowGroupId = " +newRowGroupId);
+                listDatabaseValues();
+            }
 
+            closeDownDatabaseConnections();
             if(newRowGroupId == -1L) //sqliteDatabase.insert @return the row ID of the newly inserted row, or -1 if an error occurred
                 return false;
             else
@@ -104,15 +108,21 @@ public class DatabaseFile extends DatabaseAccess
                         cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.FILE.COLUMN_FILE_NAME))
                 ));
 
-                if(AppSettings.DEBUG_MODE) {
-                    Log.d(TAG, "getFileDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.FILE.COLUMN_TIMESTAMP))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.FILE.COLUMN_TIMESTAMP)));
-                    Log.d(TAG, "getFileDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.FILE.COLUMN_FILE_RECORDING_LOCATION))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.FILE.COLUMN_FILE_RECORDING_LOCATION)));
-                    Log.d(TAG, "getFileDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.FILE.COLUMN_FILE_NAME))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.FILE.COLUMN_FILE_NAME)));
+                if(AppSettings.DATABASE_DEBUG_MODE) {
+                    Log.d(TAG, "getFileDataFromDatabase(Long lChild) | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.FILE.COLUMN_TIMESTAMP))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.FILE.COLUMN_TIMESTAMP)));
+                    Log.d(TAG, "getFileDataFromDatabase(Long lChild) | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.FILE.COLUMN_FILE_RECORDING_LOCATION))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.FILE.COLUMN_FILE_RECORDING_LOCATION)));
+                    Log.d(TAG, "getFileDataFromDatabase(Long lChild) | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.FILE.COLUMN_FILE_NAME))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.FILE.COLUMN_FILE_NAME)));
                 }
             }
         }
         finally
         {
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "getFileDataFromDatabase(Long lChild) | finally | lChild = " +lChild);
+                listDatabaseValues();
+            }
+
             closeDownDatabaseConnections();
         }
 

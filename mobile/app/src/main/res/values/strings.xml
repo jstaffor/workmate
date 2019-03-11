@@ -178,10 +178,10 @@
     <string name="popup_home_manage_crud_add_text_text_off">Text capture off</string>
     <string name="popup_home_manage_crud_add_photo_photo_on">Photo recording on</string>
     <string name="popup_home_manage_crud_add_photo_photo_off">Photo recording off</string>
-    <string name="popup_home_manage_crud_add_sketch_sketch_location_on">Current Location recording on</string>
-    <string name="popup_home_manage_crud_add_sketch_sketch_location_off">Current Location recording off</string>
-    <string name="popup_home_manage_crud_add_current_loc_current_location_on">Sketch capture on</string>
-    <string name="popup_home_manage_crud_add_current_loc_current_location_off">Sketch capture off</string>
+    <string name="popup_home_manage_crud_add_sketch_sketch_location_on">Sketch capture on</string>
+    <string name="popup_home_manage_crud_add_sketch_sketch_location_off">Sketch capture off</string>
+    <string name="popup_home_manage_crud_add_current_loc_current_location_on">Current Location recording on</string>
+    <string name="popup_home_manage_crud_add_current_loc_current_location_off">Current Location recording off</string>
     <string name="popup_home_manage_crud_add_audio_recording_audio_recording_on">Audio recording on</string>
     <string name="popup_home_manage_crud_add_audio_recording_audio_recording_off">Audio recording off</string>
     <string name="popup_home_manage_crud_add_video_recording_video_recording_on">Video recording on</string>

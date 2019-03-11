@@ -21,7 +21,9 @@ import jstaffor.android.jobsight.database.DatabaseAccess;
 import jstaffor.android.jobsight.datamodel.DataModel;
 import jstaffor.android.jobsight.datamodel.utilities.DataModelUtilities;
 
-//***TODO*** - Figure out what i have to do to use gson apache in this app, ie: licensing
+//***TODO*** - (a) | Figure out what i have to do to use gson apache in this app, ie: licensing
+//***TODO*** - (b) | The App has been setup to store Long as the primary key in the database however, sqlite won't allow for Long autoincrement. Works but is dangerous.
+//***TODO*** - (c) | For initial release, features (1)ActivityHome.btn_job_invoice & (2) , had their buttons set to "setVisibility(View.GONE);"
 
 public class ActivityHome extends Activity implements View.OnClickListener,
         PopupHome_Create.InterfacePopupCreateParentChild,
@@ -48,13 +50,16 @@ public class ActivityHome extends Activity implements View.OnClickListener,
         btn_job_download = findViewById(R.id.activity_home_btn_job_download);
         btn_job_invoice = findViewById(R.id.activity_home_btn_job_invoice);
         btn_job_manage = findViewById(R.id.activity_home_btn_job_manage);
+        //Not ready for initial release
+        btn_job_invoice.setVisibility(View.GONE);
 
         btn_job_create.setOnClickListener(this);
         btn_job_open.setOnClickListener(this);
         btn_job_view.setOnClickListener(this);
         btn_job_download.setOnClickListener(this);
-        btn_job_invoice.setOnClickListener(this);
         btn_job_manage.setOnClickListener(this);
+        //Not ready for initial release
+        //btn_job_invoice.setOnClickListener(this);
 
         databaseAccess = new DatabaseAccess(this);
         databaseAccess.initializeDatamodelUsingDatabaseData(DataModel.USER_GUID);
@@ -216,6 +221,6 @@ public class ActivityHome extends Activity implements View.OnClickListener,
 
     private void initializeAppSettings()
     {
-        AppSettings.DEBUG_MODE = Boolean.parseBoolean( getString(R.string.debug_mode) );
+        AppSettings.APP_DEBUG_MODE = Boolean.parseBoolean( getString(R.string.debug_mode) );
     }
 }

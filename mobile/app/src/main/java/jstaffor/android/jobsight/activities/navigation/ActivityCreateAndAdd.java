@@ -193,7 +193,7 @@ public class ActivityCreateAndAdd extends Activity implements View.OnClickListen
 
                 final String absolutePath = accessInternalStorage.saveBitmapToInternalStorage((Bitmap) intent.getExtras().get("data"), dataModel.getlParent(), dataModel.getlChild());
 
-                if(AppSettings.DEBUG_MODE)
+                if(AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "onActivityResult accessInternalStorage.saveBitmapToInternalStorage() | absolutePath | " + absolutePath);
 
                 if (absolutePath != null)
@@ -227,7 +227,7 @@ public class ActivityCreateAndAdd extends Activity implements View.OnClickListen
                 //(2)Get absolute path to saved video
                 final String absolutePathToCurrentFile = accessInternalStorage.getRealPathFromURI(intent.getData());
 
-                if(AppSettings.DEBUG_MODE)
+                if(AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "onActivityResult accessInternalStorage.getRealPathFromURI() | absolutePathToCurrentFile | " + absolutePathToCurrentFile);
 
                 //(3) Create a myFile so that we can copy one myFile to another
@@ -236,13 +236,13 @@ public class ActivityCreateAndAdd extends Activity implements View.OnClickListen
                 //(4) Copy myFile internally and delete original myFile
                 final String absolutePathToNewFile = accessInternalStorage.copyFileFrom_x_to_y_(x, accessInternalStorage.getVideoFileWithRandomName( dataModel.getlParent(), dataModel.getlChild() ));
 
-                if(AppSettings.DEBUG_MODE)
+                if(AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "onActivityResult accessInternalStorage.getRealPathFromURI() | absolutePathToNewFile | " + absolutePathToNewFile);
 
                 //(5) Create Thumbnail
                 final String imageLocation = accessInternalStorage.saveBitmapToInternalStorage( ThumbnailUtils.createVideoThumbnail(absolutePathToNewFile, MediaStore.Video.Thumbnails.MICRO_KIND), dataModel.getlParent(), dataModel.getlChild());
 
-                if(AppSettings.DEBUG_MODE)
+                if(AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "onActivityResult accessInternalStorage.saveBitmapToInternalStorage() | imageLocation | " + imageLocation);
 
                 if (absolutePathToNewFile != null && imageLocation != null)
@@ -252,7 +252,7 @@ public class ActivityCreateAndAdd extends Activity implements View.OnClickListen
 
                     if(hasFileBeenDeleted)
                     {
-                        if(AppSettings.DEBUG_MODE)
+                        if(AppSettings.APP_DEBUG_MODE)
                             Log.d(TAG, "onActivityResult x.delete() | hasFileBeenDeleted | " + hasFileBeenDeleted);
 
                         MediaScannerConnection.scanFile( this, new String[]{absolutePathToCurrentFile}, null, null);
@@ -310,7 +310,7 @@ public class ActivityCreateAndAdd extends Activity implements View.OnClickListen
                     nameOfFile = memeForFile;
             }
 
-            if(AppSettings.DEBUG_MODE){
+            if(AppSettings.APP_DEBUG_MODE){
                 Log.d(TAG, "onActivityResult(int requestCode, int resultCode, Intent intent) DataModel.SETTING_FILE_INPUT | memeForFile | " + memeForFile);
                 Log.d(TAG, "onActivityResult(int requestCode, int resultCode, Intent intent) DataModel.SETTING_FILE_INPUT | nameOfFile | " + nameOfFile);
             }
@@ -325,7 +325,7 @@ public class ActivityCreateAndAdd extends Activity implements View.OnClickListen
                 else
                     fileToSave = new File(accessInternalStorage.createChildDirForParentChild(dataModel.getlParent(), dataModel.getlChild()), UUID.randomUUID().toString());
 
-                if(AppSettings.DEBUG_MODE)
+                if(AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "onActivityResult(int requestCode, int resultCode, Intent intent) DataModel.SETTING_FILE_INPUT | fileToSave | " + fileToSave);
 
                 //(2) Out a stream for inputting data
@@ -409,7 +409,7 @@ public class ActivityCreateAndAdd extends Activity implements View.OnClickListen
             //(2) Create and populates DTO with data for popup
             Bundle args = new Bundle();
 
-            if(AppSettings.DEBUG_MODE) {
+            if(AppSettings.APP_DEBUG_MODE) {
                 Log.d(TAG, "Location.ADDRESS: " + captureCurrentLocation.getAddressFromCoordinates(captureCurrentLocation.getLatitude(), captureCurrentLocation.getLongitude()) );
                 Log.d(TAG, "Location.LATITUDE: " + String.valueOf(captureCurrentLocation.getLatitude()) );
                 Log.d(TAG, "Location.LONGITUDE: " + String.valueOf(captureCurrentLocation.getLongitude()) );

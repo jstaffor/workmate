@@ -43,18 +43,22 @@ public class DatabaseSketch extends DatabaseAccess
             values.put(DatabaseModel.SKETCH.COLUMN_SKETCH_CHILD_ID, COLUMN_SIGNATURE_CHILD_ID);
             values.put(DatabaseModel.SKETCH.COLUMN_SKETCH_LOCATION, COLUMN_SIGNATURE_LOCATION);
 
-            newRowGroupId = sqliteDatabase.insert(DatabaseModel.SKETCH.TABLE_NAME, null, values);
-
-            if(AppSettings.DEBUG_MODE) {
-                Log.d(TAG, "createSketchEntry() | Long COLUMN_SIGNATURE_CHILD_ID | " +COLUMN_SIGNATURE_CHILD_ID);
-                Log.d(TAG, "createSketchEntry() | Long COLUMN_SIGNATURE_LOCATION | " +COLUMN_SIGNATURE_LOCATION);
-                Log.d(TAG, "createSketchEntry() | sqliteDatabase.insert(DatabaseModel.SKETCH.TABLE_NAME, null, values) | " +newRowGroupId);
+            if(AppSettings.DATABASE_DEBUG_MODE) {
+                Log.d(TAG, "createSketchEntry(Long COLUMN_SIGNATURE_CHILD_ID, String COLUMN_SIGNATURE_LOCATION) | Long COLUMN_SIGNATURE_CHILD_ID | " +COLUMN_SIGNATURE_CHILD_ID);
+                Log.d(TAG, "createSketchEntry(Long COLUMN_SIGNATURE_CHILD_ID, String COLUMN_SIGNATURE_LOCATION) | Long COLUMN_SIGNATURE_LOCATION | " +COLUMN_SIGNATURE_LOCATION);
             }
+
+            newRowGroupId = sqliteDatabase.insert(DatabaseModel.SKETCH.TABLE_NAME, null, values);
         }
         finally
         {
-            closeDownDatabaseConnections();
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "createSketchEntry() | finally | newRowGroupId = " +newRowGroupId);
+                listDatabaseValues();
+            }
 
+            closeDownDatabaseConnections();
             if(newRowGroupId == -1L) //sqliteDatabase.insert @return the row ID of the newly inserted row, or -1 if an error occurred
                 return false;
             else
@@ -83,6 +87,9 @@ public class DatabaseSketch extends DatabaseAccess
             String[] selectionArgs = {lChild.toString()};
             String sortOrder = DatabaseModel.SKETCH.COLUMN_TIMESTAMP + " ASC";
 
+            if(AppSettings.DATABASE_DEBUG_MODE)
+                Log.d(TAG, "getPhotoDataFromDatabase(Long lChild) | lChild | " + lChild);
+
             cursor = sqliteDatabase.query(
                     DatabaseModel.SKETCH.TABLE_NAME,     // The table to query
                     projection,                        // The array of columns to return (pass null to get all)
@@ -100,14 +107,20 @@ public class DatabaseSketch extends DatabaseAccess
                         cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.SKETCH.COLUMN_SKETCH_LOCATION))
                 ));
 
-                if(AppSettings.DEBUG_MODE) {
-                    Log.d(TAG, "getSketchDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.SKETCH.COLUMN_TIMESTAMP))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.SKETCH.COLUMN_TIMESTAMP)));
-                    Log.d(TAG, "getSketchDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.SKETCH.COLUMN_SKETCH_LOCATION))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.SKETCH.COLUMN_SKETCH_LOCATION)));
+                if(AppSettings.DATABASE_DEBUG_MODE) {
+                    Log.d(TAG, "getSketchDataFromDatabase(Long lChild) | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.SKETCH.COLUMN_TIMESTAMP))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.SKETCH.COLUMN_TIMESTAMP)));
+                    Log.d(TAG, "getSketchDataFromDatabase(Long lChild) | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.SKETCH.COLUMN_SKETCH_LOCATION))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.SKETCH.COLUMN_SKETCH_LOCATION)));
                 }
             }
         }
         finally
         {
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "getSketchDataFromDatabase(Long lChild) | finally | lChild = " +lChild);
+                listDatabaseValues();
+            }
+
             closeDownDatabaseConnections();
         }
 

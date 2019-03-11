@@ -6,9 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 
 import jstaffor.android.jobsight.appsettings.AppSettings;
@@ -54,7 +52,7 @@ public class DatabaseAccess
             while (cursor.moveToNext()) {
                 USER_GUID = cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseModel.USER.COLUMN_USER_ID));
 
-                if(AppSettings.DEBUG_MODE)
+                if(AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "initializeDatamodelUsingDatabaseData(Long USER_GUID) | cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseModel.USER.COLUMN_USER_ID)) | " +USER_GUID);
             }
             //Close off open items
@@ -105,7 +103,7 @@ public class DatabaseAccess
 
                 dataModel.getMapParentName_ParentID().put(COLUMN_PARENT_NAME, COLUMN_PARENT_ID);
 
-                if(AppSettings.DEBUG_MODE) {
+                if(AppSettings.APP_DEBUG_MODE) {
                     Log.d(TAG, "populateDataModelUsingDatabaseData(Long USER_GUID) | cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseModel.PARENT.COLUMN_PARENT_ID)) | " + COLUMN_PARENT_ID);
                     Log.d(TAG, "populateDataModelUsingDatabaseData(Long USER_GUID) | cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseModel.PARENT.COLUMN_PARENT_NAME)) | " + COLUMN_PARENT_NAME);
                 }
@@ -151,7 +149,7 @@ public class DatabaseAccess
 
                     dataModel.getMapParentID_mapChildNameChildID().put(COLUMN_PARENT_ID, mapChildNameChildID);
 
-                    if(AppSettings.DEBUG_MODE) {
+                    if(AppSettings.APP_DEBUG_MODE) {
                         Log.d(TAG, "populateDataModelUsingDatabaseData(Long USER_GUID) | cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseModel.CHILD.COLUMN_PARENT_ID)) | " + COLUMN_PARENT_ID);
                         Log.d(TAG, "populateDataModelUsingDatabaseData(Long USER_GUID) | cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseModel.CHILD.COLUMN_CHILD_ID)) | " + COLUMN_CHILD_ID);
                         Log.d(TAG, "populateDataModelUsingDatabaseData(Long USER_GUID) | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.CHILD.COLUMN_CHILD_NAME)) | " + COLUMN_CHILD_NAME);
@@ -192,7 +190,7 @@ public class DatabaseAccess
 
                 dataModel.getMapTempName_TempSetting().put(COLUMN_TEMPLATE_NAME, COLUMN_TEMPLATE_SETTING);
 
-                if(AppSettings.DEBUG_MODE) {
+                if(AppSettings.APP_DEBUG_MODE) {
                     Log.d(TAG, "populateDataModelUsingDatabaseData(Long USER_GUID) | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEMPLATE.COLUMN_TEMPLATE_NAME)) | " + COLUMN_TEMPLATE_NAME);
                     Log.d(TAG, "populateDataModelUsingDatabaseData(Long USER_GUID) | cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseModel.TEMPLATE.COLUMN_TEMPLATE_SETTING)) | " + COLUMN_TEMPLATE_SETTING);
                 }
@@ -204,6 +202,47 @@ public class DatabaseAccess
         }
 
         return dataModel;
+    }
+
+    protected void listDatabaseValues()
+    {
+        if (sqliteDatabase != null)
+        {
+            if (sqliteDatabase.isOpen())
+            {
+                Log.d(TAG, getTableAsString(sqliteDatabase, DatabaseModel.SQL_SELECT_TABLE_TEXT) );
+                Log.d(TAG, getTableAsString(sqliteDatabase, DatabaseModel.SQL_SELECT_TABLE_PARENT) );
+                Log.d(TAG, getTableAsString(sqliteDatabase, DatabaseModel.SQL_SELECT_TABLE_CHILD) );
+                Log.d(TAG, getTableAsString(sqliteDatabase, DatabaseModel.SQL_SELECT_TABLE_TEMPLATE) );
+                Log.d(TAG, getTableAsString(sqliteDatabase, DatabaseModel.SQL_SELECT_TABLE_INVOICE) );
+                Log.d(TAG, getTableAsString(sqliteDatabase, DatabaseModel.SQL_SELECT_TABLE_USER) );
+                Log.d(TAG, getTableAsString(sqliteDatabase, DatabaseModel.SQL_SELECT_TABLE_PHOTO) );
+                Log.d(TAG, getTableAsString(sqliteDatabase, DatabaseModel.SQL_SELECT_TABLE_LOCATION) );
+                Log.d(TAG, getTableAsString(sqliteDatabase, DatabaseModel.SQL_SELECT_TABLE_SKETCH) );
+                Log.d(TAG, getTableAsString(sqliteDatabase, DatabaseModel.SQL_SELECT_TABLE_AUDIO_RECORDING) );
+                Log.d(TAG, getTableAsString(sqliteDatabase, DatabaseModel.SQL_SELECT_TABLE_VIDEO_RECORDING) );
+                Log.d(TAG, getTableAsString(sqliteDatabase, DatabaseModel.SQL_SELECT_TABLE_FILE_RECORDING) );
+            }
+        }
+    }
+
+    private String getTableAsString(SQLiteDatabase db, String sqlStatement)
+    {
+        String tableString = String.format("Table %s:\n", sqlStatement);
+        Cursor allRows  = db.rawQuery(sqlStatement, null);
+        if (allRows.moveToFirst() ){
+            String[] columnNames = allRows.getColumnNames();
+            do {
+                for (String name: columnNames) {
+                    tableString += String.format("%s: %s\n", name,
+                            allRows.getString(allRows.getColumnIndex(name)));
+                }
+                tableString += "\n";
+
+            } while (allRows.moveToNext());
+        }
+
+        return tableString;
     }
 
     protected void closeDownDatabaseConnections()

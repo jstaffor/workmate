@@ -44,18 +44,22 @@ public class DatabaseText extends DatabaseAccess
             values.put(DatabaseModel.TEXT.COLUMN_TEXT_CHILD_ID, COLUMN_TEXT_CHILD_ID);
             values.put(DatabaseModel.TEXT.COLUMN_TEXT_DATA, COLUMN_TEXT_DATA);
 
-            newRowGroupId = sqliteDatabase.insert(DatabaseModel.TEXT.TABLE_NAME, null, values);
-
-            if(AppSettings.DEBUG_MODE) {
-                Log.d(TAG, "createTextEntry() | Long COLUMN_TEXT_CHILD_ID | " +COLUMN_TEXT_CHILD_ID);
-                Log.d(TAG, "createTextEntry() | Long COLUMN_TEXT_DATA | " +COLUMN_TEXT_DATA);
-                Log.d(TAG, "createTextEntry() | sqliteDatabase.insert(DatabaseModel.TEXT.TABLE_NAME, null, values) | " +newRowGroupId);
+            if(AppSettings.DATABASE_DEBUG_MODE) {
+                Log.d(TAG, "createTextEntry(Long COLUMN_TEXT_CHILD_ID, String COLUMN_TEXT_DATA) | Long COLUMN_TEXT_CHILD_ID | " + COLUMN_TEXT_CHILD_ID);
+                Log.d(TAG, "createTextEntry(Long COLUMN_TEXT_CHILD_ID, String COLUMN_TEXT_DATA) | Long COLUMN_TEXT_DATA | " + COLUMN_TEXT_DATA);
             }
+
+            newRowGroupId = sqliteDatabase.insert(DatabaseModel.TEXT.TABLE_NAME, null, values);
         }
         finally
         {
-            closeDownDatabaseConnections();
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "createTextEntry() | finally | newRowGroupId = " +newRowGroupId);
+                listDatabaseValues();
+            }
 
+            closeDownDatabaseConnections();
             if(newRowGroupId == -1L) //sqliteDatabase.insert @return the row ID of the newly inserted row, or -1 if an error occurred
                 return false;
             else
@@ -84,6 +88,9 @@ public class DatabaseText extends DatabaseAccess
             String[] selectionArgs = {lChild.toString()};
             String sortOrder = DatabaseModel.TEXT.COLUMN_TIMESTAMP + " ASC";
 
+            if(AppSettings.DATABASE_DEBUG_MODE)
+                Log.d(TAG, "getTextDataFromDatabase(Long lChild) | lChild | " + lChild);
+
             cursor = sqliteDatabase.query(
                     DatabaseModel.TEXT.TABLE_NAME,     // The table to query
                     projection,                        // The array of columns to return (pass null to get all)
@@ -101,14 +108,20 @@ public class DatabaseText extends DatabaseAccess
                         cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TEXT_DATA))
                 ));
 
-                if(AppSettings.DEBUG_MODE) {
-                    Log.d(TAG, "getTextDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TIMESTAMP))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TIMESTAMP)));
-                    Log.d(TAG, "getTextDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TEXT_DATA))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TEXT_DATA)));
+                if(AppSettings.DATABASE_DEBUG_MODE) {
+                    Log.d(TAG, "getTextDataFromDatabase(Long lChild) | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TIMESTAMP))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TIMESTAMP)));
+                    Log.d(TAG, "getTextDataFromDatabase(Long lChild) | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TEXT_DATA))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TEXT_DATA)));
                 }
             }
         }
         finally
         {
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "getTextDataFromDatabase(Long lChild) | finally | lChild = " +lChild);
+                listDatabaseValues();
+            }
+
             closeDownDatabaseConnections();
         }
 

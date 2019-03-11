@@ -16,14 +16,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textOff="@string/activity_textinput_btn_text_clear" />
+            android:text="@string/activity_textinput_btn_text_clear" />
 
         <Button
             android:id="@+id/activity_textinput_btn_text_save"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textOff="@string/activity_textinput_btn_text_save" />
+            android:text="@string/activity_textinput_btn_text_save" />
     </LinearLayout>
 
     <EditText
@@ -31,7 +31,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minLines="5"
-        android:hint="@string/activity_sketchinput_btn_signature_save" />
         android:inputType="textShortMessage|textAutoCorrect"
         android:layout_below="@+id/activitytextinput_linlay_text_capture" />
 
