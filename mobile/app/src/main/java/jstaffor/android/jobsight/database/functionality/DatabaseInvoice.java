@@ -45,7 +45,7 @@ public class DatabaseInvoice extends DatabaseAccess
 
             newRowGroupId = sqliteDatabase.insert(DatabaseModel.TEXT.TABLE_NAME, null, values);
 
-            if(AppSettings.DEBUG_MODE) {
+            if(AppSettings.DATABASE_DEBUG_MODE) {
                 Log.d(TAG, "createTextEntry() | Long COLUMN_TEXT_CHILD_ID | " +COLUMN_TEXT_CHILD_ID);
                 Log.d(TAG, "createTextEntry() | Long COLUMN_TEXT_DATA | " +COLUMN_TEXT_DATA);
                 Log.d(TAG, "createTextEntry() | sqliteDatabase.insert(DatabaseModel.TEXT.TABLE_NAME, null, values) | " +newRowGroupId);
@@ -53,8 +53,12 @@ public class DatabaseInvoice extends DatabaseAccess
         }
         finally
         {
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "createAudioRecordingEntry() | finally | newRowGroupId = " +newRowGroupId);
+                listDatabaseValues();
+            }
             closeDownDatabaseConnections();
-
             if(newRowGroupId == -1L) //sqliteDatabase.insert @return the row ID of the newly inserted row, or -1 if an error occurred
                 return false;
             else
@@ -117,7 +121,7 @@ public class DatabaseInvoice extends DatabaseAccess
                         cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseModel.INVOICE.COLUMN_CHILD_ID))
                 ));
 
-                if(AppSettings.DEBUG_MODE) {
+                if(AppSettings.DATABASE_DEBUG_MODE) {
                     Log.d(TAG, "getTextDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TIMESTAMP))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TIMESTAMP)));
                     Log.d(TAG, "getTextDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TEXT_DATA))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TEXT_DATA)));
                 }
@@ -128,73 +132,15 @@ public class DatabaseInvoice extends DatabaseAccess
         }
         finally
         {
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "getInvoiceDataFromDatabase(Long lUser) | finally | lChild = " +lUser);
+                listDatabaseValues();
+            }
+
             closeDownDatabaseConnections();
         }
 
         return lDataModelInvoice;
     }
 }
-/*
-public DataModelInvoice getInvoiceDataFromDatabase(Long lUser)
-    {
-        if(lUser == null)
-            throw new IllegalArgumentException("DatabaseInvoice.getInvoiceDataFromDatabase(Long lUser) - lUser cannot be null");
-
-        final DataModelInvoice dataModelInvoice= new DataModelInvoice();
-
-        try {
-            //Read the database for user ID
-            sqliteDatabase = databaseModelHelper.getReadableDatabase();
-            final String[] projection = {
-                    DatabaseModel.INVOICE.COLUMN_INVOICE_ID,
-                    DatabaseModel.INVOICE.COLUMN_INVOICE_NAME,
-                    DatabaseModel.INVOICE.COLUMN_INVOICE_SUPPLIER_NAME,
-                    DatabaseModel.INVOICE.COLUMN_INVOICE_SUPPLIER_DETAILS,
-                    DatabaseModel.INVOICE.COLUMN_INVOICE_CUSTOMER_NAME,
-                    DatabaseModel.INVOICE.COLUMN_INVOICE_CUSTOMER_DETAILS,
-                    DatabaseModel.INVOICE.COLUMN_USER_ID,
-                    DatabaseModel.INVOICE.COLUMN_PARENT_ID,
-                    DatabaseModel.INVOICE.COLUMN_CHILD_ID
-            };
-
-            // Filter results WHERE "title" = 'My Title'
-            //String selection = DatabaseModel.TEXT.COLUMN_TEXT_CHILD_ID + " = ?";
-            //String[] selectionArgs = {lChild.toString()};
-            String sortOrder = DatabaseModel.INVOICE.COLUMN_INVOICE_ID + " DESC";
-
-            cursor = sqliteDatabase.query(
-                    DatabaseModel.INVOICE.TABLE_NAME,     // The table to query
-                    projection,                        // The array of columns to return (pass null to get all)
-                    null,                         // The columns for the WHERE clause
-                    null,                     // The values for the WHERE clause
-                    null,                      // don't group the rows
-                    null,                       // don't filter by row groups
-                    sortOrder                          // The sort order
-            );
-
-            if(cursor.getCount() > 0)
-            {
-                dataModelInvoice.setsInvoiceName(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.INVOICE.COLUMN_INVOICE_NAME)));
-                dataModelInvoice.setsSupplierName(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.INVOICE.COLUMN_INVOICE_SUPPLIER_NAME)));
-                dataModelInvoice.setsSupplierDetails(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.INVOICE.COLUMN_INVOICE_SUPPLIER_DETAILS)));
-                dataModelInvoice.setsCustomerName(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.INVOICE.COLUMN_INVOICE_CUSTOMER_NAME)));
-                dataModelInvoice.setsCustomerDetails(cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.INVOICE.COLUMN_INVOICE_CUSTOMER_DETAILS)));
-                dataModelInvoice.setlUser(cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseModel.INVOICE.COLUMN_USER_ID)));
-                dataModelInvoice.setlParent(cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseModel.INVOICE.COLUMN_PARENT_ID)));
-                dataModelInvoice.setlChild(cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseModel.INVOICE.COLUMN_CHILD_ID)));
-                dataModelInvoice.setlPrimaryKey(cursor.getLong(cursor.getColumnIndexOrThrow(DatabaseModel.INVOICE.COLUMN_INVOICE_ID)));
-
-                if(AppSettings.DEBUG_MODE) {
-                    Log.d(TAG, "getTextDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TIMESTAMP))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TIMESTAMP)));
-                    Log.d(TAG, "getTextDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TEXT_DATA))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.TEXT.COLUMN_TEXT_DATA)));
-                }
-            }
-        }
-        finally
-        {
-            closeDownDatabaseConnections();
-        }
-
-        return dataModelInvoice;
-    }
- */

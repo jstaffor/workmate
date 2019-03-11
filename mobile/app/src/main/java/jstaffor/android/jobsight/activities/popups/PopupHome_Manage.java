@@ -30,10 +30,14 @@ public class PopupHome_Manage extends DialogFragment implements View.OnClickList
         btn_child_open = viewPopupHome_Manage.findViewById(R.id.popup_manage_btn_child_open);
         btn_template_open = viewPopupHome_Manage.findViewById(R.id.popup_manage_btn_template_open);
         btn_customer_open = viewPopupHome_Manage.findViewById(R.id.popup_manage_btn_customer_open);
+        //Not ready for initial release
+        btn_customer_open.setVisibility(View.GONE);
+
         btn_parent_open.setOnClickListener(this);
         btn_child_open.setOnClickListener(this);
         btn_template_open.setOnClickListener(this);
-        btn_customer_open.setOnClickListener(this);
+        //Not ready for initial release
+        //btn_customer_open.setOnClickListener(this);
 
         return viewPopupHome_Manage;
     }

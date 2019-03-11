@@ -208,7 +208,7 @@ public class ActivityManage extends Activity implements View.OnClickListener,
         {
             dynamicParentArraylistDropdownAdapter.add(sParent);
 
-            if(AppSettings.DEBUG_MODE)
+            if(AppSettings.APP_DEBUG_MODE)
                 Log.d(TAG, "createArrayAdapterParentAndChildList().dynamicParentArraylistDropdownAdapter.add(sParent) | sParent | " + sParent);
         }
         spn_parent_list.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, dynamicParentArraylistDropdownAdapter));
@@ -224,7 +224,7 @@ public class ActivityManage extends Activity implements View.OnClickListener,
             {
                 dynamicChildArraylistDropdownAdapter.add(sChild);
 
-                if(AppSettings.DEBUG_MODE)
+                if(AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "createArrayAdapterParentAndChildList().dynamicChildArraylistDropdownAdapter.add(sChild) | sChild | " + sChild);
             }
         }
@@ -232,7 +232,7 @@ public class ActivityManage extends Activity implements View.OnClickListener,
         {
             dynamicChildArraylistDropdownAdapter.add(getString(R.string.jobname_nojobsexist));
 
-            if(AppSettings.DEBUG_MODE)
+            if(AppSettings.APP_DEBUG_MODE)
                 Log.d(TAG, "createArrayAdapterParentAndChildList().dynamicChildArraylistDropdownAdapter.add(sChild) | getString(R.string.jobname_nojobsexist) | " + "No Job exists");
         }
         spn_child_list.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, dynamicChildArraylistDropdownAdapter ));
@@ -256,7 +256,7 @@ public class ActivityManage extends Activity implements View.OnClickListener,
                     {
                         dynamicChildArraylistDropdownAdapter.add(sChild);
 
-                        if(AppSettings.DEBUG_MODE)
+                        if(AppSettings.APP_DEBUG_MODE)
                             Log.d(TAG, "spn_parent_list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() dynamicChildArraylistDropdownAdapter.add(sChild) | sChild | " + sChild);
                     }
                     //(5) Only disable button for child, where children do not exist for the given group
@@ -265,7 +265,7 @@ public class ActivityManage extends Activity implements View.OnClickListener,
                         btn_update.setEnabled(true);
                         btn_delete.setEnabled(true);
 
-                        if(AppSettings.DEBUG_MODE) {
+                        if(AppSettings.APP_DEBUG_MODE) {
                             Log.d(TAG, "sChildorParentorTemplate == DataModel.CHILD | btn_update.setEnabled(true) | " + " true");
                             Log.d(TAG, "sChildorParentorTemplate == DataModel.CHILD | btn_delete.setEnabled(true) | " + " true");
                         }
@@ -276,7 +276,7 @@ public class ActivityManage extends Activity implements View.OnClickListener,
                     //(4) Load adapter for the child
                     dynamicChildArraylistDropdownAdapter.add(getString(R.string.jobname_nojobsexist));
 
-                    if(AppSettings.DEBUG_MODE)
+                    if(AppSettings.APP_DEBUG_MODE)
                         Log.d(TAG, "spn_parent_list.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() dynamicChildArraylistDropdownAdapter.add(sChild) | getString(R.string.jobname_nojobsexist) | " + "No Job exists");
 
                     //(5) Only disable button for child, where children do not exist for the given group
@@ -285,7 +285,7 @@ public class ActivityManage extends Activity implements View.OnClickListener,
                         btn_update.setEnabled(false);
                         btn_delete.setEnabled(false);
 
-                        if(AppSettings.DEBUG_MODE) {
+                        if(AppSettings.APP_DEBUG_MODE) {
                             Log.d(TAG, "sChildorParentorTemplate == DataModel.CHILD | btn_update.setEnabled(true) | " + " true");
                             Log.d(TAG, "sChildorParentorTemplate == DataModel.CHILD | btn_delete.setEnabled(true) | " + " true");
                         }
@@ -306,7 +306,7 @@ public class ActivityManage extends Activity implements View.OnClickListener,
 
     private void createArrayAdapterTemplateList()
     {
-        if(AppSettings.DEBUG_MODE)
+        if(AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "createArrayAdapterTemplateList() | dataModel.getMapTempName_TempSetting().keySet() | " + dataModel.getMapTempName_TempSetting().keySet());
 
         spn_parent_list.setAdapter( new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, new ArrayList<String>(dataModel.getMapTempName_TempSetting().keySet())) );
@@ -331,7 +331,7 @@ public class ActivityManage extends Activity implements View.OnClickListener,
             btn_update.setEnabled(false);
             btn_delete.setEnabled(false);
 
-            if(AppSettings.DEBUG_MODE) {
+            if(AppSettings.APP_DEBUG_MODE) {
                 Log.d(TAG, "if(dataModel.getMapParentID_mapChildNameChildID().values().size() == 0) | btn_update.setEnabled(false) | " + " false");
                 Log.d(TAG, "if(dataModel.getMapParentID_mapChildNameChildID().values().size() == 0) | btn_delete.setEnabled(false) | " + " false");
             }
@@ -341,7 +341,7 @@ public class ActivityManage extends Activity implements View.OnClickListener,
             btn_update.setEnabled(true);
             btn_delete.setEnabled(true);
 
-            if(AppSettings.DEBUG_MODE) {
+            if(AppSettings.APP_DEBUG_MODE) {
                 Log.d(TAG, "if(dataModel.getMapParentID_mapChildNameChildID().values().size() == 0) | btn_update.setEnabled(true) | " + " true");
                 Log.d(TAG, "if(dataModel.getMapParentID_mapChildNameChildID().values().size() == 0) | btn_delete.setEnabled(true) | " + " true");
             }

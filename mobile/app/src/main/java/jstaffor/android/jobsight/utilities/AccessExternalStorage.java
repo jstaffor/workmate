@@ -31,7 +31,7 @@ public class AccessExternalStorage extends AccessStorage {
         if (Environment.MEDIA_MOUNTED.equals(state))
             isExternalStorageWritable = true;
 
-        if (AppSettings.DEBUG_MODE)
+        if (AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "isExternalStorageWritable | if (Environment.MEDIA_MOUNTED.equals(state)) | " + isExternalStorageWritable);
 
         return isExternalStorageWritable;
@@ -50,7 +50,7 @@ public class AccessExternalStorage extends AccessStorage {
         if (Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
             isExternalStorageReadable = true;
 
-        if (AppSettings.DEBUG_MODE)
+        if (AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "isExternalStorageReadable | if (Environment.MEDIA_MOUNTED.equals(state) || Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) | " + isExternalStorageReadable);
 
         return isExternalStorageReadable;
@@ -71,7 +71,7 @@ public class AccessExternalStorage extends AccessStorage {
 
         final boolean isExternalStorageDirAccessibleToWorkWith = externalStoragePublicDirectoryFile.mkdirs();
 
-        if (AppSettings.DEBUG_MODE) {
+        if (AppSettings.APP_DEBUG_MODE) {
             Log.d(TAG, "getExternalStorageDir(String rootFileDir) | rootFileDir | " + rootFileDir);
             Log.d(TAG, "getExternalStorageDir(String rootFileDir) | boolean isExternalStorageDirAccessibleToWorkWith = externalStoragePublicDirectoryFile.mkdirs() | " + isExternalStorageDirAccessibleToWorkWith);
         }

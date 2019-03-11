@@ -2,11 +2,8 @@ package jstaffor.android.jobsight.utilities;
 
 import android.content.Context;
 import android.content.ContextWrapper;
-import android.content.Intent;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaRecorder;
-import android.os.Environment;
-import android.util.AttributeSet;
 import android.util.Log;
 
 import java.io.File;
@@ -55,12 +52,12 @@ public class CaptureAudioRecording
         mediaRecorder.prepare();
         mediaRecorder.start();
 
-        if(AppSettings.DEBUG_MODE)
+        if(AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "startRecording() throws IllegalStateException, IOException | mediaRecorder.start() | " + "mediaRecorder.start()");
 
         isRecording = true;
 
-        if(AppSettings.DEBUG_MODE)
+        if(AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "startRecording() throws IllegalStateException, IOException | mediaRecorder | " + mediaRecorder);
 
         return mediaRecorder;
@@ -70,17 +67,17 @@ public class CaptureAudioRecording
     {
         mediaRecorder.stop();
 
-        if(AppSettings.DEBUG_MODE)
+        if(AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "startRecording() throws IllegalStateException, IOException | mediaRecorder.stop() | " + "mediaRecorder.stop()");
 
         mediaRecorder.release();
 
-        if(AppSettings.DEBUG_MODE)
+        if(AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "startRecording() throws IllegalStateException, IOException | mediaRecorder.release() | " + "mediaRecorder.release()");
 
         isRecording = false;
 
-        if(AppSettings.DEBUG_MODE)
+        if(AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "startRecording() throws IllegalStateException, IOException | isRecording | " + isRecording);
 
         return audioFile.getAbsolutePath();
@@ -126,7 +123,7 @@ public class CaptureAudioRecording
             finalTimerString = "??m : ??s";
         }
 
-        if(AppSettings.DEBUG_MODE)
+        if(AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "getDurationOfAudioFile(String absolutePath) | finalTimerString + minutes + : + secondsString | " + finalTimerString);
 
         return finalTimerString;

@@ -93,7 +93,7 @@ public class ActivityView extends Activity
 
         stopAudioRecording();
 
-        if (AppSettings.DEBUG_MODE) {
+        if (AppSettings.APP_DEBUG_MODE) {
             Log.d(TAG, "void onPause() | stopAudioRecording(); | " + "true");
         }
     }
@@ -126,7 +126,7 @@ public class ActivityView extends Activity
         for (int i = 0; i < lText.size(); i++) {
             viewDataGeneric.add(lText.get(i));
 
-            if(AppSettings.DEBUG_MODE) {
+            if(AppSettings.APP_DEBUG_MODE) {
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lText.get(i).getDateTime() | " + lText.get(i).getDateTime());
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lText.get(i).getTextToDisplay() | " + lText.get(i).getTextToDisplay());
             }
@@ -135,7 +135,7 @@ public class ActivityView extends Activity
         for (int i = 0; i < lLocation.size(); i++) {
             viewDataGeneric.add(lLocation.get(i));
 
-            if (AppSettings.DEBUG_MODE) {
+            if (AppSettings.APP_DEBUG_MODE) {
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lLocation.get(i).getDateTime() | " + lLocation.get(i).getDateTime());
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lLocation.get(i).getTextToDisplay() | " + lLocation.get(i).getTextToDisplay());
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lLocation.get(i).getsLatitude() | " + lLocation.get(i).getsLatitude());
@@ -148,7 +148,7 @@ public class ActivityView extends Activity
         for (int i = 0; i < lPhoto.size(); i++) {
             viewDataGeneric.add(lPhoto.get(i));
 
-            if (AppSettings.DEBUG_MODE){
+            if (AppSettings.APP_DEBUG_MODE){
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lPhoto.get(i).getDateTime() | " + lPhoto.get(i).getDateTime());
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lPhoto.get(i).getImageLocation() | " + lPhoto.get(i).getImageLocation());
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lPhoto.get(i).getImageBitmap().getAllocationByteCount() | " + lPhoto.get(i).getImageBitmap().getAllocationByteCount());
@@ -158,7 +158,7 @@ public class ActivityView extends Activity
         for (int i = 0; i < lSketch.size(); i++) {
             viewDataGeneric.add(lSketch.get(i));
 
-            if (AppSettings.DEBUG_MODE){
+            if (AppSettings.APP_DEBUG_MODE){
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lSketch.get(i).getDateTime() | " + lSketch.get(i).getDateTime());
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lSketch.get(i).getImageLocation() | " + lSketch.get(i).getImageLocation());
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lSketch.get(i).getImageBitmap().getAllocationByteCount() | " + lSketch.get(i).getImageBitmap().getAllocationByteCount());
@@ -168,7 +168,7 @@ public class ActivityView extends Activity
         for (int i = 0; i < lVideoRecording.size(); i++) {
             viewDataGeneric.add(lVideoRecording.get(i));
 
-            if (AppSettings.DEBUG_MODE){
+            if (AppSettings.APP_DEBUG_MODE){
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lVideoRecording.get(i).getDateTime() | " + lVideoRecording.get(i).getDateTime());
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lVideoRecording.get(i).getImageLocation() | " + lVideoRecording.get(i).getImageLocation());
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lVideoRecording.get(i).getVideoLocation() | " + lVideoRecording.get(i).getVideoLocation());
@@ -180,7 +180,7 @@ public class ActivityView extends Activity
         for (int i = 0; i < lAudioRecording.size(); i++) {
             viewDataGeneric.add(lAudioRecording.get(i));
 
-            if (AppSettings.DEBUG_MODE){
+            if (AppSettings.APP_DEBUG_MODE){
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lAudioRecording.get(i).getDateTime() | " + lAudioRecording.get(i).getDateTime());
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lAudioRecording.get(i).getImageLocation() | " + lAudioRecording.get(i).getImageLocation());
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lAudioRecording.get(i).getImageBitmap().getAllocationByteCount() | " + lAudioRecording.get(i).getImageBitmap().getAllocationByteCount());
@@ -193,7 +193,7 @@ public class ActivityView extends Activity
         for (int i = 0; i < lMyFile.size(); i++) {
             viewDataGeneric.add(lMyFile.get(i));
 
-            if (AppSettings.DEBUG_MODE){
+            if (AppSettings.APP_DEBUG_MODE){
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lMyFile.get(i).getDateTime() | " + lMyFile.get(i).getDateTime());
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lMyFile.get(i).getNameOfFile() | " + lMyFile.get(i).getNameOfFile());
                 Log.d(TAG, "retrieveDatabaseData(Long lParent, Long lChild) | lMyFile.get(i).getFile().getName() | " + lMyFile.get(i).getFile().getName());
@@ -369,7 +369,7 @@ public class ActivityView extends Activity
                             {
                                 Log.e(TAG, "if (lViewDatumGenerics.get(position) instanceof AudioRecording) void - onClick(View v) | catch (Exception e) | " + e.getMessage());
 
-                                if (AppSettings.DEBUG_MODE)
+                                if (AppSettings.APP_DEBUG_MODE)
                                     Log.d(TAG, "if (lViewDatumGenerics.get(position) instanceof AudioRecording) void - onClick(View v) | catch (Exception e) | " + e.getMessage());
                             }
                         }
@@ -405,7 +405,7 @@ public class ActivityView extends Activity
     {
         if (keyCode == KeyEvent.KEYCODE_BACK)
         {
-            if(AppSettings.DEBUG_MODE)
+            if(AppSettings.APP_DEBUG_MODE)
                 Log.d(TAG, "onKeyDown(int keyCode, KeyEvent event) | (keyCode == KeyEvent.KEYCODE_BACK) | " + "shutDownAudioRecordingAndVisulizer()");
 
             stopAudioRecording();
@@ -427,13 +427,13 @@ public class ActivityView extends Activity
                     mediaPlayer.reset();
                     isMediaPlayerPlaying = false;
 
-                if (AppSettings.DEBUG_MODE)
+                if (AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "stopAudioRecording() | mediaPlayer.stop() | " + "mediaPlayer.stop()");
 
             } catch (Exception e) {
                 Log.e(TAG, "stopAudioRecording() mediaPlayer.stop() | catch (Exception e) | " + e.getMessage());
 
-                if (AppSettings.DEBUG_MODE)
+                if (AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "stopAudioRecording() mediaPlayer.stop() | catch (Exception e) | " + e.getMessage());
             }
         }
@@ -445,7 +445,7 @@ public class ActivityView extends Activity
         } catch (Exception e) {
             Log.e(TAG, "releaseMediaPlayer() mediaPlayer.release() | catch (Exception e) | " + e.getMessage());
 
-            if (AppSettings.DEBUG_MODE)
+            if (AppSettings.APP_DEBUG_MODE)
                 Log.d(TAG, "releaseMediaPlayer() mediaPlayer.release() | catch (Exception e) | " + e.getMessage());
         }
     }

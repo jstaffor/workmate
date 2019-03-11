@@ -43,18 +43,22 @@ public class DatabasePhoto extends DatabaseAccess
             values.put(DatabaseModel.PHOTO.COLUMN_PHOTO_CHILD_ID, COLUMN_PHOTO_CHILD_ID);
             values.put(DatabaseModel.PHOTO.COLUMN_PHOTO_LOCATION, COLUMN_PHOTO_LOCATION);
 
-            newRowGroupId = sqliteDatabase.insert(DatabaseModel.PHOTO.TABLE_NAME, null, values);
-
-            if(AppSettings.DEBUG_MODE) {
-                Log.d(TAG, "createPhotoEntry() | Long COLUMN_PHOTO_CHILD_ID | " +COLUMN_PHOTO_CHILD_ID);
-                Log.d(TAG, "createPhotoEntry() | Long COLUMN_PHOTO_LOCATION | " +COLUMN_PHOTO_LOCATION);
-                Log.d(TAG, "createPhotoEntry() | sqliteDatabase.insert(DatabaseModel.PHOTO.TABLE_NAME, null, values) | " +newRowGroupId);
+            if(AppSettings.DATABASE_DEBUG_MODE) {
+                Log.d(TAG, "createPhotoEntry(Long COLUMN_PHOTO_CHILD_ID, String COLUMN_PHOTO_LOCATION) | Long COLUMN_PHOTO_CHILD_ID | " +COLUMN_PHOTO_CHILD_ID);
+                Log.d(TAG, "createPhotoEntry(Long COLUMN_PHOTO_CHILD_ID, String COLUMN_PHOTO_LOCATION) | Long COLUMN_PHOTO_LOCATION | " +COLUMN_PHOTO_LOCATION);
             }
+
+            newRowGroupId = sqliteDatabase.insert(DatabaseModel.PHOTO.TABLE_NAME, null, values);
         }
         finally
         {
-            closeDownDatabaseConnections();
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "createPhotoEntry() | finally | newRowGroupId = " +newRowGroupId);
+                listDatabaseValues();
+            }
 
+            closeDownDatabaseConnections();
             if(newRowGroupId == -1L) //sqliteDatabase.insert @return the row ID of the newly inserted row, or -1 if an error occurred
                 return false;
             else
@@ -83,6 +87,9 @@ public class DatabasePhoto extends DatabaseAccess
             String[] selectionArgs = {lChild.toString()};
             String sortOrder = DatabaseModel.PHOTO.COLUMN_TIMESTAMP + " ASC";
 
+            if(AppSettings.DATABASE_DEBUG_MODE)
+                Log.d(TAG, "getPhotoDataFromDatabase(Long lChild) | lChild | " + lChild);
+
             cursor = sqliteDatabase.query(
                     DatabaseModel.PHOTO.TABLE_NAME,     // The table to query
                     projection,                        // The array of columns to return (pass null to get all)
@@ -100,14 +107,20 @@ public class DatabasePhoto extends DatabaseAccess
                         cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.PHOTO.COLUMN_PHOTO_LOCATION))
                 ));
 
-                if(AppSettings.DEBUG_MODE) {
-                    Log.d(TAG, "getPhotoDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.PHOTO.COLUMN_TIMESTAMP))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.PHOTO.COLUMN_TIMESTAMP)));
-                    Log.d(TAG, "getPhotoDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.PHOTO.COLUMN_PHOTO_LOCATION))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.PHOTO.COLUMN_PHOTO_LOCATION)));
+                if(AppSettings.DATABASE_DEBUG_MODE) {
+                    Log.d(TAG, "getPhotoDataFromDatabase(Long lChild)  | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.PHOTO.COLUMN_TIMESTAMP))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.PHOTO.COLUMN_TIMESTAMP)));
+                    Log.d(TAG, "getPhotoDataFromDatabase(Long lChild) | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.PHOTO.COLUMN_PHOTO_LOCATION))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.PHOTO.COLUMN_PHOTO_LOCATION)));
                 }
             }
         }
         finally
         {
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "getPhotoDataFromDatabase(Long lChild) | finally | lChild = " +lChild);
+                listDatabaseValues();
+            }
+
             closeDownDatabaseConnections();
         }
 

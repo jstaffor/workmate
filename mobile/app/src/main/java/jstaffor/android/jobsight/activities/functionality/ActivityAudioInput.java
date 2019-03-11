@@ -63,7 +63,7 @@ public class ActivityAudioInput extends Activity implements View.OnClickListener
         //Get Data
         dataModel = DataModelUtilities.turnJSONIntoDataModel(getIntent().getExtras().get(DataModelUtilities.DATA_MODEL).toString());
 
-        if (AppSettings.DEBUG_MODE)
+        if (AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "onCreate(Bundle savedInstanceState) | DataModelUtilities.turnJSONIntoDataModel() | " + DataModelUtilities.turnDataModelIntoJSON(dataModel));
 
         accessInternalStorage = new AccessInternalStorage(this);
@@ -75,7 +75,7 @@ public class ActivityAudioInput extends Activity implements View.OnClickListener
 
         shutDownAudioRecordingAndVisulizer();
 
-        if (AppSettings.DEBUG_MODE)
+        if (AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "void onPause() | shutDownAudioRecordingAndVisulizer(); | " + "true");
     }
 
@@ -103,14 +103,14 @@ public class ActivityAudioInput extends Activity implements View.OnClickListener
                         //(2) Start Thread to update AudioVisualizer
                         new AudioVisualizerThread().execute("");
 
-                        if (AppSettings.DEBUG_MODE)
+                        if (AppSettings.APP_DEBUG_MODE)
                             Log.d(TAG, "onClick(View view) | activity_audiorecordinginput_btn_recording_start | " + "new AudioVisualizerThread().execute()");
 
                         //(3) Reset and Start Chronometer
                         chronometer.setBase(SystemClock.elapsedRealtime());
                         chronometer.start();
 
-                        if (AppSettings.DEBUG_MODE)
+                        if (AppSettings.APP_DEBUG_MODE)
                             Log.d(TAG, "onClick(View view) | activity_audiorecordinginput_btn_recording_start | " + "chronometer.start()");
                     }
                 } catch (Exception exception) {
@@ -131,19 +131,19 @@ public class ActivityAudioInput extends Activity implements View.OnClickListener
                     try {
                         final String fileAbsolutePath = captureAudioRecording.stopRecording();
 
-                        if (AppSettings.DEBUG_MODE)
+                        if (AppSettings.APP_DEBUG_MODE)
                             Log.d(TAG, "onClick(View view) | captureAudioRecording.stopRecording() | " + fileAbsolutePath);
 
                         //(1) Shut down everything
                         shutDownAudioRecordingAndVisulizer();
 
-                        if (AppSettings.DEBUG_MODE)
+                        if (AppSettings.APP_DEBUG_MODE)
                             Log.d(TAG, "onClick(View view) | case R.id.activity_audiorecordinginput_btn_recording_stop_and_save | " + "shutDownAudioRecordingAndVisulizer()");
 
                         //(2) Get image that represents the audio
                         final String imageAbsolutePath = accessInternalStorage.saveBitmapToInternalStorage(getBitmap(), dataModel.getlParent(), dataModel.getlChild());
 
-                        if (AppSettings.DEBUG_MODE)
+                        if (AppSettings.APP_DEBUG_MODE)
                             Log.d(TAG, "onClick(View view) | accessInternalStorage.saveBitmapToInternalStorage() | " + imageAbsolutePath);
 
                         if (fileAbsolutePath != null) {
@@ -191,7 +191,7 @@ public class ActivityAudioInput extends Activity implements View.OnClickListener
         audioVisualizerView.layout(audioVisualizerView.getLeft(), audioVisualizerView.getTop(), audioVisualizerView.getRight(), audioVisualizerView.getBottom());
         audioVisualizerView.draw(curCanvas);
 
-        if (AppSettings.DEBUG_MODE)
+        if (AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "getBitmap() | curBitmap.getAllocationByteCount() | " + curBitmap.getAllocationByteCount());
 
         return curBitmap;
@@ -210,7 +210,7 @@ public class ActivityAudioInput extends Activity implements View.OnClickListener
                     Thread.sleep(100);
                     maxAmplitude = mediaRecorder.getMaxAmplitude();
 
-                    if (AppSettings.DEBUG_MODE)
+                    if (AppSettings.APP_DEBUG_MODE)
                         Log.d(TAG, "protected String doInBackground(String... params) while(isAudioBeingCaptured.get()) | mediaRecorder.getMaxAmplitude() | " + maxAmplitude);
 
                     onProgressUpdate();
@@ -231,7 +231,7 @@ public class ActivityAudioInput extends Activity implements View.OnClickListener
                     if (maxAmplitude != 0) {
                         audioVisualizerView.addAmplitude(maxAmplitude);
 
-                        if (AppSettings.DEBUG_MODE)
+                        if (AppSettings.APP_DEBUG_MODE)
                             Log.d(TAG, "protected void onProgressUpdate(Void... values) if (maxAmplitude != 0) | audioVisualizerView.addAmplitude(maxAmplitude) | " + maxAmplitude);
                     }
                 }
@@ -242,7 +242,7 @@ public class ActivityAudioInput extends Activity implements View.OnClickListener
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            if (AppSettings.DEBUG_MODE)
+            if (AppSettings.APP_DEBUG_MODE)
                 Log.d(TAG, "onKeyDown(int keyCode, KeyEvent event) | (keyCode == KeyEvent.KEYCODE_BACK) | " + "shutDownAudioRecordingAndVisulizer()");
 
             shutDownAudioRecordingAndVisulizer();
@@ -268,19 +268,19 @@ public class ActivityAudioInput extends Activity implements View.OnClickListener
             {
                 if (captureAudioRecording.isRecording())
                 {
-                    if (AppSettings.DEBUG_MODE)
+                    if (AppSettings.APP_DEBUG_MODE)
                         Log.d(TAG, "shutDownAudioRecordingAndVisulizer() | captureAudioRecording.isRecording() | " + "true");
 
                     final String audioFileGetAbsolutePath = captureAudioRecording.stopRecording();
 
-                    if (AppSettings.DEBUG_MODE)
+                    if (AppSettings.APP_DEBUG_MODE)
                         Log.d(TAG, "shutDownAudioRecordingAndVisulizer() | captureAudioRecording.stopRecording() | " + audioFileGetAbsolutePath);
                 }
 
             } catch (Exception e) {
                 Log.e(TAG, "shutDownAudioRecordingAndVisulizer() | if (captureAudioRecording != null) - catch (Exception e) | " + e.getMessage());
 
-                if (AppSettings.DEBUG_MODE)
+                if (AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "shutDownAudioRecordingAndVisulizer() | if (captureAudioRecording != null) - catch (Exception e) | " + e.getMessage());
             }
         }
@@ -291,13 +291,13 @@ public class ActivityAudioInput extends Activity implements View.OnClickListener
             {
                 mediaRecorder.release();
 
-                if (AppSettings.DEBUG_MODE)
+                if (AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "shutDownAudioRecordingAndVisulizer() | mediaRecorder.release() | " + "mediaRecorder.release()");
 
             } catch (Exception e) {
                 Log.e(TAG, "shutDownAudioRecordingAndVisulizer() | if (mediaRecorder != null) - catch (Exception e) | " + e.getMessage());
 
-                if (AppSettings.DEBUG_MODE)
+                if (AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "shutDownAudioRecordingAndVisulizer() | if (mediaRecorder != null) - catch (Exception e) | " + e.getMessage());
             }
         }
@@ -307,13 +307,13 @@ public class ActivityAudioInput extends Activity implements View.OnClickListener
             {
                 chronometer.stop();
 
-                if (AppSettings.DEBUG_MODE)
+                if (AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "shutDownAudioRecordingAndVisulizer() | if (chronometer != null) | " + "chronometer.stop()");
 
             } catch (Exception e) {
                 Log.e(TAG, "shutDownAudioRecordingAndVisulizer() | if (chronometer != null) chronometer.stop() " + e.getMessage());
 
-                if (AppSettings.DEBUG_MODE)
+                if (AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "shutDownAudioRecordingAndVisulizer() | if (chronometer != null) chronometer.stop() " + e.getMessage());
             }
         }

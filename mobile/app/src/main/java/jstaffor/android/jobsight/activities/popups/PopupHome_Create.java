@@ -20,7 +20,6 @@ import jstaffor.android.jobsight.R;
 import jstaffor.android.jobsight.appsettings.AppSettings;
 import jstaffor.android.jobsight.database.popups.DatabaseAccessPopupHome_Create;
 import jstaffor.android.jobsight.datamodel.DataModel;
-import jstaffor.android.jobsight.datamodel.utilities.DataModelUtilities;
 import jstaffor.android.jobsight.utilities.Validation;
 
 public class PopupHome_Create extends DialogFragment implements View.OnClickListener
@@ -138,7 +137,7 @@ public class PopupHome_Create extends DialogFragment implements View.OnClickList
                         dataModel.setsChild(sChild);
                     }
 
-                    if (AppSettings.DEBUG_MODE) {
+                    if (AppSettings.APP_DEBUG_MODE) {
                         Log.d(TAG, "**********BEFORE SAVE TO DATABASE********");
                         Log.d(TAG, "onClick(View view) | dataModel.getsParent() | " + dataModel.getsParent());
                         Log.d(TAG, "onClick(View view) | dataModel.getlParent() | " + dataModel.getlParent());
@@ -212,7 +211,7 @@ public class PopupHome_Create extends DialogFragment implements View.OnClickList
     private void createArrayAdapterTemplateList() {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line, new ArrayList<String>(dataModel.getMapTempName_TempSetting().keySet()));
 
-        if (AppSettings.DEBUG_MODE) {
+        if (AppSettings.APP_DEBUG_MODE) {
             for(String curParent : dataModel.getMapParentName_ParentID().keySet())
                 Log.d(TAG, "createArrayAdapterTemplateList() |  dataModel.getMapTempName_TempSetting().keySet() | " +dataModel.getMapTempName_TempSetting().keySet());
         }
@@ -223,7 +222,7 @@ public class PopupHome_Create extends DialogFragment implements View.OnClickList
     private void createArrayAdapterParentList() {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, new ArrayList<String>(dataModel.getMapParentName_ParentID().keySet()));
 
-        if (AppSettings.DEBUG_MODE) {
+        if (AppSettings.APP_DEBUG_MODE) {
             for(String curParent : dataModel.getMapParentName_ParentID().keySet())
                 Log.d(TAG, "createArrayAdapterParentList() |  dataModel.getMapParentName_ParentID().keySet() | " +dataModel.getMapParentName_ParentID().keySet());
         }

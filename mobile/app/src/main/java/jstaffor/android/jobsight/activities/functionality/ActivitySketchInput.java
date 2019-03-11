@@ -48,7 +48,7 @@ public class ActivitySketchInput extends Activity implements View.OnClickListene
         //Get Data
         dataModel = DataModelUtilities.turnJSONIntoDataModel( getIntent().getExtras().get(DataModelUtilities.DATA_MODEL).toString());
 
-        if(AppSettings.DEBUG_MODE)
+        if(AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "onCreate(Bundle savedInstanceState) | DataModelUtilities.turnJSONIntoDataModel() | " + DataModelUtilities.turnDataModelIntoJSON( dataModel ));
     }
 
@@ -79,7 +79,7 @@ public class ActivitySketchInput extends Activity implements View.OnClickListene
             case R.id.activity_sketchinput_btn_signature_clear:
                 captureSketchInput.clearCanvasAndBitmap();
 
-                if(AppSettings.DEBUG_MODE)
+                if(AppSettings.APP_DEBUG_MODE)
                     Log.d(TAG, "onClick(View view) | case R.id.activity_sketchinput_btn_signature_clear | " + "captureSketchInput.clearCanvasAndBitmap()");
 
                 break;
@@ -112,7 +112,7 @@ public class ActivitySketchInput extends Activity implements View.OnClickListene
             success = false;
         }
 
-        if(AppSettings.DEBUG_MODE)
+        if(AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "saveSignatureToLocalStorageAndStoreLocationInDatabase(Bitmap bSignatureBitmap) | createSketchEntry(dataModel.getlChild(), accessLocalStorage.saveBitmapToInternalStorage(bSignatureBitmap, dataModel.getlParent(), dataModel.getlChild()) | " + success);
 
         return success;

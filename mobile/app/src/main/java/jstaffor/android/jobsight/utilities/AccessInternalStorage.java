@@ -1,24 +1,16 @@
 package jstaffor.android.jobsight.utilities;
 
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.CursorLoader;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.provider.MediaStore;
-import android.provider.OpenableColumns;
 import android.util.Log;
-import android.webkit.MimeTypeMap;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.channels.FileChannel;
 import java.util.UUID;
 
 import jstaffor.android.jobsight.R;
@@ -56,7 +48,7 @@ public class AccessInternalStorage extends AccessStorage
 
             absolutePath = tempFile.getPath();
 
-            if(AppSettings.DEBUG_MODE) {
+            if(AppSettings.APP_DEBUG_MODE) {
                 Log.d(TAG, "saveBitmapToInternalStorage(Bitmap bitmapImage, Long lParent, Long lChild) | lParent | " + lParent);
                 Log.d(TAG, "saveBitmapToInternalStorage(Bitmap bitmapImage, Long lParent, Long lChild) | lChild | " + lChild);
                 Log.d(TAG, "saveBitmapToInternalStorage(Bitmap bitmapImage, Long lParent, Long lChild) | bitmapImage.getAllocationByteCount() | " + bitmapImage.getAllocationByteCount());
@@ -107,7 +99,7 @@ public class AccessInternalStorage extends AccessStorage
 
         cursor.close();
 
-        if(AppSettings.DEBUG_MODE)
+        if(AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "getRealPathFromURI(Uri contentUri) | cursor.getString(column_index) | " +result);
 
         return result;
@@ -175,7 +167,7 @@ public class AccessInternalStorage extends AccessStorage
             throw new IOException();
         }
 
-        if(AppSettings.DEBUG_MODE) {
+        if(AppSettings.APP_DEBUG_MODE) {
             Log.d(TAG, "doesDirectoryForParentExist(Long lParent) | rootDir =new File(context.getFilesDir(), appfiles).getAbsolutePath() | " + rootDir.getAbsolutePath());
             Log.d(TAG, "doesDirectoryForParentExist(Long lParent) | rootDir.exists() | " +rootDir.exists() );
             Log.d(TAG, "doesDirectoryForParentExist(Long lParent) | rootDir.isDirectory() | " +rootDir.isDirectory());
@@ -214,7 +206,7 @@ public class AccessInternalStorage extends AccessStorage
             throw new IOException();
         }
 
-        if(AppSettings.DEBUG_MODE) {
+        if(AppSettings.APP_DEBUG_MODE) {
             Log.d(TAG, "doesDirectoryForChildExist(Long lParent, Long lChild) | childDir = new File(doesDirectoryForParentExist(lParent) + / + lChild + / ).getAbsolutePath() | " + childDir.getAbsolutePath());
             Log.d(TAG, "doesDirectoryForChildExist(Long lParent, Long lChild) | childDir.exists() | " +childDir.exists() );
             Log.d(TAG, "doesDirectoryForChildExist(Long lParent, Long lChild) | childDir.isDirectory() | " +childDir.isDirectory());
@@ -271,7 +263,7 @@ public class AccessInternalStorage extends AccessStorage
             }
         }
 
-        if(AppSettings.DEBUG_MODE) {
+        if(AppSettings.APP_DEBUG_MODE) {
             Log.d(TAG, "createChildDirForParentChild(Long lParent, Long lChild) | rootDir = new File(context.getFilesDir(), appfiles).getAbsolutePath() | " + rootDir.getAbsolutePath());
             Log.d(TAG, "createChildDirForParentChild(Long lParent, Long lChild) | rootDir.exists() | " +rootDir.exists() );
             Log.d(TAG, "createChildDirForParentChild(Long lParent, Long lChild) | rootDir.mkdir() | " +wasRootDirMkdirSuccessful );

@@ -45,19 +45,23 @@ public class DatabaseVideoRecording extends DatabaseAccess
             values.put(DatabaseModel.VIDEO_RECORDING.COLUMN_VIDEO_RECORDING_LOCATION, COLUMN_VIDEO_RECORDING_LOCATION);
             values.put(DatabaseModel.VIDEO_RECORDING.COLUMN_VIDEO_THUMNAIL_LOCATION, COLUMN_VIDEO_THUMNAIL_LOCATION);
 
-            newRowGroupId = sqliteDatabase.insert(DatabaseModel.VIDEO_RECORDING.TABLE_NAME, null, values);
-
-            if(AppSettings.DEBUG_MODE) {
+            if(AppSettings.DATABASE_DEBUG_MODE) {
                 Log.d(TAG, "createVideoRecordingEntry() | Long COLUMN_VIDEO_RECORDING_CHILD_ID | " +COLUMN_VIDEO_RECORDING_CHILD_ID);
                 Log.d(TAG, "createVideoRecordingEntry() | Long COLUMN_VIDEO_RECORDING_LOCATION | " +COLUMN_VIDEO_RECORDING_LOCATION);
                 Log.d(TAG, "createVideoRecordingEntry() | Long COLUMN_VIDEO_THUMNAIL_LOCATION | " +COLUMN_VIDEO_THUMNAIL_LOCATION);
-                Log.d(TAG, "createVideoRecordingEntry() | sqliteDatabase.insert(DatabaseModel.VIDEO_RECORDING.TABLE_NAME, null, values) | " +newRowGroupId);
             }
+
+            newRowGroupId = sqliteDatabase.insert(DatabaseModel.VIDEO_RECORDING.TABLE_NAME, null, values);
         }
         finally
         {
-            closeDownDatabaseConnections();
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "createVideoRecordingEntry() | finally | newRowGroupId = " +newRowGroupId);
+                listDatabaseValues();
+            }
 
+            closeDownDatabaseConnections();
             if(newRowGroupId == -1L) //sqliteDatabase.insert @return the row ID of the newly inserted row, or -1 if an error occurred
                 return false;
             else
@@ -86,6 +90,9 @@ public class DatabaseVideoRecording extends DatabaseAccess
             String[] selectionArgs = {lChild.toString()};
             String sortOrder = DatabaseModel.VIDEO_RECORDING.COLUMN_TIMESTAMP + " ASC";
 
+            if(AppSettings.DATABASE_DEBUG_MODE)
+                Log.d(TAG, "getVideoRecordingDataFromDatabase(Long lChild) | lChild | " + lChild);
+
             cursor = sqliteDatabase.query(
                     DatabaseModel.VIDEO_RECORDING.TABLE_NAME,   // The table to query
                     projection,                                 // The array of columns to return (pass null to get all)
@@ -104,7 +111,7 @@ public class DatabaseVideoRecording extends DatabaseAccess
                         cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.VIDEO_RECORDING.COLUMN_VIDEO_THUMNAIL_LOCATION))
                 ));
 
-                if(AppSettings.DEBUG_MODE) {
+                if(AppSettings.DATABASE_DEBUG_MODE) {
                     Log.d(TAG, "getVideoRecordingDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.VIDEO_RECORDING.COLUMN_TIMESTAMP))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.VIDEO_RECORDING.COLUMN_TIMESTAMP)));
                     Log.d(TAG, "getVideoRecordingDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.VIDEO_RECORDING.COLUMN_VIDEO_RECORDING_LOCATION))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.VIDEO_RECORDING.COLUMN_VIDEO_RECORDING_LOCATION)));
                     Log.d(TAG, "getVideoRecordingDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.VIDEO_RECORDING.COLUMN_VIDEO_THUMNAIL_LOCATION))| " + cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.VIDEO_RECORDING.COLUMN_VIDEO_THUMNAIL_LOCATION)));
@@ -113,6 +120,12 @@ public class DatabaseVideoRecording extends DatabaseAccess
         }
         finally
         {
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "getVideoRecordingDataFromDatabase(Long lChild) | finally | lChild = " +lChild);
+                listDatabaseValues();
+            }
+
             closeDownDatabaseConnections();
         }
 

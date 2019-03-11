@@ -48,21 +48,25 @@ public class DatabaseLocation extends DatabaseAccess
             values.put(DatabaseModel.LOCATION.COLUMN_LOCATION_ADDRESS, COLUMN_LOCATION_ADDRESS);
             values.put(DatabaseModel.LOCATION.COLUMN_IMAGE_LOCATION, COLUMN_IMAGE_LOCATION);
 
-            newRowGroupId = sqliteDatabase.insert(DatabaseModel.LOCATION.TABLE_NAME, null, values);
-
-            if(AppSettings.DEBUG_MODE) {
+            if(AppSettings.DATABASE_DEBUG_MODE) {
                 Log.d(TAG, "createLocationEntry() | Long COLUMN_LOCATION_CHILD_ID | " +COLUMN_LOCATION_CHILD_ID);
                 Log.d(TAG, "createLocationEntry() | Long COLUMN_LOCATION_LATITUDE | " +COLUMN_LOCATION_LATITUDE);
                 Log.d(TAG, "createLocationEntry() | Long COLUMN_LOCATION_LONGITUDE | " +COLUMN_LOCATION_LONGITUDE);
                 Log.d(TAG, "createLocationEntry() | Long COLUMN_LOCATION_ADDRESS | " +COLUMN_LOCATION_ADDRESS);
                 Log.d(TAG, "createLocationEntry() | Long COLUMN_IMAGE_LOCATION | " +COLUMN_IMAGE_LOCATION);
-                Log.d(TAG, "createLocationEntry() | sqliteDatabase.insert(DatabaseModel.LOCATION.TABLE_NAME, null, values) | " +newRowGroupId);
             }
+
+            newRowGroupId = sqliteDatabase.insert(DatabaseModel.LOCATION.TABLE_NAME, null, values);
         }
         finally
         {
-            closeDownDatabaseConnections();
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "createLocationEntry() | finally | newRowGroupId = " +newRowGroupId);
+                listDatabaseValues();
+            }
 
+            closeDownDatabaseConnections();
             if(newRowGroupId == -1L) //sqliteDatabase.insert @return the row ID of the newly inserted row, or -1 if an error occurred
                 return false;
             else
@@ -95,6 +99,9 @@ public class DatabaseLocation extends DatabaseAccess
             String[] selectionArgs = {lChild.toString()};
             String sortOrder = DatabaseModel.LOCATION.COLUMN_TIMESTAMP + " ASC";
 
+            if(AppSettings.DATABASE_DEBUG_MODE)
+                Log.d(TAG, "getLocationDataFromDatabase(Long lChild) | lChild | " + lChild);
+
             cursor = sqliteDatabase.query(
                     DatabaseModel.LOCATION.TABLE_NAME,   // The table to query
                     projection,                                 // The array of columns to return (pass null to get all)
@@ -115,17 +122,23 @@ public class DatabaseLocation extends DatabaseAccess
                         cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_IMAGE_LOCATION))
                 ));
 
-                if(AppSettings.DEBUG_MODE) {
-                    Log.d(TAG, "getLocationDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_TIMESTAMP))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_TIMESTAMP)));
-                    Log.d(TAG, "getLocationDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_LOCATION_ADDRESS))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_LOCATION_ADDRESS)));
-                    Log.d(TAG, "getLocationDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_LOCATION_LATITUDE))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_LOCATION_LATITUDE)));
-                    Log.d(TAG, "getLocationDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_LOCATION_LONGITUDE))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_LOCATION_LONGITUDE)));
-                    Log.d(TAG, "getLocationDataFromDatabase() | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_IMAGE_LOCATION))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_IMAGE_LOCATION)));
+                if(AppSettings.DATABASE_DEBUG_MODE) {
+                    Log.d(TAG, "getLocationDataFromDatabase(Long lChild)  | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_TIMESTAMP))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_TIMESTAMP)));
+                    Log.d(TAG, "getLocationDataFromDatabase(Long lChild)  | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_LOCATION_ADDRESS))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_LOCATION_ADDRESS)));
+                    Log.d(TAG, "getLocationDataFromDatabase(Long lChild) | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_LOCATION_LATITUDE))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_LOCATION_LATITUDE)));
+                    Log.d(TAG, "getLocationDataFromDatabase(Long lChild)  | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_LOCATION_LONGITUDE))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_LOCATION_LONGITUDE)));
+                    Log.d(TAG, "getLocationDataFromDatabase(Long lChild) | cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_IMAGE_LOCATION))| " +cursor.getString(cursor.getColumnIndexOrThrow(DatabaseModel.LOCATION.COLUMN_IMAGE_LOCATION)));
                 }
             }
         }
         finally
         {
+            if (AppSettings.DATABASE_DEBUG_MODE)
+            {
+                Log.d(TAG, "getLocationDataFromDatabase(Long lChild) | finally | lChild = " +lChild);
+                listDatabaseValues();
+            }
+
             closeDownDatabaseConnections();
         }
 

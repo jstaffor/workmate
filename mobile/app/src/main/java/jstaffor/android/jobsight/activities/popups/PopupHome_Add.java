@@ -56,13 +56,13 @@ public class PopupHome_Add extends DialogFragment implements View.OnClickListene
         {
             btn_child_open.setOnClickListener(this);
 
-            if(AppSettings.DEBUG_MODE)
+            if(AppSettings.APP_DEBUG_MODE)
                 Log.d(TAG, "onCreate(Bundle savedInstanceState) | dataModel.getMapParentID_mapChildNameChildID().values().size() != 0 | " + "true");
         }
         else {
             btn_child_open.setEnabled(false);
 
-            if (AppSettings.DEBUG_MODE)
+            if (AppSettings.APP_DEBUG_MODE)
                 Log.d(TAG, "onCreate(Bundle savedInstanceState) | dataModel.getMapParentID_mapChildNameChildID().values().size() != 0 | " + "false");
         }
 
@@ -86,7 +86,7 @@ public class PopupHome_Add extends DialogFragment implements View.OnClickListene
 
                     dataModel.setlTemplate(databaseAccess.getTemplateSettingForChild(dataModel.getlChild()));
 
-                    if (AppSettings.DEBUG_MODE) {
+                    if (AppSettings.APP_DEBUG_MODE) {
                         Log.d(TAG, "onClick(View view) | dataModel.getsParent() | " + dataModel.getsParent());
                         Log.d(TAG, "onClick(View view) | dataModel.getlParent() | " + dataModel.getlParent());
                         Log.d(TAG, "onClick(View view) | dataModel.getsChild() | " + dataModel.getsChild());
@@ -119,7 +119,7 @@ public class PopupHome_Add extends DialogFragment implements View.OnClickListene
         final ArrayAdapter<String> adapterParent = new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line, new ArrayList<String>(dataModel.getMapParentName_ParentID().keySet()));
         spn_parent_list.setAdapter(adapterParent);
 
-        if (AppSettings.DEBUG_MODE) {
+        if (AppSettings.APP_DEBUG_MODE) {
             for(String curParent : dataModel.getMapParentName_ParentID().keySet())
                 Log.d(TAG, "setOnLoadAndOnItemSelectedAdapters() | dataModel.getMapParentName_ParentID().keySet() | " + curParent);
         }
@@ -141,7 +141,7 @@ public class PopupHome_Add extends DialogFragment implements View.OnClickListene
                     // If the Parent ID HAS a list, use this to populate
                     if(dataModel.getMapParentID_mapChildNameChildID().containsKey(dataModel.getlParent()))
                     {
-                        if (AppSettings.DEBUG_MODE) {
+                        if (AppSettings.APP_DEBUG_MODE) {
                             for(String curParent : dataModel.getMapParentName_ParentID().keySet())
                                 Log.d(TAG, "onItemSelected(AdapterView<?> parent, View view, int position, long id) |  if(dataModel.getMapParentID_mapChildNameChildID().containsKey(dataModel.getlParent())) | " +curParent);
                         }
@@ -153,7 +153,7 @@ public class PopupHome_Add extends DialogFragment implements View.OnClickListene
                     }
                     else
                     {
-                        if (AppSettings.DEBUG_MODE)
+                        if (AppSettings.APP_DEBUG_MODE)
                             Log.d(TAG, "onItemSelected(AdapterView<?> parent, View view, int position, long id) |  if(dataModel.getMapParentID_mapChildNameChildID().containsKey(dataModel.getlParent())) | " + getString(R.string.jobname_nojobsexist));
 
                         String error[] = {getContext().getString(R.string.jobname_nojobsexist)};
@@ -165,13 +165,13 @@ public class PopupHome_Add extends DialogFragment implements View.OnClickListene
                     if(dataModel.getlChild()!= DataModel.DEFAULT_LONG_VALUE)
                     {
                         btn_child_open.setEnabled(true);
-                        if (AppSettings.DEBUG_MODE)
+                        if (AppSettings.APP_DEBUG_MODE)
                             Log.d(TAG, "onItemSelected(AdapterView<?> parent, View view, int position, long id) | if(dataModel.getlChild()!= DataModel.DEFAULT_LONG_VALUE) | " + " btn_child_open.setEnabled(true)");
 
                     }
                     else {
                         btn_child_open.setEnabled(false);
-                        if (AppSettings.DEBUG_MODE)
+                        if (AppSettings.APP_DEBUG_MODE)
                             Log.d(TAG, "onItemSelected(AdapterView<?> parent, View view, int position, long id) |  if(dataModel.getlChild()!= DataModel.DEFAULT_LONG_VALUE) | " + "btn_child_open.setEnabled(false)");
 
                     }
@@ -183,7 +183,7 @@ public class PopupHome_Add extends DialogFragment implements View.OnClickListene
         }
         else
         {
-            if (AppSettings.DEBUG_MODE)
+            if (AppSettings.APP_DEBUG_MODE)
                 Log.d(TAG, "setOnLoadAndOnItemSelectedAdapters() | if(dataModel.getMapParentID_mapChildNameChildID().keySet().size() != 0) | " + getString(R.string.jobname_nojobsexist));
 
             String error[] = {getContext().getString(R.string.jobname_nojobsexist)};

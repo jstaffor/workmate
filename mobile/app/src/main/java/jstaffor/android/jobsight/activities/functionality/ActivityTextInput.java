@@ -16,7 +16,6 @@ import jstaffor.android.jobsight.appsettings.AppSettings;
 import jstaffor.android.jobsight.database.functionality.DatabaseText;
 import jstaffor.android.jobsight.datamodel.DataModel;
 import jstaffor.android.jobsight.datamodel.utilities.DataModelUtilities;
-import jstaffor.android.jobsight.utilities.Validation;
 
 public class ActivityTextInput extends Activity implements View.OnClickListener
 {
@@ -41,7 +40,7 @@ public class ActivityTextInput extends Activity implements View.OnClickListener
         //Get Data
         dataModel = DataModelUtilities.turnJSONIntoDataModel( getIntent().getExtras().get(DataModelUtilities.DATA_MODEL).toString());
 
-        if(AppSettings.DEBUG_MODE)
+        if(AppSettings.APP_DEBUG_MODE)
             Log.d(TAG, "onCreate(Bundle savedInstanceState) | DataModelUtilities.turnJSONIntoDataModel() | " + DataModelUtilities.turnDataModelIntoJSON( dataModel ));
     }
 
@@ -73,7 +72,7 @@ public class ActivityTextInput extends Activity implements View.OnClickListener
                 }
                 else
                 {
-                    if(AppSettings.DEBUG_MODE)
+                    if(AppSettings.APP_DEBUG_MODE)
                         Log.d(TAG, "onClick(View view)  | R.id.activity_textinput_btn_text_save  validateTextInput() | " + "false");
                     break;
                 }
