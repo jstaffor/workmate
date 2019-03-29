@@ -1,5 +1,6 @@
 package com.workmate.server.model.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -25,6 +26,7 @@ public class User {
     @Column(name = "password")
     @Length(min = 5, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
+    @JsonIgnore()
     private String password;
     @Column(name = "name")
     @NotEmpty(message = "*Please provide your name")

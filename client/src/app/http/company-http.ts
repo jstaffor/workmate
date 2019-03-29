@@ -6,6 +6,7 @@ import { PaginationRequest } from '../../../src/app/models/pagination-request';
 import { PaginationResponse } from '../../../src/app/models/pagination-response';
 
  import { Company } from '../models/company';
+ import { CompanyDetails } from '../models/company-details';
 
 @Injectable()
 export class CompanyHttp {
@@ -40,5 +41,9 @@ export class CompanyHttp {
         const id = typeof company === 'number' ? company : company.id;
         const url = `${this.company_url}${id}`; 
         return this.http.put(url, company).pipe();
+    }
+
+    getCompanyDetails(company: Company) {
+        return this.http.get<CompanyDetails>(this.company_url + 'getCompanyDetails/'+`${company.id}`).pipe();
     }
 }

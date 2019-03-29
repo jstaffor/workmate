@@ -2,7 +2,9 @@ package com.workmate.server.controller;
 
 import com.workmate.server.model.PaginationDao;
 import com.workmate.server.model.dao.Company;
+import com.workmate.server.model.dao.User;
 import com.workmate.server.service.CompanyService;
+import com.workmate.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -11,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +21,12 @@ import java.util.List;
 public class AdminController
 {
     private final CompanyService companyService;
+    private final UserService userService;
 
     @Autowired
-    public AdminController(CompanyService companyService) {
+    public AdminController(CompanyService companyService, UserService userService) {
         this.companyService = companyService;
+        this.userService = userService;
     }
 
 
@@ -95,6 +98,17 @@ public class AdminController
                              @RequestParam("pageSize") int pageSize) {
         Page<Company> resultPage = companyService.findPaginated(page, pageSize);
         return new PaginationDao<Company>(resultPage, page, pageSize);
+    }
+
+    @RequestMapping(value = "/company/getCompanyDetails/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<User>> getCompanyDetails(@PathVariable("id") Long id)
+    {
+        Company currentCompany = companyService.findById(id);
+        if (currentCompany==null)
+        {
+            return new ResponseEntity<List<User>>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<List<User>>(userService.getAllUsersForCompany(currentCompany), HttpStatus.OK);
     }
 
 

@@ -1,4 +1,5 @@
-﻿all companies
+﻿all companies 
+<button (click)="toAdminMenu()">To Admin Menu</button>
 <ul class="companies">
   <li *ngFor="let company of paginationResponse.list">
     <a (click)="toCompanyDialog(company)" >

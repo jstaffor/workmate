@@ -31,4 +31,8 @@ export class AdminMenuComponent implements OnInit {
     toCompanies() {
         this.routerService.toCompanies();
     }
+
+    toHome() {
+        this.routerService.toHome();
+    }
 }

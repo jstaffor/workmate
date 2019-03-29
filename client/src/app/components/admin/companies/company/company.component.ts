@@ -3,6 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatPaginatorModule } from '@angular/material';
 import { Company } from '../../../../models/company';
+import { CompanyDetails } from '../../../../models/company-details';
 import { ENUM_active } from '../../../../models/enums/enum-enable';
 import { CompanyHttp } from '../../../../http/company-http';
 import { FeedbackService } from '../../../../services/feedback-service';
@@ -14,6 +15,7 @@ import { FeedbackService } from '../../../../services/feedback-service';
 
 export class CompanyDialogComponent  {
   company: Company;
+  companyDetails: CompanyDetails;
   formGroup: FormGroup;
   actives = Object.keys(ENUM_active).filter(v => isNaN(parseInt(v, 10)));
   submitted = true;  
@@ -38,7 +40,17 @@ export class CompanyDialogComponent  {
     }
 
     ngOnInit() {
-     this.enableSubmitButton();
+      this.getCompanyDetails(this.company);
+    }
+
+    getCompanyDetails(company: Company) {
+      //getCompanyDetails
+      this.companyHttp.getCompanyDetails(company)
+      .subscribe(response => {
+          debugger;
+          this.companyDetails = response;
+          this.enableSubmitButton();
+      });
     }
 
     enableSubmitButton() {
@@ -136,4 +148,5 @@ export class CompanyDialogComponent  {
       };
     }
   
+    
 }

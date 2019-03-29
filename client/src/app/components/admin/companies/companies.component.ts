@@ -70,5 +70,9 @@ export class CompaniesComponent extends PaginationSuper implements OnInit {
         super.onPaginateChange(event);
         this.getCompanies(this.paginationResponse);
     }
+
+    toAdminMenu() {
+        this.routerService.toAdminMenu();
+    }
 }
 

@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service("userService")
@@ -74,6 +75,11 @@ public class UserService {
         user.setRoles(roles);
         user.setCompany(company);
         return userRepository.save(user);
+    }
+
+    public List<User> getAllUsersForCompany(Company company)
+    {
+        return userRepository.getAllUsersForCompany(company);
     }
 
 
