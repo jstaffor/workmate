@@ -8,17 +8,17 @@ import java.util.List;
 public class PaginationDao<T>
 {
     private int page;
-    private int itemsPerPage;
+    private int pageSize;
     private int totalPages;
-    private long totalElements;
+    private long length;
     private List<T> list;
 
-    public PaginationDao(Page data, int page, int itemsPerPage)
+    public PaginationDao(Page data, int page, int pageSize)
     {
         this.page = page;
-        this.itemsPerPage = itemsPerPage;
+        this.pageSize = pageSize;
         this.totalPages = data.getTotalPages();
-        this.totalElements = data.getTotalElements();
+        this.length = data.getTotalElements();
         if (page > data.getTotalPages())
         {
             this.list = new ArrayList<>();
@@ -34,9 +34,9 @@ public class PaginationDao<T>
         return page;
     }
 
-    public int getItemsPerPage()
+    public int getPageSize()
     {
-        return itemsPerPage;
+        return pageSize;
     }
 
     public int getTotalPages()
@@ -44,9 +44,9 @@ public class PaginationDao<T>
         return totalPages;
     }
 
-    public long getTotalElements()
+    public long getLength()
     {
-        return totalElements;
+        return length;
     }
 
     public List<T> getList()

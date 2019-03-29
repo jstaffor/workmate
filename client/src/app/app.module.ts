@@ -29,6 +29,7 @@ import { CompanyHttp } from './http/company-http';
 
 import { RouterService } from './services/router-service';
 import { SessionService } from './services/session-service';
+import { LocalService } from './services/local-service';
 import { FeedbackService } from './services/feedback-service';
 
 import { ErrorInterceptor } from './helpers/error-interceptor-helper';
@@ -74,6 +75,7 @@ import { AuthGuard } from './helpers/auth-guard-helper';
         AuthGuard,
         RouterService,
         SessionService,
+        LocalService,
         FeedbackService,
         { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
         { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

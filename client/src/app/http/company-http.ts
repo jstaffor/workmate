@@ -13,7 +13,7 @@ export class CompanyHttp {
 
     private company_url = 'http://localhost:8082/admin/company/';
 
-    getCompanies (page: number, size: number): Observable<PaginationResponse> {        
+    getCompanies (page: number, size: number): Observable<PaginationResponse> {   
         let paginationRequest = new PaginationRequest(page, size);
         return this.http.get<PaginationResponse>(this.company_url + 'get', {
             params: paginationRequest.getPaginationParameters()

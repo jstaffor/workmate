@@ -1,18 +1,18 @@
 export class PaginationResponse {
     constructor(page: number,
-        itemsPerPage: number,
+        pageSize: number,
         totalPages: number,
-        totalElements: number,
+        length: number,
         list: any[]) {
         this.page = page;
-        this.itemsPerPage = itemsPerPage;
+        this.pageSize = pageSize;
         this.totalPages = totalPages;
-        this.totalElements = totalElements;
+        this.length = length;
         this.list = list;
     }    
     page: number;
-    itemsPerPage: number;
+    pageSize: number;
     totalPages: number;
-    totalElements: number;
+    length: number;
     list: any[];
 }

@@ -6,6 +6,7 @@ import { CompanyHttp } from '../../../http/company-http';
 import { AuthenticationHttp } from '../../../http/authentication-http';
 import { RouterService } from '../../../services/router-service';
 import { SessionService } from '../../../services/session-service';
+import { LocalService } from '../../../services/local-service';
 import { Company } from '../../../models/company';
 import { CompanyDialogComponent } from './company/company.component';
 import { PaginationResponse } from '../../../models/pagination-response';
@@ -26,17 +27,19 @@ export class CompaniesComponent extends PaginationSuper implements OnInit {
         private routerService: RouterService,
         private translate: TranslateService,
         private sessionService: SessionService,
+        public localService: LocalService,
         public dialog: MatDialog) {
-            super();
+            super(localService);
+            // super();
         }
 
     ngOnInit() {
         this.loading = false;
-        this.getCompanies();
+        this.getCompanies(this.paginationResponse);
     }
 
-    getCompanies(): void {
-        this.companyHttp.getCompanies(0, 100)
+    getCompanies(paginationResponse: PaginationResponse): void {
+        this.companyHttp.getCompanies(paginationResponse.page, paginationResponse.pageSize)
         .subscribe(response => {
             this.paginationResponse = response;
         });
@@ -51,7 +54,7 @@ export class CompaniesComponent extends PaginationSuper implements OnInit {
             dialogRef.afterClosed().subscribe(result => {
                 if(result !== undefined) {
                     if(JSON.stringify(company) != JSON.stringify(result)) {
-                        this.getCompanies();
+                        this.getCompanies(this.paginationResponse);
                     }
                 }
             });
@@ -60,6 +63,12 @@ export class CompaniesComponent extends PaginationSuper implements OnInit {
     create() {
         const company = new Company();
         this.toCompanyDialog(company);
+    }
+
+    onPaginateChange(event){        
+        this.localService.setDefaultPageSize(event.pageSize);
+        super.onPaginateChange(event);
+        this.getCompanies(this.paginationResponse);
     }
 }
 

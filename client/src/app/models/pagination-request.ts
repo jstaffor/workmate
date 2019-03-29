@@ -1,16 +1,16 @@
 export class PaginationRequest {
     page: number;
-    size: number;
+    pageSize: number;
 
-    constructor(page:number, size:number) { 
+    constructor(page:number, pageSize:number) { 
         this.page = page;
-        this.size = size;
+        this.pageSize = pageSize;
     }
 
     getPaginationParameters() {
         return {
             page: `${this.page}`,
-            size: `${this.size}`
+            pageSize: `${this.pageSize}`
           };
     }
 }

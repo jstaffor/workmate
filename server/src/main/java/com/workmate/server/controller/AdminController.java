@@ -90,11 +90,11 @@ public class AdminController
         return new ResponseEntity<Company>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping(value = "/company/get", params = { "page", "size" })
+    @GetMapping(value = "/company/get", params = { "page", "pageSize" })
     public PaginationDao get(@RequestParam("page") int page,
-                             @RequestParam("size") int size) {
-        Page<Company> resultPage = companyService.findPaginated(page, size);
-        return new PaginationDao<Company>(resultPage, page, size);
+                             @RequestParam("pageSize") int pageSize) {
+        Page<Company> resultPage = companyService.findPaginated(page, pageSize);
+        return new PaginationDao<Company>(resultPage, page, pageSize);
     }
 
 

@@ -11,8 +11,9 @@
   <button mat-fab (click)="create()">Create</button>
 </form>
 
-<mat-paginator [length]="paginationResponse.page"
+<mat-paginator [length]="paginationResponse.length"
               [pageSize]="paginationResponse.pageSize"
-              [pageSizeOptions]="[5, 10, 25, 100]">
+              [pageSizeOptions]="pageSizeOptions"
+              (page)="pageEvent = onPaginateChange($event)">
 </mat-paginator>
 
